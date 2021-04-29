@@ -6,8 +6,9 @@ public class RotateEverything : MonoBehaviour
 {
     public Transform sun;
     public float _Rotation = 15f;
-
+    public Transform ship;
     public float _Gravit_Rotation = 10f;
+    public float _ShipSpeed = 50f;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,7 +19,7 @@ public class RotateEverything : MonoBehaviour
     void Update()
     {
         RenderSettings.skybox.SetFloat("_Rotation", Time.deltaTime * 0.4f);
-
+        ship.transform.RotateAround(sun.position, Vector3.up, _ShipSpeed * Time.deltaTime);
         GameObject[] planets = GameObject.FindGameObjectsWithTag("Planet");
         for (int i = 0; i < planets.Length; i++)
         {
