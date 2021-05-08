@@ -5,31 +5,34 @@ using System.IO.Ports;
 using SerialCommunication;
 using UnityEngine;
 
-public sealed class ArduinoUno : IArduinoUno
+namespace SerialCommunication
 {
-    private const int baudRate = 9600;
-    private SerialPort sp;
-    private ArduinoUno()
+    public sealed class ArduinoUno : IArduinoUno
     {
-        foreach (var portName in SerialPort.GetPortNames())
+        private const int baudRate = 9600;
+        private SerialPort sp;
+
+        private ArduinoUno()
         {
-            Debug.Log(portName);
-            // TODO: Detect correct port
+            foreach (var portName in SerialPort.GetPortNames())
+            {
+                Debug.Log(portName);
+                // TODO: Detect correct port
+            }
         }
-        
-    }
-    
-    private static readonly Lazy<IArduinoUno> arduino = new Lazy<IArduinoUno>(() => new ArduinoUno());
 
-    public static IArduinoUno Instance => arduino.Value;
+        private static readonly Lazy<IArduinoUno> arduino = new Lazy<IArduinoUno>(() => new ArduinoUno());
 
-    public int ReadByte()
-    {
-        return sp.ReadByte();
-    }
+        public static IArduinoUno Instance => arduino.Value;
 
-    public string ReadLine()
-    {
-        return sp.ReadLine();
+        public int ReadByte()
+        {
+            return sp.ReadByte();
+        }
+
+        public string ReadLine()
+        {
+            return sp.ReadLine();
+        }
     }
 }
