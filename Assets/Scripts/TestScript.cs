@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using SerialCommunication;
 using UnityEngine;
 
 public class TestScript : MonoBehaviour
@@ -8,6 +9,7 @@ public class TestScript : MonoBehaviour
     void Start()
     {
         Debug.Log("hello world :)");
+        ISerialParser sp = SerialParser.Instance;
     }
 
     // Update is called once per frame
