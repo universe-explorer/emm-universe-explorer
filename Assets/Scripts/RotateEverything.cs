@@ -20,8 +20,14 @@ public class RotateEverything : MonoBehaviour
     void Update()
     {
         RenderSettings.skybox.SetFloat("_Rotation", Time.deltaTime * 0.4f);
-        ship.transform.RotateAround(sun.position, Vector3.up, _ShipSpeed * Time.deltaTime);
-        ship2.transform.RotateAround(sun.position, Vector3.up, _Rotation * Time.deltaTime);
+        if (ship != null)
+        {
+            ship.transform.RotateAround(sun.position, Vector3.up, _ShipSpeed * Time.deltaTime);
+        }
+        if (ship2 != null)
+        {
+            ship2.transform.RotateAround(sun.position, Vector3.up, _Rotation * Time.deltaTime);
+        }
 
         GameObject[] planets = GameObject.FindGameObjectsWithTag("Planet");
         for (int i = 0; i < planets.Length; i++)

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.0028464159, g: 0.0058114985, b: 0.013248574, a: 1}
+  m_IndirectSpecularColor: {r: 0.0025674722, g: 0.0057891477, b: 0.012506496, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -409,6 +409,55 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationSpeed: 50
   movementSpeed: 250
+  horizontalMovementInverted: 0
+  verticalMovementInverted: 0
+--- !u!64 &379727059
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 379727057}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4460180872323117134, guid: c3077fbe17a8e544590cfcd46c9fa5b9, type: 3}
+--- !u!54 &379727060
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 379727057}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &379727061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 379727057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d282fd37efbc92b4e95075b36c76ce64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Health: 50
+  _CannShoot: 1
+  _MaxShootDistance: 200
+  _Ammo: 0
+  _Damage: 10
 --- !u!1001 &603213193
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -578,11 +627,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationSpeed: 3
   movementSpeed: 350
+  horizontalMovementInverted: 0
+  verticalMovementInverted: 0
 --- !u!4 &707234708 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c3077fbe17a8e544590cfcd46c9fa5b9, type: 3}
   m_PrefabInstance: {fileID: 603213193}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &707234709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 707234706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c8a0e94cfa34cc44ad19073619e542f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Health: 100
+  _CannShoot: 1
+  _MaxShootDistance: 200
+  _Ammo: 0
+  _Damage: 10
 --- !u!1001 &890449216
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1618,6 +1686,7 @@ GameObject:
   - component: {fileID: 2046253689}
   - component: {fileID: 2046253688}
   - component: {fileID: 2046253687}
+  - component: {fileID: 2046253691}
   m_Layer: 0
   m_Name: Neptune
   m_TagString: Planet
@@ -1702,3 +1771,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &2046253691
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2046253686}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
