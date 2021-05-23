@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3d48e421843e8f43b69391c64f716ac, type: 3}
+  m_Name: Shape
+  m_EditorClassIdentifier: 
+  planetRadius: 10.42
+  noiseLayers:
+  - enabled: 1
+    useFirstLayerAsMask: 0
+    noiseSettings:
+      filterType: 0
+      simpleNoiseSettings:
+        Strength: 0.07
+        NumLayers: 4
+        BaseRoughness: 1.15
+        Roughness: 2.22
+        Persitence: 0.5
+        Centre: {x: 0, y: 0, z: 0}
+        MinValue: 0.98
+      rigidNoiseSettings:
+        Strength: 1
+        NumLayers: 1
+        BaseRoughness: 1
+        Roughness: 2
+        Persitence: 0.5
+        Centre: {x: 0, y: 0, z: 0}
+        MinValue: 0
+        weightMultiplier: 0.8
+  - enabled: 1
+    useFirstLayerAsMask: 1
+    noiseSettings:
+      filterType: 1
+      simpleNoiseSettings:
+        Strength: 2.23
+        NumLayers: 4
+        BaseRoughness: 1.93
+        Roughness: 2.83
+        Persitence: 0.5
+        Centre: {x: 0, y: 0, z: 0}
+        MinValue: 0
+      rigidNoiseSettings:
+        Strength: 1.42
+        NumLayers: 4
+        BaseRoughness: 1.59
+        Roughness: 3.3
+        Persitence: 0.5
+        Centre: {x: 0, y: 0, z: 0}
+        MinValue: 0.37
+        weightMultiplier: 0.78
+  - enabled: 1
+    useFirstLayerAsMask: 1
+    noiseSettings:
+      filterType: 1
+      simpleNoiseSettings:
+        Strength: 1
+        NumLayers: 1
+        BaseRoughness: 1
+        Roughness: 2
+        Persitence: 0.5
+        Centre: {x: 0, y: 0, z: 0}
+        MinValue: 0
+      rigidNoiseSettings:
+        Strength: 0.64
+        NumLayers: 1
+        BaseRoughness: 1
+        Roughness: 2
+        Persitence: 0.5
+        Centre: {x: 0, y: 0, z: 0}
+        MinValue: 0
+        weightMultiplier: 0.8
