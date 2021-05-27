@@ -1,0 +1,3 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement style="height: 397.3333px; background-image: url(&apos;/Assets/Scenes/Planet Scene/UI/rocket.png&apos;);" />
+</ui:UXML>
