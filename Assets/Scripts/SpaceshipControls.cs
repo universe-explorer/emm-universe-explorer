@@ -6,11 +6,11 @@ using UnityEngine;
 
 public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
 {
-    private RigidBody ship;
+    private Rigidbody ship;
 
     void Start()
     {
-        
+        ship.GetComponent<Rigidbody>();
     }
 
     void Update()
