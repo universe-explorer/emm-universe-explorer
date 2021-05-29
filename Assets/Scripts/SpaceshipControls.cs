@@ -33,7 +33,6 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
         transform.rotation = Quaternion.identity;
 
         Screen.lockCursor = true;
-        // Cursor.lockState = CursorLockMode.Locked;
     }
 
     void FixedUpdate()
