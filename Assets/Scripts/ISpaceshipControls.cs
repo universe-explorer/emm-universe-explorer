@@ -6,7 +6,7 @@ interface ISpaceshipControls
 {
     public void Move(Vector3 direction, float force);
     public void Move(float force);
-    public void Rotate(Vector3 direction, float angle);
+    public void Rotate(Vector2 mouseInput);
     public void Roll(float force);
     public void Boost();
 }
