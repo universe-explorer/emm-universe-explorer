@@ -20,8 +20,8 @@ public class Item
         {
             default:
             case ItemType.HealthPotion: return ItemAssets.Instance.healthPotionSprite;
-            case ItemType.ManaPotion: return ItemAssets.Instance.ManaPotionSprite;
-            case ItemType.Mineral: return ItemAssets.Instance.MineralSprite;
+            case ItemType.ManaPotion: return ItemAssets.Instance.manaPotionSprite;
+            case ItemType.Mineral: return ItemAssets.Instance.mineralSprite;
             case ItemType.Medkit: return ItemAssets.Instance.medkitSprite;
         }
     }
