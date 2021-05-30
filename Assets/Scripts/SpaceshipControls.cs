@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
 {
+    public bool useAlternativeMouseInput = false;
     private const float maxVelocity = 50;
 
     private const float defaultMovementForce = 1;
@@ -32,21 +33,48 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
     public float _boostMultiplier = 1.5f;
     public int _maxBoostDuration = 120;
 
+    private float _actualMaxVelocity = maxVelocity; //modified by boost
+
+    /// <summary>
+    ///   <para>Maps value from original range to new range</para>
+    ///   <param name="value"> Original value</param>
+    ///   <param name="fromMin"></param>
+    ///   <param name="fromMax"></param>
+    ///   <param name="toMin"></param>
+    ///   <param name="toMax"></param>
+    /// </summary>
+    float MapFloat(float value, float fromMin, float fromMax, float toMin, float toMax)
+    {
+        return (value - fromMin) / (toMin - fromMin) * (toMax - fromMax) + fromMax;
+    }
+
     void Start()
     {
         _ship = gameObject.GetComponent<Rigidbody>();
 
         transform.rotation = Quaternion.identity;
         _ship.velocity = transform.forward;
-
-        Screen.lockCursor = true;
     }
 
     void FixedUpdate()
     {
         _verticalInput = Input.GetAxis("Vertical");
-        _mouseInput.x += Input.GetAxis("Mouse X");
-        _mouseInput.y += Input.GetAxis("Mouse Y");
+
+        if (!useAlternativeMouseInput)
+        {
+            _mouseInput = Input.mousePosition;
+
+            float width = Screen.width * 0.5f;
+            float height = Screen.height * 0.5f;
+
+            _mouseInput.x = MapFloat(_mouseInput.x - width, -width, -1f, width, 1f);
+            _mouseInput.y = MapFloat(_mouseInput.y - height, -height, -1f, height, 1f);
+        }
+        else
+        {
+            _mouseInput = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+        }
+
 
         if (Input.GetKeyDown(KeyCode.A))
         {
@@ -82,6 +110,8 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
         }
 
 
+        Rotate(_mouseInput);
+
         if (!_isRolling)
         {
             Move(_verticalInput);
@@ -95,16 +125,21 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
     /// </summary>
     public void Move(Vector3 direction, float force)
     {
-        float _forwardMovement = Vector3.Dot(transform.forward, _movementDirection);
-        Vector3 movementDirectionTemp = direction * _forwardMovement;
-        movementDirectionTemp += direction * force;
+        float speedOffset = 1f;
 
-        if (movementDirectionTemp.magnitude <= maxVelocity)
+        Vector3 velocity = direction * (_ship.velocity.magnitude);
+        velocity += direction * force;
+
+        float speed = velocity.magnitude;
+
+        if (speed <= _actualMaxVelocity + speedOffset)
         {
-            _movementDirection = movementDirectionTemp;
+            _ship.velocity = -velocity;
         }
-
-        _ship.velocity = -movementDirectionTemp;
+        else
+        {
+            _ship.velocity = -transform.forward * maxVelocity;
+        }
     }
 
     /// <summary> 
@@ -159,6 +194,9 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
         }
     }
 
+    /// <summary> 
+    ///   <para> Boosts spaceship for a defined amount of time.</para>
+    /// </summary>
     public void Boost()
     {
         if (_currentBoostTime < _maxBoostDuration)
