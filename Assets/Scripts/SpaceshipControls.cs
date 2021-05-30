@@ -7,33 +7,43 @@ using UnityEngine;
 
 public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
 {
-    public bool useAlternativeMouseInput = false;
+    /* move */
     private const float maxVelocity = 50;
-
-    private const float defaultMovementForce = 1;
-
-    private const float defaultRollingForce = 30;
-    private const float fullRoll = 360;
-    private const float rollPerFrame = 8;
-
+    private const float defaultVelocity = 5;
+    private float _actualMaxVelocity = maxVelocity; //modified by boost
+    
+    /* rotate */
     private const float maxZRotation = 35;
     private const float zRotationSpeed = 3.5f;
 
-    private Rigidbody _ship;
+    
+    /* boost */
     private int _currentBoostTime;
+    
+    
+    /* rolling */
+    private const float defaultRollingForce = 2.5f;
+    private const float fullRoll = 360;
+    private const float rollPerFrame = 8;
+    
     private float _currentRoll;
     private bool _isRolling;
     private float _rollingDirection;
 
+    
+    /* input */
+    public bool useAlternativeMouseInput = false;
+    public float _boostMultiplier = 1.5f;
+    public int _maxBoostDuration = 120;
+    
     private float _verticalInput;
     private Vector2 _mouseInput;
     private Vector2 _mouseInputAngles;
     private Vector2 _mouseInputAnglesClamped;
-
-    public float _boostMultiplier = 1.5f;
-    public int _maxBoostDuration = 120;
-
-    private float _actualMaxVelocity = maxVelocity; //modified by boost
+    
+    
+    /* other */
+    private Rigidbody _ship;
 
     /// <summary>
     ///   <para>Maps value from original range to new range</para>
@@ -53,7 +63,7 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
         _ship = gameObject.GetComponent<Rigidbody>();
 
         transform.rotation = Quaternion.identity;
-        _ship.velocity = transform.forward;
+        _ship.velocity = transform.forward * defaultVelocity;
     }
 
     void FixedUpdate()
@@ -78,11 +88,11 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
 
         if (Input.GetKeyDown(KeyCode.A))
         {
-            Roll(defaultMovementForce * -defaultRollingForce);
+            Roll(-defaultRollingForce);
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
-            Roll(defaultMovementForce * defaultRollingForce);
+            Roll(defaultRollingForce);
         }
 
         if (Input.GetKey(KeyCode.LeftShift))
@@ -203,7 +213,7 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
         {
             _actualMaxVelocity =
                 maxVelocity * _boostMultiplier; //set maximal velocity to default times boost multiplier
-            Move(defaultMovementForce * _boostMultiplier);
+            Move(defaultVelocity * _boostMultiplier);
             _currentBoostTime++;
         }
     }
