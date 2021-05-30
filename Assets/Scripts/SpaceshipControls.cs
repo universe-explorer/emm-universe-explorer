@@ -13,7 +13,7 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
     private float _actualMaxVelocity = maxVelocity; //modified by boost
 
     /* rotate */
-    [Range(1.0F, 2.0F)] public float sensitivity;
+    private const float sensitivity = 1;
     private const float maxZRotation = 35;
     private const float zRotationSpeed = 3.5f;
 
@@ -79,10 +79,9 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
             float width = Screen.width * 0.5f;
             float height = Screen.height * 0.5f;
 
-            _mouseInput.x = MapFloat(_mouseInput.x - width, -width, width, -sensitivity, sensitivity);
-            _mouseInput.y = MapFloat(_mouseInput.y - height, -height, height, -sensitivity, sensitivity);
+            _mouseInput.x = MapFloat(_mouseInput.x - width, -width, width, -1.0f, 1.0f);
+            _mouseInput.y = MapFloat(_mouseInput.y - height, -height, height, -1.0f, 1.0f);
 
-            Debug.Log(_mouseInput);
         }
         else
         {
@@ -170,9 +169,11 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
     /// </summary>
     public void Rotate(Vector2 mouseInput)
     {
+        mouseInput *= sensitivity;
         _mouseInputAngles.x += mouseInput.x;
         _mouseInputAngles.y += mouseInput.y;
-
+        
+        
         //limit rotation to certain degree
         _mouseInputAnglesClamped.x += mouseInput.x;
         _mouseInputAnglesClamped.x = Mathf.Clamp(_mouseInputAnglesClamped.x, -maxZRotation, maxZRotation);
