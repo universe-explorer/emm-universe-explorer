@@ -2,19 +2,23 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
+using UnityEditor.PackageManager.UI;
 using UnityEngine;
 
 public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
 {
     private const float maxVelocity = 50;
+
     private const float defaultMovementForce = 1;
 
     private const float defaultRollingForce = 30;
     private const float fullRoll = 360;
     private const float rollPerFrame = 8;
 
+    private const float maxZRotation = 35;
+    private const float zRotationSpeed = 3.5f;
+
     private Rigidbody _ship;
-    private Vector3 _movementDirection;
     private int _currentBoostTime;
     private float _currentRoll;
     private bool _isRolling;
@@ -22,6 +26,8 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
 
     private float _verticalInput;
     private Vector2 _mouseInput;
+    private Vector2 _mouseInputAngles;
+    private Vector2 _mouseInputAnglesClamped;
 
     public float _boostMultiplier = 1.5f;
     public int _maxBoostDuration = 120;
@@ -31,6 +37,7 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
         _ship = gameObject.GetComponent<Rigidbody>();
 
         transform.rotation = Quaternion.identity;
+        _ship.velocity = transform.forward;
 
         Screen.lockCursor = true;
     }
@@ -79,8 +86,6 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
         {
             Move(_verticalInput);
         }
-
-        Rotate(_mouseInput);
     }
 
 
@@ -116,13 +121,19 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
     /// </summary>
     public void Rotate(Vector2 mouseInput)
     {
-        //todo: rotating isn't possible while rolling
+        _mouseInputAngles.x += mouseInput.x;
+        _mouseInputAngles.y += mouseInput.y;
+
+        //limit rotation to certain degree
+        _mouseInputAnglesClamped.x += mouseInput.x;
+        _mouseInputAnglesClamped.x = Mathf.Clamp(_mouseInputAnglesClamped.x, -maxZRotation, maxZRotation);
+
+        //loop back to zero, used for spaceShip-wing rotation
+        _mouseInputAnglesClamped.x = Mathf.Lerp(_mouseInputAnglesClamped.x, 0, Time.deltaTime * zRotationSpeed);
 
 
-        Vector3 tmpVelocity = _ship.velocity;
-        _ship.rotation = Quaternion.Euler(mouseInput.y, mouseInput.x, 0);
-        _ship.velocity = tmpVelocity;
-        // transform.rotation = Quaternion.Euler(_mouseInput.y, _mouseInput.x, _currentRoll); //todo possible solution
+        _ship.rotation = Quaternion.Euler(_mouseInputAngles.y, _mouseInputAngles.x, _mouseInputAnglesClamped.x);
+        // transform.rotation = Quaternion.Euler(_mouseInput.y, _mouseInput.x, _currentRoll); //todo rotating isn't possible while rolling: possible solution
     }
 
     /// <summary> 
@@ -144,11 +155,6 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
                 _rollingDirection = -1;
             }
 
-            // float _forwardMovement = Vector3.Dot(transform.forward, _movementDirection);
-            // _movementDirection = transform.forward * _forwardMovement;
-            //
-            // _movementDirection += transform.right * force;
-
             Move(transform.forward + (transform.right * _rollingDirection), Math.Abs(force));
         }
     }
@@ -157,6 +163,8 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
     {
         if (_currentBoostTime < _maxBoostDuration)
         {
+            _actualMaxVelocity =
+                maxVelocity * _boostMultiplier; //set maximal velocity to default times boost multiplier
             Move(defaultMovementForce * _boostMultiplier);
             _currentBoostTime++;
         }
