@@ -7,7 +7,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class CelestialBody : MonoBehaviour
 {
-    public enum BodyType { Planet, Moon, Sun }
+    public enum BodyType { Planet, Moon, Sun, Asteroid }
     public BodyType Body;
 
     public float Radius;
