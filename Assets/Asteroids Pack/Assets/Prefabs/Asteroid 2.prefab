@@ -92,7 +92,6 @@ GameObject:
   m_Component:
   - component: {fileID: 446090}
   - component: {fileID: 5499024}
-  - component: {fileID: 7160112360820782492}
   - component: {fileID: 6610488279012806201}
   m_Layer: 0
   m_Name: Asteroid 2
@@ -132,22 +131,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &7160112360820782492
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 141316}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06b2a7037204c402fb5056a946148cbd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tumbleMin: 0.25
-  tumbleMax: 2
-  thrustMin: 0.1
-  thrustMax: 0.5
 --- !u!136 &6610488279012806201
 CapsuleCollider:
   m_ObjectHideFlags: 0

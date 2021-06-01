@@ -6,16 +6,27 @@ using Random = UnityEngine.Random;
 
 public class AsteroidField : MonoBehaviour
 {
-    public int hugeSizedAsteroids = 15;
+    [Header("AsteroidField Settings")] public int hugeSizedAsteroids = 15;
     public int normalSizedAsteroids = 150;
-    
+
     public float normalAsteroidSizeMin = .5f;
     public float normalAsteroidSizeMax = 2.5f;
-    
+
     public float hugeAsteroidSizeMin = 3f;
     public float hugeAsteroidSizeMax = 9f;
 
+
+    [Header("Asteroid Settings")] public float rotationSpeedMin = .25f;
+    public float rotationSpeedMax = 3f;
+
+    public float thrustMin = .1f;
+    public float thrustMax = .5f;
+
+
+    public float _mass = 1, _drag = 0.001f, _angularDrag = 0.0001f;
+
     public GameObject[] asteroidPrefabs;
+
 
     /**
      * Get random Point inside of bounds
@@ -30,38 +41,38 @@ public class AsteroidField : MonoBehaviour
     }
 
 
+    private void Spawn(GameObject prefab, Vector3 spawnPoint, float thrust, float rotationSpeed, float scale)
+    {
+        GameObject spawnedAsteroid = Instantiate(prefab, spawnPoint, Quaternion.identity);
+        spawnedAsteroid.AddComponent<AsteroidBehaviour>().Setup(thrust, rotationSpeed, _mass, _drag, _angularDrag);
+        spawnedAsteroid.transform.localScale *= scale;
+        spawnedAsteroid.transform.SetParent(transform);
+    }
+
     void Start()
     {
         Bounds asteroidFieldBounds = gameObject.GetComponent<BoxCollider>().bounds;
 
-        int randomPrefab;
-        var emptyObject = new GameObject();
+        float asteroidScale;
 
-        float randomAsteroidScale;
-        for (int i = 0; i < normalSizedAsteroids + hugeSizedAsteroids; i++)
+        for (int i = 0; i < asteroidPrefabs.Length; i++)
         {
-
-            if (i < normalSizedAsteroids)
+            for (int j = 0; j < (normalSizedAsteroids + hugeSizedAsteroids) / asteroidPrefabs.Length; j++)
             {
-                randomAsteroidScale = Random.Range(normalAsteroidSizeMin, normalAsteroidSizeMax);
+                if (j < normalSizedAsteroids / asteroidPrefabs.Length)
+                {
+                    asteroidScale = Random.Range(normalAsteroidSizeMin, normalAsteroidSizeMax);
+                }
+                else
+                {
+                    asteroidScale = Random.Range(hugeAsteroidSizeMin, hugeAsteroidSizeMax);
+                }
+
+                Vector3 spawnPoint = RandomPointInBounds(asteroidFieldBounds);
+
+                Spawn(asteroidPrefabs[i], spawnPoint, Random.Range(thrustMin, thrustMax),
+                    Random.Range(rotationSpeedMin, rotationSpeedMax), asteroidScale);
             }
-            else
-            {
-                randomAsteroidScale = Random.Range(hugeAsteroidSizeMin, hugeAsteroidSizeMax);
-            }
-            
-            randomPrefab = Random.Range(0, asteroidPrefabs.Length);
-            Vector3 spawnPoint = RandomPointInBounds(asteroidFieldBounds);
-
-            GameObject spawnedAsteroid =
-                Instantiate(asteroidPrefabs[randomPrefab], spawnPoint, Quaternion.identity);
-
-            //set random scale
-            spawnedAsteroid.transform.localScale *= randomAsteroidScale;
-
-            //prevent scaling asteroids to AsteroidField - scale
-            emptyObject.transform.parent = gameObject.transform;
-            spawnedAsteroid.transform.parent = emptyObject.transform;
         }
     }
 }

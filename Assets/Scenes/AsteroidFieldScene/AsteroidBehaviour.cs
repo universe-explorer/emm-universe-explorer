@@ -1,29 +1,38 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class AsteroidBehaviour : MonoBehaviour
 {
-    public float tumbleMin = .25f;
-    public float tumbleMax = 3f;
+    private float _thrust, _rotationSpeed, _orbitSpeed;
+    private float _mass, _drag, _angularDrag;
 
-    public float thrustMin = .1f;
-    public float thrustMax = .5f;
+    private Rigidbody _asteroid;
 
-    private Rigidbody asteroid;
-    private float tumble, thrust;
+    public void Setup(float thrust, float rotationSpeed, float mass, float drag, float angularDrag)
+    {
+        _thrust = thrust;
+        _rotationSpeed = rotationSpeed;
+
+        _mass = mass;
+        _drag = drag;
+        _angularDrag = angularDrag;
+    }
 
     void Start()
     {
-        asteroid = GetComponent<Rigidbody>();
-        
-        tumble = Random.Range(tumbleMin, tumbleMax);
-        thrust = Random.Range(thrustMin, thrustMax);
-        
-        //rotate asteroid
-        asteroid.angularVelocity = Vector3.one * tumble;
+        _asteroid = GetComponent<Rigidbody>();
 
-        //move asteroid
-        asteroid.AddForce(transform.forward * thrust, ForceMode.Impulse);
+        _asteroid.mass = _mass;
+        _asteroid.drag = _drag;
+        _asteroid.angularDrag = _angularDrag;
+        
+        
+        _asteroid.angularVelocity = new Vector3(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360)) *
+                                    _rotationSpeed;
+
+        _asteroid.AddForce(transform.forward * _thrust, ForceMode.Impulse);
     }
 }
