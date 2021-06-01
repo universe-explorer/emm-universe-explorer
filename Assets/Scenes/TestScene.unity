@@ -475,5 +475,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spaceShip: {fileID: 408096238}
-  cameraOffset: 10
-  cameraOffsetHeight: 2.5
+  offsetX: 10
+  offsetZ: 2.5
+  rotationOffsetX: -8

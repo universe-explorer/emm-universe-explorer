@@ -1,8 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
-using UnityEditor.PackageManager.UI;
 using UnityEngine;
 
 public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
@@ -10,7 +6,6 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
     /* move */
     private const float maxVelocity = 50;
     private const float defaultVelocity = 5;
-    private float _actualMaxVelocity = maxVelocity; //modified by boost
     private float _accelerationSpeed = 0.1f;
 
 
@@ -152,7 +147,7 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
         //if speed before accelleration > _maxVelocity
         if (_ship.velocity.magnitude + speedOffset > _maxVelocity)
         {
-            _ship.velocity = Vector3.Slerp(_ship.velocity, direction * maxVelocity, _accelerationSpeed);
+            _ship.velocity = Vector3.Lerp(_ship.velocity, direction * maxVelocity, _accelerationSpeed);
             return;
         }
 
@@ -163,7 +158,7 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
 
         if (newVelocity.magnitude + speedOffset <= _maxVelocity)
         {
-            _ship.velocity = Vector3.Slerp(_ship.velocity, newVelocity, _accelerationSpeed);
+            _ship.velocity = Vector3.Lerp(_ship.velocity, newVelocity, _accelerationSpeed);
         }
     }
 
