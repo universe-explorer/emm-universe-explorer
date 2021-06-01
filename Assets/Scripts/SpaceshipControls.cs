@@ -15,7 +15,7 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
     /* rotate */
     private const float sensitivity = 1;
     private const float maxZRotation = 35;
-    private const float zRotationSpeed = 3.5f;
+    private const float zRotationSpeed = 2.5f;
 
 
     /* boost */
@@ -80,7 +80,7 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
             float height = Screen.height * 0.5f;
 
             _mouseInput.x = MapFloat(_mouseInput.x - width, -width, width, -1.0f, 1.0f);
-            _mouseInput.y = MapFloat(_mouseInput.y - height, -height, height, -1.0f, 1.0f);
+            _mouseInput.y = -MapFloat(_mouseInput.y - height, -height, height, -1.0f, 1.0f);
 
         }
         else
@@ -147,11 +147,11 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
 
         if (speed <= _actualMaxVelocity + speedOffset)
         {
-            _ship.velocity = -velocity;
+            _ship.velocity = velocity;
         }
         else
         {
-            _ship.velocity = -transform.forward * maxVelocity;
+            _ship.velocity = transform.forward * maxVelocity;
         }
     }
 
@@ -182,7 +182,7 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
         _mouseInputAnglesClamped.x = Mathf.Lerp(_mouseInputAnglesClamped.x, 0, Time.deltaTime * zRotationSpeed);
 
 
-        _ship.rotation = Quaternion.Euler(_mouseInputAngles.y, _mouseInputAngles.x, _mouseInputAnglesClamped.x);
+        _ship.rotation = Quaternion.Euler(_mouseInputAngles.y, _mouseInputAngles.x, -_mouseInputAnglesClamped.x);
         // transform.rotation = Quaternion.Euler(_mouseInput.y, _mouseInput.x, _currentRoll); //todo rotating isn't possible while rolling: possible solution
     }
 

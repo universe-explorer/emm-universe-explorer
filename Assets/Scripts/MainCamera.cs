@@ -12,7 +12,7 @@ public class MainCamera : MonoBehaviour
     {
         var cam = transform;
 
-        cam.position = spaceShip.transform.position + spaceShip.transform.forward * cameraOffset;
+        cam.position = spaceShip.transform.position - spaceShip.transform.forward * cameraOffset;
         cam.position += new Vector3(0, cameraOffsetHeight, 0);
 
         cam.rotation = Quaternion.LookRotation(spaceShip.transform.position - cam.position, Vector3.up);
