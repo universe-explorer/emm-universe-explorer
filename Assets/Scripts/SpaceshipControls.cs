@@ -11,6 +11,8 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
     private const float maxVelocity = 50;
     private const float defaultVelocity = 5;
     private float _actualMaxVelocity = maxVelocity; //modified by boost
+    private float _accelerationSpeed = 0.1f;
+
 
     /* rotate */
     private const float sensitivity = 1;
@@ -19,6 +21,9 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
 
 
     /* boost */
+    public float _boostMultiplier = 1.5f;
+    public int _maxBoostDuration = 120;
+    private bool _isBoosting;
     private int _currentBoostTime;
 
 
@@ -34,8 +39,6 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
 
     /* input */
     public bool useAlternativeMouseInput = false;
-    public float _boostMultiplier = 1.5f;
-    public int _maxBoostDuration = 120;
 
     private float _verticalInput;
     private Vector2 _mouseInput;
@@ -71,7 +74,7 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
     void FixedUpdate()
     {
         _verticalInput = Input.GetAxis("Vertical");
-
+        _isBoosting = false;
         if (!useAlternativeMouseInput)
         {
             _mouseInput = Input.mousePosition;
@@ -81,7 +84,6 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
 
             _mouseInput.x = MapFloat(_mouseInput.x - width, -width, width, -1.0f, 1.0f);
             _mouseInput.y = -MapFloat(_mouseInput.y - height, -height, height, -1.0f, 1.0f);
-
         }
         else
         {
@@ -100,13 +102,14 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
 
         if (Input.GetKey(KeyCode.LeftShift))
         {
+            _isBoosting = true;
             Boost();
         }
-        else if (_currentBoostTime > 0)
+
+        if (!_isBoosting && _currentBoostTime > 0)
         {
             _currentBoostTime--;
         }
-
 
         //perform rolling rotation
         if (_isRolling)
@@ -138,20 +141,29 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
     /// </summary>
     public void Move(Vector3 direction, float force)
     {
-        float speedOffset = 1f;
+        float _maxVelocity = maxVelocity;
+        float speedOffset = .01f;
 
-        Vector3 velocity = direction * (_ship.velocity.magnitude);
-        velocity += direction * force;
-
-        float speed = velocity.magnitude;
-
-        if (speed <= _actualMaxVelocity + speedOffset)
+        if (_isBoosting && _currentBoostTime < _maxBoostDuration)
         {
-            _ship.velocity = velocity;
+            _maxVelocity *= _boostMultiplier;
         }
-        else
+
+        //if speed before accelleration > _maxVelocity
+        if (_ship.velocity.magnitude + speedOffset > _maxVelocity)
         {
-            _ship.velocity = transform.forward * maxVelocity;
+            _ship.velocity = Vector3.Slerp(_ship.velocity, direction * maxVelocity, _accelerationSpeed);
+            return;
+        }
+
+
+        //accelerate
+        Vector3 newVelocity = direction * (_ship.velocity.magnitude);
+        newVelocity += direction * force;
+
+        if (newVelocity.magnitude + speedOffset <= _maxVelocity)
+        {
+            _ship.velocity = Vector3.Slerp(_ship.velocity, newVelocity, _accelerationSpeed);
         }
     }
 
@@ -172,8 +184,8 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
         mouseInput *= sensitivity;
         _mouseInputAngles.x += mouseInput.x;
         _mouseInputAngles.y += mouseInput.y;
-        
-        
+
+
         //limit rotation to certain degree
         _mouseInputAnglesClamped.x += mouseInput.x;
         _mouseInputAnglesClamped.x = Mathf.Clamp(_mouseInputAnglesClamped.x, -maxZRotation, maxZRotation);
@@ -216,8 +228,6 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
     {
         if (_currentBoostTime < _maxBoostDuration)
         {
-            _actualMaxVelocity =
-                maxVelocity * _boostMultiplier; //set maximal velocity to default times boost multiplier
             Move(defaultVelocity * _boostMultiplier);
             _currentBoostTime++;
         }

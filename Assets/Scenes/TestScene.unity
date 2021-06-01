@@ -227,6 +227,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MainSpaceship
       objectReference: {fileID: 0}
+    - target: {fileID: 1096494335108308553, guid: 14091ad2b3501400cbc3167310f9896e, type: 3}
+      propertyPath: _boostMultiplier
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7886217851453619046, guid: 14091ad2b3501400cbc3167310f9896e, type: 3}
       propertyPath: m_RootOrder
       value: 1
