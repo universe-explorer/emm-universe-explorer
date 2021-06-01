@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -28,6 +29,8 @@ public class AsteroidField : MonoBehaviour
     public GameObject[] asteroidPrefabs;
 
 
+    private GameObject emptyObject;
+
     /**
      * Get random Point inside of bounds
      */
@@ -45,12 +48,17 @@ public class AsteroidField : MonoBehaviour
     {
         GameObject spawnedAsteroid = Instantiate(prefab, spawnPoint, Quaternion.identity);
         spawnedAsteroid.AddComponent<AsteroidBehaviour>().Setup(thrust, rotationSpeed, _mass, _drag, _angularDrag);
+
         spawnedAsteroid.transform.localScale *= scale;
-        spawnedAsteroid.transform.SetParent(transform);
+
+        //prevent scaling asteroids to AsteroidField - scale
+        emptyObject.transform.parent = gameObject.transform;
+        spawnedAsteroid.transform.parent = emptyObject.transform;
     }
 
     void Start()
     {
+        emptyObject = new GameObject();
         Bounds asteroidFieldBounds = gameObject.GetComponent<BoxCollider>().bounds;
 
         float asteroidScale;
