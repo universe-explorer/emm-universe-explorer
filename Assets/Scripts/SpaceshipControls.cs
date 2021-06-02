@@ -118,15 +118,13 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
                 _isRolling = false;
                 _currentRoll = 0;
             }
-        }
-
-
-        Rotate(_mouseInput);
-
-        if (!_isRolling)
+        } else
         {
             Move(_verticalInput);
         }
+
+        Rotate(_mouseInput);
+
     }
 
 
