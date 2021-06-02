@@ -5,8 +5,8 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
 {
     /* move */
     private const float defaultVelocity = 5;
-    private float maxVelocity = 50;
-    private float _accelerationSpeed = 0.1f;
+    private float maxVelocity = 80;
+    private float _accelerationSpeed = 0.3f;
 
 
     /* rotate */
@@ -154,8 +154,7 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
 
 
         //accelerate
-        Vector3 newVelocity = direction * (_ship.velocity.magnitude);
-        newVelocity += direction * force;
+        Vector3 newVelocity =  _ship.velocity + direction * force;
 
         if (newVelocity.magnitude + speedOffset <= _maxVelocity)
         {
@@ -205,11 +204,11 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
 
             if (force > 0)
             {
-                _rollingDirection = 1;
+                _rollingDirection = -1;
             }
             else
             {
-                _rollingDirection = -1;
+                _rollingDirection = 1;
             }
 
             Move(transform.forward + (transform.right * _rollingDirection), Math.Abs(force));
