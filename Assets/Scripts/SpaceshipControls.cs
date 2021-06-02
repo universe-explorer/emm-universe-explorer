@@ -99,11 +99,14 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
         {
             _isBoosting = true;
             Boost();
-        }
-
-        if (!_isBoosting && _currentBoostTime > 0)
+        } else
         {
-            _currentBoostTime--;
+            _isBoosting = false;
+
+            if(_currentBoostTime > 0)
+            {
+                _currentBoostTime--;
+            }
         }
 
         //perform rolling rotation
@@ -124,6 +127,8 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
         }
 
         Rotate(_mouseInput);
+
+        Debug.Log(_currentBoostTime);
 
     }
 
