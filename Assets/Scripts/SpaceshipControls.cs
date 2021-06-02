@@ -128,8 +128,6 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
 
         Rotate(_mouseInput);
 
-        Debug.Log(_currentBoostTime);
-
     }
 
 
@@ -174,8 +172,7 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
     }
 
     /// <summary> 
-    ///   <param name="direction"> Direction for the spaceship to rotate</param>
-    ///   <param name="angle"> Rotation amount</param>
+    ///   <param name="mouseInput"> Location of the mouse on scren</param>
     /// </summary>
     public void Rotate(Vector2 mouseInput)
     {
@@ -220,7 +217,7 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
     }
 
     /// <summary> 
-    ///   <para> Boosts spaceship for a defined amount of time.</para>
+    ///   Boosts spaceship for a defined amount of time.
     /// </summary>
     public void Boost()
     {
@@ -233,36 +230,59 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
 
 
     //Getters and setters
+
+    /// <summary> 
+    ///   Returns current movement as a vector.
+    /// </summary>
     public Vector3 getCurrentMovement()
     {
         return _ship.velocity;
     }
 
+    /// <summary> 
+    ///   Returns maximum velocity in Unity units
+    /// </summary>
     public float getMaximumVelocity()
     {
         return maxVelocity;
     }
 
+
+    /// <summary> 
+    ///   <param name="newMaxVelocity"> New maximum velocity for the spaceship in Unity units</param>
+    /// </summary>
     public void setMaximumVelocity(float newMaxVelocity)
     {
         maxVelocity = newMaxVelocity;
     }
 
+    /// <summary> 
+    ///   Returns the current boost multiplier
+    /// </summary>
     public float getBoostMultiplier()
     {
         return _boostMultiplier;
     }
 
+    /// <summary> 
+    ///   <param name="newBoostMultiplier"> New boost multiplier for the spaceship</param>
+    /// </summary>
     public void setBoostMultiplier(float newBoostMultiplier)
     {
         _boostMultiplier = newBoostMultiplier;
     }
 
+    /// <summary> 
+    ///   Returns the current maximum boost duration in frames
+    /// </summary>
     public int getMaxBoostDuration()
     {
         return _maxBoostDuration;
     }
 
+    /// <summary> 
+    ///   <param name="newBoostMultiplier"> New maximum boost duration for the spaceship in frames</param>
+    /// </summary>
     public void setMaxBoostDuration(int newMaxBoostDuration)
     {
         _maxBoostDuration = newMaxBoostDuration;
