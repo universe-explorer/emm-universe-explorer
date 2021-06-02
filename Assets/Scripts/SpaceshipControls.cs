@@ -4,8 +4,8 @@ using UnityEngine;
 public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
 {
     /* move */
-    private const float maxVelocity = 50;
     private const float defaultVelocity = 5;
+    private float maxVelocity = 50;
     private float _accelerationSpeed = 0.1f;
 
 
@@ -16,8 +16,8 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
 
 
     /* boost */
-    public float _boostMultiplier = 1.5f;
-    public int _maxBoostDuration = 120;
+    private float _boostMultiplier = 1.5f;
+    private int _maxBoostDuration = 120;
     private bool _isBoosting;
     private int _currentBoostTime;
 
@@ -224,5 +224,42 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
             Move(defaultVelocity * _boostMultiplier);
             _currentBoostTime++;
         }
+    }
+
+
+    //Getters and setters
+    public Vector3 getCurrentMovement()
+    {
+        return _ship.velocity;
+    }
+
+    public float getMaximumVelocity()
+    {
+        return maxVelocity;
+    }
+
+    public void setMaximumVelocity(float newMaxVelocity)
+    {
+        maxVelocity = newMaxVelocity;
+    }
+
+    public float getBoostMultiplier()
+    {
+        return _boostMultiplier;
+    }
+
+    public void setBoostMultiplier(float newBoostMultiplier)
+    {
+        _boostMultiplier = newBoostMultiplier;
+    }
+
+    public int getMaxBoostDuration()
+    {
+        return _maxBoostDuration;
+    }
+
+    public void setMaxBoostDuration(int newMaxBoostDuration)
+    {
+        _maxBoostDuration = newMaxBoostDuration;
     }
 }
