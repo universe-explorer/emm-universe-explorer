@@ -8,6 +8,7 @@ TagManager:
   - Schiff
   - Enemy
   - Asteroid
+  - MeteorSpawnerField
   layers:
   - Default
   - TransparentFX

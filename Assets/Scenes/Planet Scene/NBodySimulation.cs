@@ -40,7 +40,7 @@ public class NBodySimulation : MonoBehaviour
                 acceleration += forceDir * Universe.GravitationalConstant * body.Mass / sqrDst;
             }
         }
-        return acceleration;
+        return acceleration / 50;
     }
 
     public static CelestialBody[] Bodies
