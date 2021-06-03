@@ -23,7 +23,7 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
 
 
     /* rolling */
-    private const float defaultRollingForce = 2.5f;
+    private const float defaultRollingForce = 30f;
     private const float fullRoll = 360;
     private const float rollPerFrame = 8;
 
@@ -124,9 +124,8 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
         } else
         {
             Move(_verticalInput);
+            Rotate(_mouseInput);
         }
-
-        Rotate(_mouseInput);
 
     }
 
@@ -211,7 +210,12 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
                 _rollingDirection = 1;
             }
 
-            Move(transform.forward + (transform.right * _rollingDirection), Math.Abs(force));
+            Vector3 newMovement = transform.right * force;
+            newMovement += transform.forward * Vector3.Dot(transform.forward, _ship.velocity);
+
+            _ship.velocity = newMovement;
+
+            //Move(transform.right * _rollingDirection, Math.Abs(force));
         }
     }
 
