@@ -27,8 +27,10 @@ public class SpaceshipControls : MonoBehaviour
         angleHorizontal = 0.5916f;
         angleVertical = -0.032f;
 
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        // making the cursor invisible causes the UI Elements do not
+        // react to the click events and other events as well.
+        //Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
     }
 
 
