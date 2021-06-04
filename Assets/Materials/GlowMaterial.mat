@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: TestMaterial
+  m_Name: GlowMaterial
   m_Shader: {fileID: -6465566751694194690, guid: 9601bcb22e7b2d94aa08f031a594b90d, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -77,6 +77,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - GlowValue: 0
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -105,7 +106,7 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - GlowColor: {r: 0, g: 0.5660378, b: 0.06274521, a: 0}
-    - MaterialColor: {r: 0.7924528, g: 0.7924528, b: 0.7924528, a: 0}
+    - MaterialColor: {r: 0, g: 0, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
