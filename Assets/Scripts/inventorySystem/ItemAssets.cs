@@ -6,10 +6,12 @@ public class ItemAssets : MonoBehaviour
 {
     public static ItemAssets Instance { get; private set; }
 
-    private void Awake()
+    private void Start()
     {
         Instance = this;
     }
+
+    public Transform pfItemWorld;
 
     public Sprite healthPotionSprite;
     public Sprite manaPotionSprite;
