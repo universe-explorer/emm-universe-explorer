@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using UnityEngine;
 
 [Serializable]
@@ -12,6 +11,8 @@ public class Item
         Mineral,
         Medkit,
     }
+
+    // TODO add more custom properties
 
     public ItemType itemType;
     public int amount;
