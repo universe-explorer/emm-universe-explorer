@@ -49,10 +49,6 @@ public class SpaceshipControls : MonoBehaviour
 
         inventory = new Inventory();
         uiInventory.SetInventory(inventory);
-
-        ItemWorld.SpawnItemWorld(new Vector3(340f, 220f, -20f), new Item { itemType = Item.ItemType.Mineral, amount = 1 });
-        ItemWorld.SpawnItemWorld(new Vector3(350f, 220f, -20f), new Item { itemType = Item.ItemType.ManaPotion, amount = 1 });
-        ItemWorld.SpawnItemWorld(new Vector3(360f, 220f, -20f), new Item { itemType = Item.ItemType.Medkit, amount = 1 });
     }
 
 
