@@ -31,6 +31,12 @@ public class SpaceshipControls : MonoBehaviour
         }
     }
 
+    private void Awake()
+    {
+        inventory = new Inventory();
+        uiInventory.SetInventory(inventory);
+    }
+
     private void Start()
     {
         //init spaceship position 
@@ -46,9 +52,6 @@ public class SpaceshipControls : MonoBehaviour
         // react to the click events and other events as well.
         //Cursor.lockState = CursorLockMode.Locked;
         //Cursor.visible = false;
-
-        inventory = new Inventory();
-        uiInventory.SetInventory(inventory);
     }
 
 

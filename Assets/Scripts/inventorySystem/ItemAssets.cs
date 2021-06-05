@@ -6,7 +6,7 @@ public class ItemAssets : MonoBehaviour
 {
     public static ItemAssets Instance { get; private set; }
 
-    private void Start()
+    private void Awake()
     {
         Instance = this;
     }
