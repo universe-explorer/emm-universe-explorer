@@ -28,6 +28,7 @@ public class Ui_inventory : MonoBehaviour
 
     private void RefreshInventoryItems()
     {
+        if (itemSlotContainer == null) return;
         foreach (Transform child in itemSlotContainer)
         {
             if (child == itemSlotTemplate) continue;
@@ -42,24 +43,28 @@ public class Ui_inventory : MonoBehaviour
             itemSlotRectTransform.gameObject.SetActive(true);
             itemSlotRectTransform.anchoredPosition = new Vector2(x * itemSlotCellSize, y * itemSlotCellSize);
 
-            Image image = itemSlotRectTransform.Find("image").GetComponent<Image>();
-            image.sprite = item.GetSprite();
+            SetImage(itemSlotRectTransform, item);
 
-            TextMeshProUGUI amount = itemSlotRectTransform.Find("text").GetComponent<TextMeshProUGUI>();
-            if (item.amount > 1)
-            {
-                amount.SetText(item.amount.ToString());
-            } else {
-                amount.SetText("");
-            }
+            SetAmount(itemSlotRectTransform, item);
+        }
+    }
 
-            x++;
-            if (x > 5)
-            {
-                x = 0;
-                y++;
-            }
+    private void SetImage(Transform parent, Item item)
+    {
+        Image image = parent.Find("image").GetComponent<Image>();
+        image.sprite = item.GetSprite();
+    }
 
+    private void SetAmount(Transform parent, Item item)
+    {
+        TextMeshProUGUI amount = parent.Find("text").GetComponent<TextMeshProUGUI>();
+        if (item.amount > 1)
+        {
+            amount.SetText(item.amount.ToString());
+        }
+        else
+        {
+            amount.SetText("");
         }
     }
 }
