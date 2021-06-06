@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Ui_inventory : MonoBehaviour
 {
@@ -40,8 +41,18 @@ public class Ui_inventory : MonoBehaviour
             RectTransform itemSlotRectTransform = Instantiate(itemSlotTemplate, itemSlotContainer).GetComponent<RectTransform>();
             itemSlotRectTransform.gameObject.SetActive(true);
             itemSlotRectTransform.anchoredPosition = new Vector2(x * itemSlotCellSize, y * itemSlotCellSize);
+
             Image image = itemSlotRectTransform.Find("image").GetComponent<Image>();
             image.sprite = item.GetSprite();
+
+            TextMeshProUGUI amount = itemSlotRectTransform.Find("text").GetComponent<TextMeshProUGUI>();
+            if (item.amount > 1)
+            {
+                amount.SetText(item.amount.ToString());
+            } else {
+                amount.SetText("");
+            }
+
             x++;
             if (x > 5)
             {

@@ -15,7 +15,25 @@ public class Inventory
 
     public void AddItem(Item item)
     {
-        itemList.Add(item);
+        if (item.IsStackable())
+        {
+            bool itemPresents = false;
+            foreach (Item inventoryItem in itemList)
+            {
+                if (inventoryItem.itemType == item.itemType)
+                {
+                    inventoryItem.amount += item.amount;
+                    itemPresents = true;
+                }
+            }
+            if (!itemPresents)
+            {
+                itemList.Add(item);
+            }
+        } else
+        {
+            itemList.Add(item);
+        }
         OnItemListChanged?.Invoke(this, EventArgs.Empty);
         Debug.Log("Inventory item counter: " + itemList.Count);
     }

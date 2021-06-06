@@ -1,4 +1,5 @@
-using UnityEngine;
+using TMPro;
+using UnityEngine; 
 
 public class ItemWorld : MonoBehaviour
 {
@@ -17,16 +18,25 @@ public class ItemWorld : MonoBehaviour
     private Item item;
 
     private SpriteRenderer spriteRenderer;
+    private TextMeshPro amount;
 
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        amount = transform.Find("text").GetComponent<TextMeshPro>();
     }
 
     public void SetItem(Item item)
     {
         this.item = item;
         spriteRenderer.sprite = item.GetSprite();
+        if (item.amount > 1)
+        {
+            amount.SetText(item.amount.ToString());
+        } else
+        {
+            amount.SetText("");
+        }
     }
 
     public Item GetItem()

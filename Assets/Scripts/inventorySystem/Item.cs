@@ -28,4 +28,18 @@ public class Item
             case ItemType.Medkit: return ItemAssets.Instance.medkitSprite;
         }
     }
+
+    public bool IsStackable()
+    {
+        switch (itemType)
+        {
+            default:
+            case ItemType.HealthPotion:
+            case ItemType.ManaPotion:
+            case ItemType.Mineral:
+                return true;
+            case ItemType.Medkit:
+                return false;
+        }
+    }
 }
