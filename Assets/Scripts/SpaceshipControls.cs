@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
 {
@@ -41,9 +42,18 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
     private Vector2 _mouseInputAnglesClamped;
 
 
+    /* crosshair */
+    public Boolean debugCrosshair = false;
+    
+    private GameObject _crosshair, _crosshairUI;
+    private float _crosshairOffset = 1.5f;
+    private float _crosshairMovementSpeed = 2.5f;
+    private Vector3 _crosshairPosition;
+    
     /* other */
     private Rigidbody _ship;
-
+    
+    
     /// <summary>
     ///   <para>Maps value from original range to new range</para>
     ///   <param name="value"> Original value</param>
@@ -61,6 +71,8 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
     void Start()
     {
         _ship = gameObject.GetComponent<Rigidbody>();
+        _crosshair = GameObject.FindGameObjectsWithTag("Crosshair")[0];
+        _crosshairUI = GameObject.FindGameObjectsWithTag("CrosshairUI")[0];
 
         transform.rotation = Quaternion.identity;
         _ship.velocity = transform.forward * defaultVelocity;
@@ -99,11 +111,12 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
         {
             _isBoosting = true;
             Boost();
-        } else
+        }
+        else
         {
             _isBoosting = false;
 
-            if(_currentBoostTime > 0)
+            if (_currentBoostTime > 0)
             {
                 _currentBoostTime--;
             }
@@ -121,12 +134,14 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
                 _isRolling = false;
                 _currentRoll = 0;
             }
-        } else
+        }
+        else
         {
             Move(_verticalInput);
             Rotate(_mouseInput);
+            SetCrosshairPosition(_mouseInput);
         }
-
+        
     }
 
 
@@ -153,7 +168,7 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
 
 
         //accelerate
-        Vector3 newVelocity =  _ship.velocity + direction * force;
+        Vector3 newVelocity = _ship.velocity + direction * force;
 
         if (newVelocity.magnitude + speedOffset <= _maxVelocity)
         {
@@ -231,7 +246,37 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
         }
     }
 
+    /// <summary> 
+    ///   <para>Places the crosshair relative to mouse position</para>
+    /// </summary>
+    public void SetCrosshairPosition(Vector2 mouseInput)
+    {
+        Vector3 pos = _crosshair.transform.localPosition;
 
+        float x = mouseInput.x * _crosshairOffset;
+        float y = mouseInput.y * _crosshairOffset * (-1);
+
+        x = Mathf.Lerp(pos.x, x, Time.deltaTime * _crosshairMovementSpeed);
+        y = Mathf.Lerp(pos.y, y, Time.deltaTime * _crosshairMovementSpeed);
+
+        _crosshairPosition = _ship.transform.position
+                            + _ship.transform.forward * 10
+                            + _ship.transform.right * x
+                            + _ship.transform.up * y;
+
+        _crosshair.transform.position = _crosshairPosition;
+
+        //convert world coordinates to 2d position
+        Vector2 screenPoint = Camera.main.WorldToScreenPoint(_crosshairPosition);
+        _crosshairUI.transform.position =
+            Vector3.Lerp(_crosshairUI.transform.position, screenPoint, Time.deltaTime * 10f);
+
+        //debug options
+        if (debugCrosshair)
+        {
+            _crosshair.GetComponent<MeshRenderer>().enabled = true;
+        }
+    }
     //Getters and setters
 
     /// <summary> 
@@ -290,4 +335,15 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
     {
         _maxBoostDuration = newMaxBoostDuration;
     }
+    
+     /// <summary> 
+    ///   <param> Returns crosshair aiming direction</param>
+    /// </summary>
+    public Vector3 getShootingDirection()
+    {
+        //(to - from).normalized
+        return (_crosshairPosition - _ship.transform.position).normalized; //todo: is this right?
+    }
+    
+    
 }
