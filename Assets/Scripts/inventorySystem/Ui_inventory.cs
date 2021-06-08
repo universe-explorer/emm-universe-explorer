@@ -47,6 +47,8 @@ public class Ui_inventory : MonoBehaviour
 
             HandleRightClick(itemSlotRectTransform, item);
 
+            HandleMouseHover(itemSlotRectTransform, item);
+
             SetImage(itemSlotRectTransform, item);
 
             SetAmount(itemSlotRectTransform, item);
@@ -63,6 +65,22 @@ public class Ui_inventory : MonoBehaviour
         };
     }
 
+    private void HandleMouseHover(Transform parent, Item item)
+    {
+        TextMeshProUGUI infoText = parent.Find("info").GetComponent<TextMeshProUGUI>();
+        infoText.SetText("");
+
+        parent.GetComponent<MouseUIEvents>().MouseEnterHandler = () =>
+        {
+            infoText.SetText(item.GetInfoText());
+        };
+
+        parent.GetComponent<MouseUIEvents>().MouseExitHandler = () =>
+        {
+            infoText.SetText("");
+        };
+    }
+
     private void SetImage(Transform parent, Item item)
     {
         Image image = parent.Find("image").GetComponent<Image>();
@@ -71,7 +89,7 @@ public class Ui_inventory : MonoBehaviour
 
     private void SetAmount(Transform parent, Item item)
     {
-        TextMeshProUGUI amount = parent.Find("text").GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI amount = parent.Find("amount").GetComponent<TextMeshProUGUI>();
         if (item.amount > 1)
         {
             amount.SetText(item.amount.ToString());
