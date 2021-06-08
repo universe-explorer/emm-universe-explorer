@@ -43,15 +43,11 @@ public class EnemyBehaviour : MonoBehaviour
     public bool checkPlayerVicinity()
     {
 
-        
         if(player.Length >= 1  && Vector3.Distance(transform.position, player[0].transform.position) < aggroRange)
         {
-            Debug.Log("True");
             return true;
         } else
         {
-            Debug.Log(Vector3.Distance(transform.position, player[0].transform.position));
-            Debug.Log("False");
             return false;
         }   
     }
