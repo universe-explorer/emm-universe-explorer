@@ -43,7 +43,7 @@ public class MeteorSpawnerField : MonoBehaviour
         _boxCollider.size = Vector3.one *  _colliderOffest;
         _boxCollider.isTrigger = true;
 
-        Bounds meteorisFiledBounds = gameObject.GetComponent<BoxCollider>().bounds;
+        bounds = _boxCollider.bounds;
     }
 
     public static Vector3 RandomPointInBounds(Bounds bounds)

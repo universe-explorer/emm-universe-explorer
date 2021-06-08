@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1020e8fc3e8a4b34a8f02ab1c49f47c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _colliderOffest: 500
+  _colliderOffest: 1000
 --- !u!65 &4984248006588823166
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -56,5 +56,5 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 500, y: 500, z: 500}
+  m_Size: {x: 1000, y: 1000, z: 1000}
   m_Center: {x: 0, y: 0, z: 0}
