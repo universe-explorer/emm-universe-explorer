@@ -14,8 +14,8 @@ public class MainCamera : MonoBehaviour
         cam.position = spaceShip.transform.position - spaceShip.transform.forward * offsetX;
         cam.position += spaceShip.transform.up * offsetZ;
 
-        cam.rotation = Quaternion.LookRotation(spaceShip.transform.position - cam.position, spaceShip.up);
         cam.Rotate(new Vector3(rotationOffsetX, 0f, 0f), Space.Self);
+        cam.rotation = Quaternion.LookRotation(spaceShip.transform.position - cam.position, spaceShip.up);
         
     }
 }
