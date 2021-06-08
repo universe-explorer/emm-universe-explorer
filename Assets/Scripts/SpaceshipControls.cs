@@ -68,6 +68,28 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
         float t = Mathf.InverseLerp(fromMin, fromMax, value);
         return Mathf.Lerp(toMin, toMax, t);
     }
+    
+    [SerializeField] private Ui_inventory uiInventory;
+
+    private Inventory inventory;
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log(gameObject.name + " was triggered by " + other.gameObject.name);
+        ItemWorld itemWorld = other.gameObject.GetComponent<ItemWorld>();
+        if (itemWorld != null)
+        {
+            inventory.AddItem(itemWorld.GetItem());
+            itemWorld.DestroySelf();
+        }
+    }
+
+    private void Awake()
+    {
+        inventory = new Inventory();
+        uiInventory.SetInventory(inventory);
+        uiInventory.SetGameObject(gameObject);
+    }
 
     void Start()
     {
