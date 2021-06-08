@@ -6,9 +6,8 @@ TagManager:
   tags:
   - Planet
   - Schiff
-  - Enemy
-  - Asteroid
-  - MeteorSpawnerField
+  - Crosshair
+  - CrosshairUI
   layers:
   - Default
   - TransparentFX
@@ -16,7 +15,7 @@ TagManager:
   - 
   - Water
   - UI
-  - PostProcessing
+  - 
   - 
   - 
   - 
