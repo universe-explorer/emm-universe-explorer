@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
 {
     /* move */
+    public bool enableDrifting = true;
     private const float defaultVelocity = 5;
     private float maxVelocity = 80;
     private float _accelerationSpeed = 0.3f;
@@ -44,16 +45,16 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
 
     /* crosshair */
     public Boolean debugCrosshair = false;
-    
+
     private GameObject _crosshair, _crosshairUI;
     private float _crosshairOffset = 1.5f;
     private float _crosshairMovementSpeed = 2.5f;
     private Vector3 _crosshairPosition;
-    
+
     /* other */
     private Rigidbody _ship;
-    
-    
+
+
     /// <summary>
     ///   <para>Maps value from original range to new range</para>
     ///   <param name="value"> Original value</param>
@@ -141,7 +142,6 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
             Rotate(_mouseInput);
             SetCrosshairPosition(_mouseInput);
         }
-        
     }
 
 
@@ -166,9 +166,17 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
             return;
         }
 
-
+        Vector3 newVelocity = Vector3.zero;
         //accelerate
-        Vector3 newVelocity = _ship.velocity + direction * force;
+        if (enableDrifting)
+        {
+            newVelocity = _ship.velocity + direction * force;
+        }
+        else
+        {
+            newVelocity = direction * (_ship.velocity.magnitude);
+            newVelocity += direction * force;
+        }
 
         if (newVelocity.magnitude + speedOffset <= _maxVelocity)
         {
@@ -260,9 +268,9 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
         y = Mathf.Lerp(pos.y, y, Time.deltaTime * _crosshairMovementSpeed);
 
         _crosshairPosition = _ship.transform.position
-                            + _ship.transform.forward * 10
-                            + _ship.transform.right * x
-                            + _ship.transform.up * y;
+                             + _ship.transform.forward * 10
+                             + _ship.transform.right * x
+                             + _ship.transform.up * y;
 
         _crosshair.transform.position = _crosshairPosition;
 
@@ -335,8 +343,8 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
     {
         _maxBoostDuration = newMaxBoostDuration;
     }
-    
-     /// <summary> 
+
+    /// <summary> 
     ///   <param> Returns crosshair aiming direction</param>
     /// </summary>
     public Vector3 getShootingDirection()
@@ -344,6 +352,4 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
         //(to - from).normalized
         return (_crosshairPosition - _ship.transform.position).normalized; //todo: is this right?
     }
-    
-    
 }
