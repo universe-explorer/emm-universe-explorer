@@ -44,8 +44,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1fd86c26614744779b3e9501b084ff1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amountOfAsteroids: 150
-  activeAsteroidCollider: 1
+  hugeSizedAsteroids: 15
+  normalSizedAsteroids: 150
+  normalAsteroidSizeMin: 0.5
+  normalAsteroidSizeMax: 2.5
+  hugeAsteroidSizeMin: 3
+  hugeAsteroidSizeMax: 9
   asteroidPrefabs:
   - {fileID: 151664, guid: fa49e460baf435b4780da7196c2ab473, type: 3}
   - {fileID: 141316, guid: 84cc3cd234dfc9d4d9d2e92c0eb0af75, type: 3}
