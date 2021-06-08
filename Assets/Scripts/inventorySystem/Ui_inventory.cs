@@ -59,7 +59,14 @@ public class Ui_inventory : MonoBehaviour
     {
         parent.GetComponent<MouseUIEvents>().RightClickHandler = () =>
         {
-            Item duplicate = new Item { itemType = item.itemType, amount = item.amount };
+            Item duplicate = new Item {
+                itemType = item.itemType,
+                amount = item.amount,
+                healthPortion = item.healthPortion,
+                maxSpeed = item.maxSpeed,
+                manaPortion = item.manaPortion,
+                medkitPortion = item.medkitPortion
+            };
             inventory.RemoveItem(item);
             ItemWorld.DropItem(player.transform.position, duplicate);
         };
