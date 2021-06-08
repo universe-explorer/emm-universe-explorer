@@ -35,6 +35,7 @@ public class SpaceshipControls : MonoBehaviour
     {
         inventory = new Inventory();
         uiInventory.SetInventory(inventory);
+        uiInventory.SetGameObject(gameObject);
     }
 
     private void Start()

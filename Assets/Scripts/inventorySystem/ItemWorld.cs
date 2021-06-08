@@ -15,6 +15,14 @@ public class ItemWorld : MonoBehaviour
         return itemWorld;
     }
 
+    public static ItemWorld DropItem(Vector3 dropPosition, Item item)
+    {
+        Vector3 randomDir = new Vector3(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f)).normalized;
+        ItemWorld itemWorld = SpawnItemWorld(dropPosition + randomDir * 10f, item);
+        itemWorld.GetComponent<Rigidbody>().AddForce(randomDir * 10f, ForceMode.Impulse);
+        return itemWorld;
+    }
+
     private Item item;
 
     private SpriteRenderer spriteRenderer;

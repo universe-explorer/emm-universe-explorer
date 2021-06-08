@@ -38,6 +38,32 @@ public class Inventory
         Debug.Log("Inventory item counter: " + itemList.Count);
     }
 
+    public void RemoveItem(Item item)
+    {
+        if (item.IsStackable())
+        {
+            Item found = null;
+            foreach (Item inventoryItem in itemList)
+            {
+                if (inventoryItem.itemType == item.itemType)
+                {
+                    inventoryItem.amount -= item.amount;
+                    found = inventoryItem;
+                }
+            }
+            if (found != null && found.amount <= 0)
+            {
+                itemList.Remove(found);
+            }
+        }
+        else
+        {
+            itemList.Remove(item);
+        }
+        OnItemListChanged?.Invoke(this, EventArgs.Empty);
+        Debug.Log("Inventory item counter: " + itemList.Count);
+    }
+
     public List<Item> GetItemList()
     {
         return itemList;

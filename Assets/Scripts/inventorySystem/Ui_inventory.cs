@@ -7,6 +7,7 @@ public class Ui_inventory : MonoBehaviour
     private Inventory inventory;
     private Transform itemSlotContainer;
     private Transform itemSlotTemplate;
+    private GameObject player;
 
     private void Start()
     {
@@ -19,6 +20,11 @@ public class Ui_inventory : MonoBehaviour
         this.inventory = inventory;
         inventory.OnItemListChanged += Inventory_OnItemListChanged;
         RefreshInventoryItems();
+    }
+
+    public void SetGameObject(GameObject gameObject)
+    {
+        this.player = gameObject;
     }
 
     private void Inventory_OnItemListChanged(object sender, System.EventArgs e)
@@ -39,10 +45,22 @@ public class Ui_inventory : MonoBehaviour
             RectTransform itemSlotRectTransform = Instantiate(itemSlotTemplate, itemSlotContainer).GetComponent<RectTransform>();
             itemSlotRectTransform.gameObject.SetActive(true);
 
+            HandleRightClick(itemSlotRectTransform, item);
+
             SetImage(itemSlotRectTransform, item);
 
             SetAmount(itemSlotRectTransform, item);
         }
+    }
+
+    private void HandleRightClick(Transform parent, Item item)
+    {
+        parent.GetComponent<MouseUIEvents>().RightClickHandler = () =>
+        {
+            Item duplicate = new Item { itemType = item.itemType, amount = item.amount };
+            inventory.RemoveItem(item);
+            ItemWorld.DropItem(player.transform.position, duplicate);
+        };
     }
 
     private void SetImage(Transform parent, Item item)
