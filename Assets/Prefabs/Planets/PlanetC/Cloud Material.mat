@@ -32,7 +32,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _CloudMap:
-        m_Texture: {fileID: 2800000, guid: 7f360d096a2773945897280d49682ed4, type: 3}
+        m_Texture: {fileID: 2800000, guid: 820399ec488b214499734844a874d294, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -86,7 +86,7 @@ Material:
     m_Ints: []
     m_Floats:
     - CLoudIntensity: 1
-    - Speed: 0.05
+    - Speed: 0.001
     - Speede: 0.001
     - _AlphaClip: 0
     - _Blend: 0

@@ -60,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b7f191314f8b19e4fa77a948902aef00, type: 2}
+  - {fileID: 2100000, guid: 885901b29256ef545a9d1b8e31dad043, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -92,7 +92,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7386117827323504756}
   m_Layer: 0
-  m_Name: Planet B
+  m_Name: Planet C
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -105,8 +105,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7911438796849967822}
-  m_LocalRotation: {x: -0, y: -0, z: 0.70710576, w: 0.70710784}
-  m_LocalPosition: {x: 146.61139, y: -1.5828751, z: 5.0918}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7994161147202836780}
@@ -180,7 +180,7 @@ PrefabInstance:
     - target: {fileID: -7635826562936255635, guid: 9dbad0ebd00725a4fa101c274884e420, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 03cca7b4b87462247b8829670a86afe7, type: 2}
+      objectReference: {fileID: 2100000, guid: a6cad7ae80d812a41bb59d6611397735, type: 2}
     - target: {fileID: 919132149155446097, guid: 9dbad0ebd00725a4fa101c274884e420, type: 3}
       propertyPath: m_Name
       value: planet (2)
