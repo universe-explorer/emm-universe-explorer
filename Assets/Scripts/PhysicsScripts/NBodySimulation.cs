@@ -8,6 +8,9 @@ public class NBodySimulation : MonoBehaviour
     CelestialBody[] _Bodies;
     static NBodySimulation _Instance;
 
+    [Range(0, 1)]
+    public float SpeedReduction;
+
     private void Awake()
     {
         _Bodies = GameObject.FindObjectsOfType<CelestialBody>();
@@ -24,7 +27,7 @@ public class NBodySimulation : MonoBehaviour
         }
         for (int i = 0; i < _Bodies.Length; i++)
         {
-            _Bodies[i].UpdatePosition(Universe.PhysicsTimeStep);
+            _Bodies[i].UpdatePosition(Universe.PhysicsTimeStep * (SpeedReduction / 5));
         }
     }
 
@@ -40,7 +43,7 @@ public class NBodySimulation : MonoBehaviour
                 acceleration += forceDir * Universe.GravitationalConstant * body.Mass / sqrDst;
             }
         }
-        return acceleration / 50;
+        return acceleration;
     }
 
     public static CelestialBody[] Bodies
