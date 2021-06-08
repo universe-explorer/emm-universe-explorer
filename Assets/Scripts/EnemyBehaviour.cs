@@ -8,11 +8,13 @@ public class EnemyBehaviour : MonoBehaviour
     private const float movementRadius = 50;
     private const float movementSpeed = 0.1f;
     private const float rotationSpeed = 0.01f;
+    private const float aggroRange = 50;
 
     private bool chaseMode;
     private int framesSinceMovementStart;
     private Vector3 movementDirection;
     private Vector3 home;
+    GameObject[] player;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +22,8 @@ public class EnemyBehaviour : MonoBehaviour
         chaseMode = false;
         framesSinceMovementStart = movementDuration;
         home = transform.position;
+
+        player = GameObject.FindGameObjectsWithTag("Player");
     }
 
     // Update is called once per frame
@@ -38,8 +42,18 @@ public class EnemyBehaviour : MonoBehaviour
 
     public bool checkPlayerVicinity()
     {
-        //TODO
-        return false;
+
+        
+        if(player.Length >= 1  && Vector3.Distance(transform.position, player[0].transform.position) < aggroRange)
+        {
+            Debug.Log("True");
+            return true;
+        } else
+        {
+            Debug.Log(Vector3.Distance(transform.position, player[0].transform.position));
+            Debug.Log("False");
+            return false;
+        }   
     }
 
     public void randomMove()
