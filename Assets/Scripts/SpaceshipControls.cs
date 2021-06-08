@@ -77,6 +77,9 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
 
         transform.rotation = Quaternion.identity;
         _ship.velocity = transform.forward * defaultVelocity;
+
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Confined;
     }
 
     void FixedUpdate()
