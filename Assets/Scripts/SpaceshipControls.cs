@@ -70,8 +70,10 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
     }
     
     [SerializeField] private Ui_inventory uiInventory;
+    [SerializeField] private Ui_level uiLevel;
 
     private Inventory inventory;
+    private LevelSystem levelSystem;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -88,9 +90,15 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
 
     private void Awake()
     {
+        // initialize Inventory System
         inventory = new Inventory();
         uiInventory.SetInventory(inventory);
         uiInventory.SetGameObject(gameObject);
+
+        // initialize Level System
+        levelSystem = new LevelSystem();
+        levelSystem.SetInventory(inventory);
+        uiLevel.SetLevelSystem(levelSystem);
     }
 
     void Start()
