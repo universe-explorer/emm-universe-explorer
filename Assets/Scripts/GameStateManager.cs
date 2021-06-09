@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameStateManager : MonoBehaviour
+public class GameStateManager : BaseMenu
 {
 
     [SerializeField] private GameObject pauseMenu;
@@ -36,6 +36,8 @@ public class GameStateManager : MonoBehaviour
     }
 
 
+    /*
+     // TODO: Not needed anymore
     public void OpenSettings(bool active)
     {
         // TODO
@@ -47,5 +49,6 @@ public class GameStateManager : MonoBehaviour
         // TODO
         Debug.Log("Exit");
     }
+    */
     
 }

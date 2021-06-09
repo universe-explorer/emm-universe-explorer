@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MenuManagerScript : MonoBehaviour
+public class MenuManagerScript : BaseMenu
 {
 
 
@@ -26,13 +26,18 @@ public class MenuManagerScript : MonoBehaviour
         SceneManager.LoadScene(gameSceneName);
     }
 
-    public void ViewSettings()
+    /*
+     // TODO: Not needed anymore
+     
+    public override void OpenSettings(bool active)
     {
         Debug.Log("View settings");
     }
 
-    public void Exit()
+    public override void Exit()
     {
         Debug.Log("Exit");
     }
+    */
+    
 }
