@@ -5,22 +5,22 @@ using UnityEngine.SocialPlatforms;
 
 public class AsteroidRing : MonoBehaviour
 {
-    [Header("AsteroidField Settings")] public int amountOfAsteroids = 150;
-    public float innerRadius;
-    public float outerRadius;
-    public float height;
+    [Header("AsteroidRing Settings")] public int amountOfAsteroids = 20;
+    public float innerRadius = 8;
+    public float outerRadius = 12;
+    public float height = 3;
+    private GameObject _asteroidRing;
 
-    [Header("Asteroid Settings")] public float asteroidSizeMin = .1f;
-    public float asteroidSizeMax = 2.5f;
+
+    [Header("Asteroid Settings")] public float asteroidSizeMin = .2f;
+    public float asteroidSizeMax = 1f;
 
     public float rotationSpeedMin = .25f;
     public float rotationSpeedMax = 3f;
 
     public float orbitSpeedMin = 0.2f;
     public float orbitSpeedMax = 2f;
-    public bool userMaterialFromParent = false;
-
-
+    
     public GameObject[] asteroidPrefabs;
 
     private float mass = 1, drag = 0f, angularDrag = 0f;
@@ -37,13 +37,16 @@ public class AsteroidRing : MonoBehaviour
         spawnedAsteroid.AddComponent<AsteroidBehaviour>().Setup(thrust, rotationSpeed, mass, drag, angularDrag,
             transform.gameObject, orbitSpeed);
         spawnedAsteroid.transform.localScale *= scale;
-        spawnedAsteroid.transform.SetParent(transform);
+        spawnedAsteroid.transform.SetParent(_asteroidRing.transform);
+       
     }
 
-    void Start()
+    void Awake()
     {
         GameObject prefab;
-
+        _asteroidRing = new GameObject("AsteroidRing");
+        _asteroidRing.transform.SetParent(transform);
+        
         for (int j = 0; j < amountOfAsteroids; j++)
         {
             prefab = asteroidPrefabs[Random.Range(0, asteroidPrefabs.Length - 1)];
