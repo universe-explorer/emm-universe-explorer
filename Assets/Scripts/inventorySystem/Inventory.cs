@@ -35,7 +35,7 @@ public class Inventory
             itemList.Add(item);
         }
         OnItemListChanged?.Invoke(this, EventArgs.Empty);
-        Debug.Log("Inventory item counter: " + itemList.Count);
+        Debug.Log("Inventory item counter: " + GetTotalItemsCount().ToString());
     }
 
     public void RemoveItem(Item item)
@@ -61,11 +61,21 @@ public class Inventory
             itemList.Remove(item);
         }
         OnItemListChanged?.Invoke(this, EventArgs.Empty);
-        Debug.Log("Inventory item counter: " + itemList.Count);
+        Debug.Log("Inventory item counter: " + GetTotalItemsCount());
     }
 
     public List<Item> GetItemList()
     {
         return itemList;
+    }
+
+    public int GetTotalItemsCount()
+    {
+        int count = 0;
+        foreach (Item item in itemList)
+        {
+            count += item.amount;
+        }
+        return count;
     }
 }
