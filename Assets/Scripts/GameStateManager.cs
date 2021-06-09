@@ -19,17 +19,33 @@ public class GameStateManager : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(pauseMenuKey))
-            ShowMenu(!pauseMenu.activeSelf);
+            OpenMenu(!pauseMenu.activeSelf);
         
     }
     
-    public void ShowMenu(bool active)
+    public void OpenMenu(bool active)
     {
         pauseMenu.SetActive(active);
         Time.timeScale = active ? 0 : 1;
     }
     
-    
+    public void ReloadScene()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 
+
+    public void OpenSettings(bool active)
+    {
+        // TODO
+        Debug.Log("Settings");
+    }
+    
+    public void Exit()
+    {
+        // TODO
+        Debug.Log("Exit");
+    }
     
 }
