@@ -11,7 +11,7 @@ public class InventoryMenuManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(KeyCode.O))
         {
             menu.gameObject.SetActive(!menu.gameObject.activeSelf);
             Time.timeScale = !menu.gameObject.activeSelf ? 1 : 0;

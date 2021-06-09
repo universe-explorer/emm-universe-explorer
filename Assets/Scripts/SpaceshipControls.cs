@@ -114,6 +114,19 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
         Cursor.lockState = CursorLockMode.Confined;
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            uiInventory.gameObject.SetActive(!uiInventory.gameObject.activeSelf);
+        }
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            Debug.Log("toggel level system menu...");
+            uiLevel.gameObject.SetActive(!uiLevel.gameObject.activeSelf);
+        }
+    }
+
     void FixedUpdate()
     {
         _verticalInput = Input.GetAxis("Vertical");

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.31394342, g: 0.3026567, b: 0.21057528, a: 1}
+  m_IndirectSpecularColor: {r: 0.31393906, g: 0.30265597, b: 0.21056867, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5425,11 +5425,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8337412d41d24d5f9247ae51288b0f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: {fileID: 0}
-  currentMineralValue: 0
-  currentManaValue: 0
-  currentMedkitValue: 0
-  currentHealthValue: 0
   mineralBar: {fileID: 191713922}
   medkitBar: {fileID: 1575885700}
   manaBar: {fileID: 1486936065}
