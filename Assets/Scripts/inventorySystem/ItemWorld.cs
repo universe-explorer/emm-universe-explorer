@@ -8,9 +8,7 @@ public class ItemWorld : MonoBehaviour
         Transform transform = Instantiate(ItemAssets.Instance.pfItemWorld, position, Quaternion.identity);
 
         ItemWorld itemWorld = transform.GetComponent<ItemWorld>();
-        if (itemWorld == null) Debug.Log("SpawnItemWorld: itemWorld is null.");
         itemWorld.SetItem(item);
-        Debug.Log("SpawnItemWorld: itemWorld " + itemWorld.GetItem().ToString() + "created.");
 
         return itemWorld;
     }

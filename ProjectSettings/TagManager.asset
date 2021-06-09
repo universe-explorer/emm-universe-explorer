@@ -8,6 +8,8 @@ TagManager:
   - Schiff
   - Crosshair
   - CrosshairUI
+  - Asteroid
+  - MainSpaceShip
   layers:
   - Default
   - TransparentFX

@@ -7,7 +7,7 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
     /* move */
     public bool enableDrifting = true;
     private const float defaultVelocity = 5;
-    private float maxVelocity = 80;
+    private float maxVelocity = 30;
     private float _accelerationSpeed = 0.3f;
 
 
@@ -75,12 +75,14 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(gameObject.name + " was triggered by " + other.gameObject.name);
-        ItemWorld itemWorld = other.gameObject.GetComponent<ItemWorld>();
-        if (itemWorld != null)
+        if (gameObject.tag == "MainSpaceShip")
         {
-            inventory.AddItem(itemWorld.GetItem());
-            itemWorld.DestroySelf();
+            ItemWorld itemWorld = other.gameObject.GetComponent<ItemWorld>();
+            if (itemWorld != null)
+            {
+                inventory.AddItem(itemWorld.GetItem());
+                itemWorld.DestroySelf();
+            }
         }
     }
 
