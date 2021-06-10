@@ -7,10 +7,10 @@ public class Ui_level : MonoBehaviour
     private LevelSystem levelSystem;
     private TextMeshProUGUI level;
 
-    private int currentMineralValue;
-    private int currentManaValue;
-    private int currentMedkitValue;
-    private int currentHealthValue;
+    private int mineralValue;
+    private int manaValue;
+    private int medkitValue;
+    private int healthValue;
 
     public Slider mineralBar;
     public Slider medkitBar;
@@ -22,15 +22,15 @@ public class Ui_level : MonoBehaviour
         level = transform.Find("level").GetComponent<TextMeshProUGUI>();
         level.SetText("Level: " + levelSystem.GetLevelNumber().ToString());
 
-        currentMineralValue = levelSystem.GetMineralLevelValue();
-        currentMedkitValue = levelSystem.GetMedkitLevelValue();
-        currentManaValue = levelSystem.GetManaLevelValue();
-        currentHealthValue = levelSystem.GetHealthLevelValue();
+        mineralValue = levelSystem.GetMineralLevelValue();
+        medkitValue = levelSystem.GetMedkitLevelValue();
+        manaValue = levelSystem.GetManaLevelValue();
+        healthValue = levelSystem.GetHealthLevelValue();
 
-        mineralBar.value = currentMineralValue;
-        medkitBar.value = currentMedkitValue;
-        manaBar.value = currentManaValue;
-        healthBar.value = currentHealthValue;
+        mineralBar.value = mineralValue;
+        medkitBar.value = medkitValue;
+        manaBar.value = manaValue;
+        healthBar.value = healthValue;
     }
 
     public void SetLevelSystem(LevelSystem levelSystem)
@@ -52,30 +52,37 @@ public class Ui_level : MonoBehaviour
 
     private void RefreshExperience()
     {
-        if (levelSystem.GetMineralLevelValue() != currentMineralValue) ResetMineralValue();
-        if (levelSystem.GetMedkitLevelValue() != currentMedkitValue) ResetMedkitValue();
-        if (levelSystem.GetManaLevelValue() != currentManaValue) ResetManaValue();
-        if (levelSystem.GetHealthLevelValue() != currentHealthValue) ResetHealthValue();
+        var currentMineralValue = levelSystem.GetManaLevelValue();
+        if (currentMineralValue != mineralValue) ResetMineralValue(currentMineralValue);
+
+        var currentMedkitValue = levelSystem.GetMedkitLevelValue();
+        if (currentMedkitValue != medkitValue) ResetMedkitValue(currentMedkitValue);
+
+        var currentManaValue = levelSystem.GetManaLevelValue();
+        if (currentManaValue != manaValue) ResetManaValue(currentManaValue);
+
+        var currentHealthValue = levelSystem.GetHealthLevelValue();
+        if (currentHealthValue != healthValue) ResetHealthValue(currentHealthValue);
     }
 
-    private void ResetMineralValue()
+    private void ResetMineralValue(int value)
     {
-        mineralBar.value = levelSystem.GetMineralLevelValue();
+        mineralBar.value = value;
     }
 
-    private void ResetManaValue()
+    private void ResetManaValue(int value)
     {
-        manaBar.value = levelSystem.GetManaLevelValue();
+        manaBar.value = value;
     }
 
-    private void ResetMedkitValue()
+    private void ResetMedkitValue(int value)
     {
-        medkitBar.value = levelSystem.GetMedkitLevelValue();
+        medkitBar.value = value;
     }
 
-    private void ResetHealthValue()
+    private void ResetHealthValue(int value)
     {
-        healthBar.value = levelSystem.GetHealthLevelValue();
+        healthBar.value = value;
     }
 
 }
