@@ -1,8 +1,8 @@
 using UnityEngine;
 
 /*
- * provide ability to easily spawn items, so there is no need to manuelly set
- * item positions
+ * provide the ability to easily spawn items, so there is no need to manuelly set
+ * item's positions
  */
 public class ItemWorldSpawner : MonoBehaviour
 {

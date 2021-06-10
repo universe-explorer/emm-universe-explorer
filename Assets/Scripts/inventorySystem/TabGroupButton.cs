@@ -2,6 +2,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
+/**
+ * Represents a single Button with TabGroup, not used any more.
+ */
 [RequireComponent(typeof(Image))]
 public class TabGroupButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
@@ -24,7 +27,6 @@ public class TabGroupButton : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         tabGroup.OnTabExit(this);
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         background = GetComponent<Image>();

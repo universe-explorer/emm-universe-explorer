@@ -13,6 +13,9 @@ public class Inventory
         itemList = new List<Item>();
     }
 
+    /// <summary> 
+    ///   Adds item to the item list
+    /// </summary>
     public void AddItem(Item item)
     {
         if (item.IsStackable())
@@ -38,6 +41,9 @@ public class Inventory
         Debug.Log("Inventory item counter: " + GetTotalItemsCount().ToString());
     }
 
+    /// <summary> 
+    ///   Removes item from the item list
+    /// </summary>
     public void RemoveItem(Item item)
     {
         if (item.IsStackable())
@@ -64,11 +70,17 @@ public class Inventory
         Debug.Log("Inventory item counter: " + GetTotalItemsCount());
     }
 
+    /// <summary> 
+    ///   Returns the item list
+    /// </summary>
     public List<Item> GetItemList()
     {
         return itemList;
     }
 
+    /// <summary> 
+    ///   Calculates the total number of items based on the amount of each item and returns it 
+    /// </summary>
     public int GetTotalItemsCount()
     {
         int count = 0;

@@ -1,11 +1,14 @@
 using UnityEngine;
 
+/**
+ *  Enforce 2D Game Object to look at the main camera all the time which 
+ *  makes it feel like a 3D Game Object
+ */
 public class LookAtCamera : MonoBehaviour
 {
     private Camera mainCamera;
     private Transform mainCameraTransform;
 
-    // Start is called before the first frame update
     void Start()
     {
         mainCamera = Camera.main;

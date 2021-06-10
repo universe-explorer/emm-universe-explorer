@@ -33,6 +33,9 @@ public class Ui_level : MonoBehaviour
         healthBar.value = healthValue;
     }
 
+    /// <summary> 
+    ///   Sets the associated Level System which provides Events utilities and data accessibilities
+    /// </summary>
     public void SetLevelSystem(LevelSystem levelSystem)
     {
         this.levelSystem = levelSystem;
@@ -50,6 +53,9 @@ public class Ui_level : MonoBehaviour
         level.SetText(levelSystem.GetLevelNumber().ToString());
     }
 
+    /// <summary> 
+    ///   Updates UI elements when items list is changed
+    /// </summary>
     private void RefreshExperience()
     {
         var currentMineralValue = levelSystem.GetManaLevelValue();

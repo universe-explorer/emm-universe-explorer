@@ -26,6 +26,9 @@ public class LevelSystem
         experienceToNextLevel = 100;
     }
 
+    /// <summary> 
+    ///   Set Inventory which acts as a Item Repository for this level system
+    /// </summary>
     public void SetInventory(Inventory inventory)
     {
         this.inventory = inventory;
@@ -59,6 +62,9 @@ public class LevelSystem
      * the item list is relative small.
      */
 
+    /// <summary> 
+    ///   Returns the total amount of the mineral Items within Inventory 
+    /// </summary>
     public int GetMineralLevelValue()
     {
         int result = 0;
@@ -72,6 +78,9 @@ public class LevelSystem
         return result;
     }
 
+    /// <summary> 
+    ///   Returns the total amount of the medkit Items within Inventory
+    /// </summary>
     public int GetMedkitLevelValue()
     {
         int result = 0;
@@ -85,6 +94,9 @@ public class LevelSystem
         return result;
     }
 
+    /// <summary> 
+    ///   Returns the total amount of the mana Items within Inventory
+    /// </summary>
     public int GetManaLevelValue()
     {
         int result = 0;
@@ -98,6 +110,9 @@ public class LevelSystem
         return result;
     }
 
+    /// <summary> 
+    ///   Returns the total amount of the health Items within Inventory
+    /// </summary>
     public int GetHealthLevelValue()
     {
         int result = 0;
@@ -115,6 +130,9 @@ public class LevelSystem
      *  TODO: define how to react to the item list change and increase the level
      */
 
+    /// <summary> 
+    ///   Returns the current level number
+    /// </summary>
     public int GetLevelNumber()
     {
         return level;

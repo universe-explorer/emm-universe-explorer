@@ -75,6 +75,9 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
     private Inventory inventory;
     private LevelSystem levelSystem;
 
+    /// <summary> 
+    ///   Detects Collision and add items to the Inventory System
+    /// </summary>
     private void OnTriggerEnter(Collider other)
     {
         if (gameObject.tag == "MainSpaceShip")
@@ -122,7 +125,6 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
         }
         if (Input.GetKeyDown(KeyCode.L))
         {
-            Debug.Log("toggel level system menu...");
             uiLevel.gameObject.SetActive(!uiLevel.gameObject.activeSelf);
         }
     }

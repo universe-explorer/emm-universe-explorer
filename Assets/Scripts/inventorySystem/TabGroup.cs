@@ -1,6 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/**
+ * Represents a Tab Group to navigate through the Inventory Item Group, 
+ * 
+ * not used any more.
+ */
 public class TabGroup : MonoBehaviour
 {
     private List<TabGroupButton> tabButtons;

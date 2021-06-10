@@ -21,6 +21,9 @@ public class Item
     public int manaPortion;
     public int medkitPortion;
 
+    /// <summary> 
+    ///   Returns a summary of this Item with all the properties
+    /// </summary>
     public string GetInfoText()
     {
         StringBuilder info = new StringBuilder();
@@ -39,6 +42,9 @@ public class Item
         return info.ToString();
     }
 
+    /// <summary> 
+    ///   Returns the associated Sprite of the individual Item Type
+    /// </summary>
     public Sprite GetSprite()
     {
         switch (itemType)
@@ -51,6 +57,9 @@ public class Item
         }
     }
 
+    /// <summary> 
+    ///   Checks whether this Item is stackable
+    /// </summary>
     public bool IsStackable()
     {
         switch (itemType)
@@ -65,6 +74,9 @@ public class Item
         }
     }
 
+    /// <summary> 
+    ///   Returns Type of this Item
+    /// </summary>
     private string GetTitle()
     {
         switch (itemType)
