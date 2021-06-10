@@ -49,6 +49,16 @@ public class LevelSystem
         if (OnExperienceChanged != null) OnExperienceChanged(this, EventArgs.Empty);
     }
 
+
+    /**
+     * TODO: cache returned value 
+     * 
+     * every time when space ship collects new items, the following Getter are called which 
+     * cause a interation of the item list that runs in linear time, we should cache the
+     * corresponding values, but in our usecase this should not be a performance issue because 
+     * the item list is relative small.
+     */
+
     public int GetMineralLevelValue()
     {
         int result = 0;
@@ -100,6 +110,10 @@ public class LevelSystem
         }
         return result;
     }
+
+    /**
+     *  TODO: define how to react to the item list change and increase the level
+     */
 
     public int GetLevelNumber()
     {
