@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -11,7 +12,7 @@ public class InfoCircleScript : MonoBehaviour
     [SerializeField] private GameObject circle;
     [SerializeField] private GameObject circleText;
     private Image imgCircle;
-    private TextMeshPro txtCircle;
+    private TextMeshProUGUI txtCircle;
 
     private float maxValue = 100;
     private float value = 100;
@@ -23,6 +24,7 @@ public class InfoCircleScript : MonoBehaviour
     void Start()
     {
         imgCircle = circle.GetComponent<Image>();
+        txtCircle = circleText.GetComponent<TextMeshProUGUI>();
     }
 
     // Update is called once per frame
@@ -38,6 +40,8 @@ public class InfoCircleScript : MonoBehaviour
             progress += Time.deltaTime;
             imgCircle.fillAmount = Mathf.Lerp(imgCircle.fillAmount, value / maxValue, progress * speed);
             delayedValue = imgCircle.fillAmount * maxValue;
+
+            txtCircle.text = String.Format("{0}%", (int)(imgCircle.fillAmount*100));
         }
     }
 
