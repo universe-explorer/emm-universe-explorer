@@ -68,21 +68,25 @@ public class Ui_level : MonoBehaviour
     private void ResetMineralValue(int value)
     {
         mineralBar.value = value;
+        mineralValue = value;
     }
 
     private void ResetManaValue(int value)
     {
         manaBar.value = value;
+        manaValue = value;
     }
 
     private void ResetMedkitValue(int value)
     {
         medkitBar.value = value;
+        medkitValue = value;
     }
 
     private void ResetHealthValue(int value)
     {
         healthBar.value = value;
+        healthValue = value;
     }
 
 }
