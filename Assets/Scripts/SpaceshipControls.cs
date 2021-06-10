@@ -78,8 +78,15 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
     private Boolean _debugCrosshair = false;
 
     private GameObject _crosshair, _crosshairUI;
-    private float _crosshairOffset = 1.5f;
-    private float _crosshairMovementSpeed = 2.5f;
+    
+    [SerializeField] //remove in production
+    private float _crosshairOffsetX = 18f;
+    
+    [SerializeField] //remove in production
+    private float _crosshairOffsetY = 7f;
+    
+    [SerializeField] //remove in production
+    private float _crosshairMovementSpeed = 100f;
     private Vector3 _crosshairPosition;
 
     /* other */
@@ -332,8 +339,8 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
     {
         Vector3 pos = _crosshair.transform.localPosition;
 
-        float x = mouseInput.x * _crosshairOffset;
-        float y = mouseInput.y * _crosshairOffset * (-1);
+        float x = mouseInput.x * _crosshairOffsetX;
+        float y = mouseInput.y * _crosshairOffsetY * (-1);
 
         x = Mathf.Lerp(pos.x, x, Time.deltaTime * _crosshairMovementSpeed);
         y = Mathf.Lerp(pos.y, y, Time.deltaTime * _crosshairMovementSpeed);
