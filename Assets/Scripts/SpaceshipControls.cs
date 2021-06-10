@@ -6,9 +6,12 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
 {
     /* move */
     public bool enableDrifting = true;
+    public bool autoDeceleration = false;
     private const float defaultVelocity = 5;
     private float maxVelocity = 30;
     private float _accelerationSpeed = 0.3f;
+    private float _deccelerationSpeed = 0.03f;
+    
 
 
     /* rotate */
@@ -54,6 +57,7 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
     /* other */
     private Rigidbody _ship;
 
+    [Header("Debug")] public float velocity;
 
     /// <summary>
     ///   <para>Maps value from original range to new range</para>
@@ -108,6 +112,7 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
 
     void FixedUpdate()
     {
+        velocity = _ship.velocity.magnitude;
         _verticalInput = Input.GetAxis("Vertical");
         _isBoosting = false;
         if (!useAlternativeMouseInput)
@@ -178,9 +183,20 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
     /// </summary>
     public void Move(Vector3 direction, float force)
     {
+        print(force);
+
         float _maxVelocity = maxVelocity;
         float speedOffset = .01f;
 
+
+        if (autoDeceleration)
+        {
+            if (force == 0 && _ship.velocity.magnitude > 0)
+            {
+                _ship.velocity = Vector3.Lerp(_ship.velocity, -direction, _deccelerationSpeed);
+            }
+        }
+        
         if (_isBoosting && _currentBoostTime < _maxBoostDuration)
         {
             _maxVelocity *= _boostMultiplier;
