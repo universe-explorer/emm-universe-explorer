@@ -5,39 +5,64 @@ using UnityEngine.UI;
 public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
 {
     /* move */
+    [Header("Movement Settings")]
     public bool enableDrifting = true;
     public bool autoDeceleration = false;
-    private const float defaultVelocity = 5;
+    
+    [SerializeField] //remove in production
+    private float defaultVelocity = 5;
+    
+    [SerializeField] //remove in production
     private float maxVelocity = 30;
+    
+    [SerializeField] //remove in production
     private float _accelerationSpeed = 0.3f;
+    
+    [SerializeField] //remove in production
     private float _deccelerationSpeed = 0.03f;
     
 
 
     /* rotate */
-    private const float sensitivity = 1;
-    private const float maxZRotation = 35;
-    private const float zRotationSpeed = 2.5f;
+    [Header("Rotation Settings")]
+    [SerializeField]
+    private float sensitivity = 1;
+    
+    [SerializeField] //remove in production
+    private float maxZRotation = 35;
+    
+    [SerializeField] //remove in production
+    private float zRotationSpeed = 2.5f;
 
 
     /* boost */
+    [Header("Boost Settings")]
+    
+    [SerializeField] //remove in production
     private float _boostMultiplier = 1.5f;
+    
+    [SerializeField] //remove in production
     private int _maxBoostDuration = 120;
+    
     private bool _isBoosting;
     private int _currentBoostTime;
 
 
     /* rolling */
-    private const float defaultRollingForce = 30f;
+    [Header("Rolling Settings")]
+    
+    [SerializeField] //remove in production
+    private float defaultRollingForce = 30f;
+    
     private const float fullRoll = 360;
-    private const float rollPerFrame = 8;
-
+    private float rollPerFrame = 8;
     private float _currentRoll;
     private bool _isRolling;
     private float _rollingDirection;
 
 
     /* input */
+    [Header("Input Settings")] 
     public bool useAlternativeMouseInput = false;
 
     private float _verticalInput;
@@ -47,7 +72,10 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
 
 
     /* crosshair */
-    public Boolean debugCrosshair = false;
+    [Header("Crosshair Settings")] 
+    
+    [SerializeField] //remove in production
+    private Boolean _debugCrosshair = false;
 
     private GameObject _crosshair, _crosshairUI;
     private float _crosshairOffset = 1.5f;
@@ -323,7 +351,7 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
             Vector3.Lerp(_crosshairUI.transform.position, screenPoint, Time.deltaTime * 10f);
 
         //debug options
-        if (debugCrosshair)
+        if (_debugCrosshair)
         {
             _crosshair.GetComponent<MeshRenderer>().enabled = true;
         }
