@@ -37,6 +37,7 @@ public class InfoCircleScript : MonoBehaviour
         {
             progress += Time.deltaTime;
             imgCircle.fillAmount = Mathf.Lerp(imgCircle.fillAmount, value / maxValue, progress * speed);
+            delayedValue = imgCircle.fillAmount * maxValue;
         }
     }
 
