@@ -11,13 +11,13 @@ public class LevelSystem
     public event EventHandler OnExperienceChanged;
     public event EventHandler OnLevelChanged;
     
-    private int currentlevel;
+    private int currentLevel;
 
     private Inventory inventory;
 
     public LevelSystem()
     {
-        currentlevel = 1;
+        currentLevel = 1;
     }
 
     /// <summary> 
@@ -34,7 +34,7 @@ public class LevelSystem
     /// </summary>
     public RankEntry GetCurrentLevelRank()
     {
-        return LevelRankTable.GetLevelTable()[currentlevel];
+        return LevelRankTable.GetLevelTable()[currentLevel];
     }
 
     private void Inventory_OnItemListChanged(object sender, EventArgs e)
@@ -57,34 +57,44 @@ public class LevelSystem
             medkitRequired = GetMedkitLevelValue(),
             healthRequired = GetHealthLevelValue(),
         };
+        Downgrade(changedRank, LevelRankTable.GetLevelRankList());
+        Upgrade(changedRank, LevelRankTable.GetLevelRankList());
+        
+    }
+
+    /// <summary> 
+    ///   Downgrades level according the item properties
+    /// </summary>
+    private void Downgrade(RankEntry changedRank, List<RankEntry> rankEntries)
+    {
         bool levelChanged = false;
-        List<RankEntry> rankEntries = LevelRankTable.GetLevelRankList();
+
+        for (int levelIter = rankEntries.Count - 1; levelIter > 0; levelIter--)
+        {
+            RankEntry levelRank = rankEntries[levelIter];
+            if (changedRank.CompareTo(levelRank) < 0 && currentLevel > levelIter) 
+            {
+                currentLevel -= 1;
+                levelChanged = true;
+            }
+        }
+        if (levelChanged && OnLevelChanged != null) OnLevelChanged(this, EventArgs.Empty);
+    }
+
+    /// <summary> 
+    ///   Upgrades level according the item properties
+    /// </summary>
+    private void Upgrade(RankEntry changedRank, List<RankEntry> rankEntries)
+    {
+        bool levelChanged = false;
         for (int levelIter = 0; levelIter < rankEntries.Count; levelIter++)
         {
             RankEntry levelRank = rankEntries[levelIter];
             int level = levelIter + 1;
-            if (changedRank.CompareTo(levelRank) < 0)
+            if (changedRank.CompareTo(levelRank) >= 0 && level > currentLevel - 1)
             {
-                if (level < currentlevel - 1)
-                {
-                    currentlevel -= 1;
-                    levelChanged = true;
-                    /**
-                     * iterate through the rank list in the defined order which also means 
-                     * the following Rank inside the list does have higher item properties
-                     * so we break the loop here
-                     */
-                    break;
-                }
-            }
-            if (changedRank.CompareTo(levelRank) >= 0)
-            {
-                if (level > currentlevel - 1)
-                {
-                    currentlevel += 1;
-                    levelChanged = true;
-                    // we don not break th loop until we find the correct level to match up
-                }
+                currentLevel += 1;
+                levelChanged = true;
             }
         }
         if (levelChanged && OnLevelChanged != null) OnLevelChanged(this, EventArgs.Empty);
@@ -173,6 +183,6 @@ public class LevelSystem
     /// </summary>
     public int GetLevelNumber()
     {
-        return currentlevel;
+        return currentLevel;
     }
 }
