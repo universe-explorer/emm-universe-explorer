@@ -84,7 +84,7 @@ public class Ui_level : MonoBehaviour
     /// </summary>
     private void RefreshExperience()
     {
-        var currentMineralValue = levelSystem.GetManaLevelValue();
+        var currentMineralValue = levelSystem.GetMineralLevelValue();
         if (currentMineralValue != mineralValue) ResetMineralValue(currentMineralValue);
 
         var currentMedkitValue = levelSystem.GetMedkitLevelValue();
@@ -102,7 +102,7 @@ public class Ui_level : MonoBehaviour
     /// </summary>
     private void UpdateLevelWindow()
     {
-        level.SetText(levelSystem.GetLevelNumber().ToString());
+        level.SetText("Level: " + levelSystem.GetLevelNumber().ToString());
 
         RankEntry entry = levelSystem.GetCurrentLevelRank();
 

@@ -65,7 +65,7 @@ public class LevelSystem
                 int reducedLevel = levelIter + 1;
                 if (reducedLevel < levelIter && reducedLevel > 1)
                 {
-                    level = reducedLevel;
+                    level -= 1;
                     levelChanged = true;
                     /**
                      * iterate through the rank list in the defined order which also means 
@@ -80,7 +80,7 @@ public class LevelSystem
                 int increasedLevel = levelIter + 1;
                 if (increasedLevel > levelIter)
                 {
-                    level = increasedLevel;
+                    level += 1;
                     levelChanged = true;
                     // we don not break th loop until we find the correct level to match up
                 }

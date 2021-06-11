@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 
 /// <summary> 
 ///   Represents Items Properties required for individual level
@@ -14,9 +15,35 @@ public class RankEntry : IComparable<RankEntry>
 
     public int healthRequired { get; set; }
 
-    // TODO
+    /// <summary> 
+    ///   Compare RankEntry Objects
+    /// </summary>
     public int CompareTo(RankEntry other)
     {
-        throw new NotImplementedException();
+        if (this == other)
+        {
+            return 0;
+        }
+        if (mineralRequired >= other.mineralRequired
+            && manaRequired >= other.manaRequired
+            && medkitRequired >= other.medkitRequired
+            && healthRequired >= other.healthRequired)
+        {
+            return 1;
+        }
+        return -1;
+    }
+
+    public override string ToString() {
+        StringBuilder entry = new StringBuilder();
+
+        entry.Append("RankEntry ");
+
+        entry.Append(string.Concat("Mineral: ", mineralRequired.ToString())).Append(" ");
+        entry.Append(string.Concat("Mana: ", manaRequired.ToString())).Append(" ");
+        entry.Append(string.Concat("Medkit: ", medkitRequired.ToString())).Append(" ");
+        entry.Append(string.Concat("Health: ", healthRequired.ToString())).Append(" ");
+
+        return entry.ToString();
     }
 }

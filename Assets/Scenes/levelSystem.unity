@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.313944, g: 0.30265987, b: 0.21056956, a: 1}
+  m_IndirectSpecularColor: {r: 0.31394207, g: 0.30265602, b: 0.210576, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -385,7 +385,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pfItemWorld: {fileID: 5143244230799675556, guid: 3e99f55acd67046098b20b3135f01847, type: 3}
-  healthPotionSprite: {fileID: 21300000, guid: 1596ce10979230c4eba5169c4c90f895, type: 3}
+  healthPotionSprite: {fileID: 21300000, guid: 8339dd0ccac10c14e917a1e280284685, type: 3}
   manaPotionSprite: {fileID: 21300000, guid: d71b415dde535d1448b3b0732474f8ef, type: 3}
   mineralSprite: {fileID: 21300000, guid: e7d29a79bc7fae248887c8a08a160303, type: 3}
   medkitSprite: {fileID: 21300000, guid: e52ea25af699fd445b7046374f81a5b9, type: 3}
