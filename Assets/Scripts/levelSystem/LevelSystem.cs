@@ -1,29 +1,23 @@
 ﻿using System;
+using System.Collections.Generic;
 
-/*
- * This level System should be encapsulated into game Object that implements Monobehaviour.
- * 
- * To enable the game object reacting to experience changes, subscribe to the OnExperienceChanged event.
- *      
- * To enable the game object reacting to level changes, subscribe to the OnLevelChanged event.
- *      
- */
+/// <summary> 
+///   This level System should be encapsulated into game Object that implements Monobehaviour.
+///   To enable the game object reacting to experience changes, subscribe to the OnExperienceChanged event.
+///   To enable the game object reacting to level changes, subscribe to the OnLevelChanged event.
+/// </summary>
 public class LevelSystem
 {
     public event EventHandler OnExperienceChanged;
     public event EventHandler OnLevelChanged;
     
     private int level;
-    private int experience;
-    private int experienceToNextLevel;
 
     private Inventory inventory;
 
     public LevelSystem()
     {
         level = 1;
-        experience = 0;
-        experienceToNextLevel = 100;
     }
 
     /// <summary> 
@@ -35,23 +29,65 @@ public class LevelSystem
         inventory.OnItemListChanged += Inventory_OnItemListChanged;
     }
 
+    /// <summary> 
+    ///   Returns Item Properties associated with the current level
+    /// </summary>
+    public RankEntry GetCurrentLevelRank()
+    {
+        return LevelRankTable.GetLevelTable()[level];
+    }
+
     private void Inventory_OnItemListChanged(object sender, EventArgs e)
     {
+        UpdateLevel();
         if (OnExperienceChanged != null) OnExperienceChanged(this, EventArgs.Empty);
     }
 
-    public void AddExperience(int amount)
+    /// <summary> 
+    ///   Updates level according the incoming item properties, which means either upgrading or downgrading
+    /// </summary>
+    private void UpdateLevel()
     {
-        experience += amount;
-        while (experience >= experienceToNextLevel)
+        RankEntry changedRank = new RankEntry
         {
-            level++;
-            experience -= experienceToNextLevel;
-            if (OnLevelChanged != null) OnLevelChanged(this, EventArgs.Empty);
+            mineralRequired = GetMineralLevelValue(),
+            manaRequired = GetManaLevelValue(),
+            medkitRequired = GetMedkitLevelValue(),
+            healthRequired = GetHealthLevelValue(),
+        };
+        bool levelChanged = false;
+        List<RankEntry> rankEntries = LevelRankTable.GetLevelRankList();
+        for (int levelIter = 0; levelIter < rankEntries.Count; levelIter++)
+        {
+            RankEntry entry = rankEntries[levelIter]; 
+            if (changedRank.CompareTo(entry) < 0)
+            {
+                int reducedLevel = levelIter + 1;
+                if (reducedLevel < levelIter && reducedLevel > 1)
+                {
+                    level = reducedLevel;
+                    levelChanged = true;
+                    /**
+                     * iterate through the rank list in the defined order which also means 
+                     * the following Rank inside the list does have higher item properties
+                     * so we break the loop here
+                     */
+                    break;
+                }
+            }
+            if (changedRank.CompareTo(entry) >= 0)
+            {
+                int increasedLevel = levelIter + 1;
+                if (increasedLevel > levelIter)
+                {
+                    level = increasedLevel;
+                    levelChanged = true;
+                    // we don not break th loop until we find the correct level to match up
+                }
+            }
         }
-        if (OnExperienceChanged != null) OnExperienceChanged(this, EventArgs.Empty);
+        if (levelChanged && OnLevelChanged != null) OnLevelChanged(this, EventArgs.Empty);
     }
-
 
     /**
      * TODO: cache returned value 
@@ -125,10 +161,6 @@ public class LevelSystem
         }
         return result;
     }
-
-    /**
-     *  TODO: define how to react to the item list change and increase the level
-     */
 
     /// <summary> 
     ///   Returns the current level number
