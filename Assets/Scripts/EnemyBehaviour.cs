@@ -11,6 +11,7 @@ public class EnemyBehaviour : MonoBehaviour
     private const float rotationSpeed = 0.01f;
     private const float aggroRange = 50;
 
+    private bool sharpTurn;
     private bool chaseMode;
     private int framesSinceMovementStart;
     private Vector3 movementDirection;
@@ -21,6 +22,7 @@ public class EnemyBehaviour : MonoBehaviour
     void Start()
     {
         chaseMode = false;
+        sharpTurn = false;
         framesSinceMovementStart = movementDuration;
         home = transform.position;
 
@@ -53,27 +55,23 @@ public class EnemyBehaviour : MonoBehaviour
         }   
     }
 
-    public void randomMove()
+    private void randomMove()
     {
         if(framesSinceMovementStart >= movementDuration)
         {
 
-            if(Random.Range(0, 20) < 1)
+            sharpTurn = false;
+
+            if(Random.Range(0, 40) < 1)
             {
+                //Small chance for the ship to not move
                 movementDirection = new Vector3(0, 0, 0);
                 framesSinceMovementStart = -movementDuration;
             } else
             {
-                do
-                {
-                    movementDirection = Random.insideUnitCircle.normalized;
-                } while (Physics.Raycast(transform.position, movementDirection, idleMovementSpeed * movementDuration));
-                framesSinceMovementStart = 0;
+                generateNewDestinationPoint();
             }
-            //Generate new destination point
 
-            
-            
         } else
         {
             //Continue movement
@@ -84,13 +82,24 @@ public class EnemyBehaviour : MonoBehaviour
                 transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(movementDirection, Vector3.up), rotationSpeed);
 
                 //Move if there is no danger ahead
-                if (!Physics.Raycast(transform.position, transform.forward, idleMovementSpeed * 5))
+                if (!Physics.Raycast(transform.position, transform.forward, idleMovementSpeed * 60))
                 {
-                    transform.position += transform.forward * idleMovementSpeed;
+
+                    if(!sharpTurn)
+                    {
+                        transform.position += transform.forward * idleMovementSpeed;
+                    }
+                    
                 }
                 else
                 {
-                    framesSinceMovementStart = movementDuration;
+                    //Emergency Maneuver
+                    if(!sharpTurn)
+                    {
+                        sharpTurn = true;
+                        movementDirection *= -1;
+                        framesSinceMovementStart = 0;
+                    }
                 }
             }
 
@@ -108,7 +117,7 @@ public class EnemyBehaviour : MonoBehaviour
         }
     }
 
-    public void chase()
+    private void chase()
     {
         if (framesSinceMovementStart >= movementDuration)
         {
@@ -118,5 +127,14 @@ public class EnemyBehaviour : MonoBehaviour
         {
             //Continue movement
         }
+    }
+
+    private void generateNewDestinationPoint()
+    {
+        do
+        {
+            movementDirection = Random.insideUnitCircle.normalized;
+        } while (Physics.Raycast(transform.position, movementDirection, idleMovementSpeed * movementDuration));
+        framesSinceMovementStart = 0;
     }
 }
