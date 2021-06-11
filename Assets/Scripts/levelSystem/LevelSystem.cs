@@ -14,10 +14,12 @@ public class LevelSystem
     private int currentLevel;
 
     private Inventory inventory;
+    private List<RankEntry> rankEntries;
 
     public LevelSystem()
     {
         currentLevel = 1;
+        rankEntries = LevelRankTable.GetLevelRankList();
     }
 
     /// <summary> 
@@ -26,7 +28,24 @@ public class LevelSystem
     public void SetInventory(Inventory inventory)
     {
         this.inventory = inventory;
-        inventory.OnItemListChanged += Inventory_OnItemListChanged;
+        inventory.OnItemAdded += Inventory_OnItemAdded;
+        inventory.OnItemRemoved += Inventory_OnItemRemoved;
+    }
+
+    private void Inventory_OnItemAdded(object sender, EventArgs e)
+    {
+        // Level Window UI reacts to the Item Added Events which in turn also update Bar's Value
+        // we should first trigger ExperienceChanged Events and update level
+        if (OnExperienceChanged != null) OnExperienceChanged(this, EventArgs.Empty);
+        Upgrade(GetChangedLevelRank());
+    }
+
+    private void Inventory_OnItemRemoved(object sender, EventArgs e)
+    {
+        // Level Window UI reacts to the Item Removed Events which in turn also update Bar's Value
+        // we should first trigger ExperienceChanged Events and update level
+        if (OnExperienceChanged != null) OnExperienceChanged(this, EventArgs.Empty);
+        Downgrade(GetChangedLevelRank());
     }
 
     /// <summary> 
@@ -37,54 +56,24 @@ public class LevelSystem
         return LevelRankTable.GetLevelTable()[currentLevel];
     }
 
-    private void Inventory_OnItemListChanged(object sender, EventArgs e)
-    {
-        // Level Window UI reacts to the Item List Changed Events which in turn also update Bar's Value
-        // we should first trigger ExperienceChanged Events and update level
-        if (OnExperienceChanged != null) OnExperienceChanged(this, EventArgs.Empty);
-        UpdateLevel();
-    }
-
     /// <summary> 
-    ///   Updates level according the incoming item properties, which means either upgrading or downgrading
+    ///   Returns a RankEntry which represents the incoming changed Item properties
     /// </summary>
-    private void UpdateLevel()
+    private RankEntry GetChangedLevelRank()
     {
-        RankEntry changedRank = new RankEntry
+        return new RankEntry
         {
             mineralRequired = GetMineralLevelValue(),
             manaRequired = GetManaLevelValue(),
             medkitRequired = GetMedkitLevelValue(),
             healthRequired = GetHealthLevelValue(),
         };
-        Downgrade(changedRank, LevelRankTable.GetLevelRankList());
-        Upgrade(changedRank, LevelRankTable.GetLevelRankList());
-        
-    }
-
-    /// <summary> 
-    ///   Downgrades level according the item properties
-    /// </summary>
-    private void Downgrade(RankEntry changedRank, List<RankEntry> rankEntries)
-    {
-        bool levelChanged = false;
-
-        for (int levelIter = rankEntries.Count - 1; levelIter > 0; levelIter--)
-        {
-            RankEntry levelRank = rankEntries[levelIter];
-            if (changedRank.CompareTo(levelRank) < 0 && currentLevel > levelIter) 
-            {
-                currentLevel -= 1;
-                levelChanged = true;
-            }
-        }
-        if (levelChanged && OnLevelChanged != null) OnLevelChanged(this, EventArgs.Empty);
     }
 
     /// <summary> 
     ///   Upgrades level according the item properties
     /// </summary>
-    private void Upgrade(RankEntry changedRank, List<RankEntry> rankEntries)
+    private void Upgrade(RankEntry changedRank)
     {
         bool levelChanged = false;
         for (int levelIter = 0; levelIter < rankEntries.Count; levelIter++)
@@ -100,9 +89,23 @@ public class LevelSystem
         if (levelChanged && OnLevelChanged != null) OnLevelChanged(this, EventArgs.Empty);
     }
 
-    private int GetMaximumLevel()
+    /// <summary> 
+    ///   Downgrades level according the item properties
+    /// </summary>
+    private void Downgrade(RankEntry changedRank)
     {
-        return LevelRankTable.GetLevelRankList().Count;
+        bool levelChanged = false;
+
+        for (int levelIter = rankEntries.Count - 1; levelIter > 0; levelIter--)
+        {
+            RankEntry levelRank = rankEntries[levelIter];
+            if (changedRank.CompareTo(levelRank) < 0 && currentLevel > levelIter) 
+            {
+                currentLevel -= 1;
+                levelChanged = true;
+            }
+        }
+        if (levelChanged && OnLevelChanged != null) OnLevelChanged(this, EventArgs.Empty);
     }
 
     /**

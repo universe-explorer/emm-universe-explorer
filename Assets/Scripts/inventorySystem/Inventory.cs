@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Inventory
 {
-    public event EventHandler OnItemListChanged;
+    public event EventHandler OnItemAdded;
+    public event EventHandler OnItemRemoved;
 
     private List<Item> itemList;
 
@@ -37,8 +38,7 @@ public class Inventory
         {
             itemList.Add(item);
         }
-        OnItemListChanged?.Invoke(this, EventArgs.Empty);
-        Debug.Log("Inventory item counter: " + GetTotalItemsCount().ToString());
+        OnItemAdded?.Invoke(this, EventArgs.Empty);
     }
 
     /// <summary> 
@@ -66,8 +66,7 @@ public class Inventory
         {
             itemList.Remove(item);
         }
-        OnItemListChanged?.Invoke(this, EventArgs.Empty);
-        Debug.Log("Inventory item counter: " + GetTotalItemsCount());
+        OnItemRemoved?.Invoke(this, EventArgs.Empty);
     }
 
     /// <summary> 

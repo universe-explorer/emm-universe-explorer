@@ -21,7 +21,18 @@ public class Ui_inventory : MonoBehaviour
     public void SetInventory(Inventory inventory)
     {
         this.inventory = inventory;
-        inventory.OnItemListChanged += Inventory_OnItemListChanged;
+        inventory.OnItemAdded += Inventory_OnItemAddeded;
+        inventory.OnItemRemoved += Inventory_OnItemRemoved;
+        RefreshInventoryItems();
+    }
+
+    private void Inventory_OnItemAddeded(object sender, System.EventArgs e)
+    {
+        RefreshInventoryItems();
+    }
+
+    private void Inventory_OnItemRemoved(object sender, System.EventArgs e)
+    {
         RefreshInventoryItems();
     }
 
@@ -31,11 +42,6 @@ public class Ui_inventory : MonoBehaviour
     public void SetGameObject(GameObject gameObject)
     {
         this.player = gameObject;
-    }
-
-    private void Inventory_OnItemListChanged(object sender, System.EventArgs e)
-    {
-        RefreshInventoryItems();
     }
 
     /// <summary> 
