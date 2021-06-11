@@ -6,7 +6,8 @@ public class EnemyBehaviour : MonoBehaviour
 {
     private const int movementDuration = 200;
     private const float movementRadius = 50;
-    private const float movementSpeed = 0.1f;
+    private const float idleMovementSpeed = 0.1f;
+    private const float chaseMovementSpeed = 0.3f;
     private const float rotationSpeed = 0.01f;
     private const float aggroRange = 50;
 
@@ -56,28 +57,41 @@ public class EnemyBehaviour : MonoBehaviour
     {
         if(framesSinceMovementStart >= movementDuration)
         {
-            //Generate new destination point
-            do
-            {
-                movementDirection = Random.insideUnitCircle.normalized;
-            } while (Physics.Raycast(transform.position, movementDirection, movementSpeed * movementDuration));
 
-            framesSinceMovementStart = 0;
+            if(Random.Range(0, 20) < 1)
+            {
+                movementDirection = new Vector3(0, 0, 0);
+                framesSinceMovementStart = -movementDuration;
+            } else
+            {
+                do
+                {
+                    movementDirection = Random.insideUnitCircle.normalized;
+                } while (Physics.Raycast(transform.position, movementDirection, idleMovementSpeed * movementDuration));
+                framesSinceMovementStart = 0;
+            }
+            //Generate new destination point
+
+            
             
         } else
         {
             //Continue movement
 
             //Rotate towards target
-            transform.rotation = Quaternion.Lerp(transform.rotation , Quaternion.LookRotation(movementDirection, Vector3.up), rotationSpeed);
+            if(movementDirection != Vector3.zero)
+            {
+                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(movementDirection, Vector3.up), rotationSpeed);
 
-            //Move if there is no danger ahead
-            if (!Physics.Raycast(transform.position, transform.forward, movementSpeed * 3))
-            {
-                transform.position += transform.forward * movementSpeed;
-            } else
-            {
-                framesSinceMovementStart = movementDuration;
+                //Move if there is no danger ahead
+                if (!Physics.Raycast(transform.position, transform.forward, idleMovementSpeed * 5))
+                {
+                    transform.position += transform.forward * idleMovementSpeed;
+                }
+                else
+                {
+                    framesSinceMovementStart = movementDuration;
+                }
             }
 
             framesSinceMovementStart++;
