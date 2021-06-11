@@ -9,8 +9,10 @@ public class EnemyBehaviour : MonoBehaviour
     private const float idleMovementSpeed = 0.1f;
     private const float chaseMovementSpeed = 0.3f;
     private const float rotationSpeed = 0.01f;
-    private const float aggroRange = 50;
+    private const float aggroRange = 100;
+    private int shotDelay = 50;
 
+    private bool shooting;
     private bool sharpTurn;
     private bool chaseMode;
     private int framesSinceMovementStart;
@@ -23,6 +25,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         chaseMode = false;
         sharpTurn = false;
+        shooting = false;
         framesSinceMovementStart = movementDuration;
         home = transform.position;
 
@@ -57,6 +60,8 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void randomMove()
     {
+        shooting = false;
+
         if(framesSinceMovementStart >= movementDuration)
         {
 
@@ -74,58 +79,50 @@ public class EnemyBehaviour : MonoBehaviour
 
         } else
         {
-            //Continue movement
-
-            //Rotate towards target
-            if(movementDirection != Vector3.zero)
-            {
-                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(movementDirection, Vector3.up), rotationSpeed);
-
-                //Move if there is no danger ahead
-                if (!Physics.Raycast(transform.position, transform.forward, idleMovementSpeed * 60))
-                {
-
-                    if(!sharpTurn)
-                    {
-                        transform.position += transform.forward * idleMovementSpeed;
-                    }
-                    
-                }
-                else
-                {
-                    //Emergency Maneuver
-                    if(!sharpTurn)
-                    {
-                        sharpTurn = true;
-                        movementDirection *= -1;
-                        framesSinceMovementStart = 0;
-                    }
-                }
-            }
-
-            framesSinceMovementStart++;
-
-            if (Vector3.Distance(transform.position, home) > movementRadius)
-            {
-                Quaternion save = transform.rotation;
-                transform.LookAt(home);
-                movementDirection = transform.forward;
-                transform.rotation = save;
-                framesSinceMovementStart = 0;
-            }
-
+            continueMovement(idleMovementSpeed);
         }
     }
 
     private void chase()
     {
+        home = player[0].transform.position;
+
         if (framesSinceMovementStart >= movementDuration)
         {
-            //Generate new destination point
+            if(shooting)
+            {
+                generateNewDestinationPoint();
+                shooting = false;
+            } else
+            {
+                shooting = true;
+            }
+
+            framesSinceMovementStart = 0;
+
         }
         else
         {
-            //Continue movement
+            if(!shooting)
+            {
+                continueMovement(chaseMovementSpeed);
+            } else
+            {
+                setMovementDirectionTowardsPoint(home);
+
+                if(movementDirection != Vector3.zero)
+                {
+                    transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(movementDirection, Vector3.up), rotationSpeed * 5);
+                }
+                
+                if(framesSinceMovementStart % shotDelay == 0)
+                {
+                    //TODO: Shoot
+                    Debug.Log("This would be a shot if it was actually implemented");
+                }
+
+                framesSinceMovementStart++;
+            }
         }
     }
 
@@ -136,5 +133,53 @@ public class EnemyBehaviour : MonoBehaviour
             movementDirection = Random.insideUnitCircle.normalized;
         } while (Physics.Raycast(transform.position, movementDirection, idleMovementSpeed * movementDuration));
         framesSinceMovementStart = 0;
+    }
+
+    private void continueMovement(float speed)
+    {
+
+        //Rotate towards target
+        if (movementDirection != Vector3.zero)
+        {
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(movementDirection, Vector3.up), rotationSpeed);
+
+            //Move if there is no danger ahead
+            if (!Physics.Raycast(transform.position, transform.forward, speed * 60))
+            {
+
+                if (!sharpTurn)
+                {
+                    transform.position += transform.forward * speed;
+                }
+
+            }
+            else
+            {
+                //Emergency Maneuver
+                if (!sharpTurn)
+                {
+                    sharpTurn = true;
+                    movementDirection *= -1;
+                    framesSinceMovementStart = 0;
+                }
+            }
+        }
+
+        framesSinceMovementStart++;
+
+        //Return to home if too far away from it
+        if (Vector3.Distance(transform.position, home) > movementRadius)
+        {
+            setMovementDirectionTowardsPoint(home);
+            framesSinceMovementStart = 0;
+        }
+    }
+
+    private void setMovementDirectionTowardsPoint(Vector3 point)
+    {
+        Quaternion save = transform.rotation;
+        transform.LookAt(point);
+        movementDirection = transform.forward;
+        transform.rotation = save;
     }
 }
