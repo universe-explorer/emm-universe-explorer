@@ -11,13 +11,13 @@ public class LevelSystem
     public event EventHandler OnExperienceChanged;
     public event EventHandler OnLevelChanged;
     
-    private int level;
+    private int currentlevel;
 
     private Inventory inventory;
 
     public LevelSystem()
     {
-        level = 1;
+        currentlevel = 1;
     }
 
     /// <summary> 
@@ -34,13 +34,15 @@ public class LevelSystem
     /// </summary>
     public RankEntry GetCurrentLevelRank()
     {
-        return LevelRankTable.GetLevelTable()[level];
+        return LevelRankTable.GetLevelTable()[currentlevel];
     }
 
     private void Inventory_OnItemListChanged(object sender, EventArgs e)
     {
-        UpdateLevel();
+        // Level Window UI reacts to the Item List Changed Events which in turn also update Bar's Value
+        // we should first trigger ExperienceChanged Events and update level
         if (OnExperienceChanged != null) OnExperienceChanged(this, EventArgs.Empty);
+        UpdateLevel();
     }
 
     /// <summary> 
@@ -59,13 +61,13 @@ public class LevelSystem
         List<RankEntry> rankEntries = LevelRankTable.GetLevelRankList();
         for (int levelIter = 0; levelIter < rankEntries.Count; levelIter++)
         {
-            RankEntry entry = rankEntries[levelIter]; 
-            if (changedRank.CompareTo(entry) < 0)
+            RankEntry levelRank = rankEntries[levelIter];
+            int level = levelIter + 1;
+            if (changedRank.CompareTo(levelRank) < 0)
             {
-                int reducedLevel = levelIter + 1;
-                if (reducedLevel < levelIter && reducedLevel > 1)
+                if (level < currentlevel - 1)
                 {
-                    level -= 1;
+                    currentlevel -= 1;
                     levelChanged = true;
                     /**
                      * iterate through the rank list in the defined order which also means 
@@ -75,18 +77,22 @@ public class LevelSystem
                     break;
                 }
             }
-            if (changedRank.CompareTo(entry) >= 0)
+            if (changedRank.CompareTo(levelRank) >= 0)
             {
-                int increasedLevel = levelIter + 1;
-                if (increasedLevel > levelIter)
+                if (level > currentlevel - 1)
                 {
-                    level += 1;
+                    currentlevel += 1;
                     levelChanged = true;
                     // we don not break th loop until we find the correct level to match up
                 }
             }
         }
         if (levelChanged && OnLevelChanged != null) OnLevelChanged(this, EventArgs.Empty);
+    }
+
+    private int GetMaximumLevel()
+    {
+        return LevelRankTable.GetLevelRankList().Count;
     }
 
     /**
@@ -167,6 +173,6 @@ public class LevelSystem
     /// </summary>
     public int GetLevelNumber()
     {
-        return level;
+        return currentlevel;
     }
 }

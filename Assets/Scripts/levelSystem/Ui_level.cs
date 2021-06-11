@@ -85,16 +85,16 @@ public class Ui_level : MonoBehaviour
     private void RefreshExperience()
     {
         var currentMineralValue = levelSystem.GetMineralLevelValue();
-        if (currentMineralValue != mineralValue) ResetMineralValue(currentMineralValue);
+        if (currentMineralValue != mineralValue) UpdateMineralValue(currentMineralValue);
 
         var currentMedkitValue = levelSystem.GetMedkitLevelValue();
-        if (currentMedkitValue != medkitValue) ResetMedkitValue(currentMedkitValue);
+        if (currentMedkitValue != medkitValue) UpdateMedkitValue(currentMedkitValue);
 
         var currentManaValue = levelSystem.GetManaLevelValue();
-        if (currentManaValue != manaValue) ResetManaValue(currentManaValue);
+        if (currentManaValue != manaValue) UpdateManaValue(currentManaValue);
 
         var currentHealthValue = levelSystem.GetHealthLevelValue();
-        if (currentHealthValue != healthValue) ResetHealthValue(currentHealthValue);
+        if (currentHealthValue != healthValue) UpdateHealthValue(currentHealthValue);
     }
 
     /// <summary> 
@@ -105,39 +105,106 @@ public class Ui_level : MonoBehaviour
         level.SetText("Level: " + levelSystem.GetLevelNumber().ToString());
 
         RankEntry entry = levelSystem.GetCurrentLevelRank();
-
-        mineralBar.maxValue = entry.mineralRequired;
-        mineralMaxValue.SetText(entry.mineralRequired.ToString());
-
-        manaBar.maxValue = entry.manaRequired;
-        manaMaxValue.SetText(entry.manaRequired.ToString());
-
-        medkitBar.maxValue = entry.medkitRequired;
-        medkitMaxValue.SetText(entry.medkitRequired.ToString());
-
-        healthBar.maxValue = entry.healthRequired;
-        healthMaxValue.SetText(entry.healthRequired.ToString());
+        ResetMineralBar(entry.mineralRequired);
+        ResetManaBar(entry.manaRequired);
+        ResetMedkitBar(entry.medkitRequired);
+        ResetHealthBar(entry.healthRequired);
     }
 
-    private void ResetMineralValue(int value)
+    /// <summary> 
+    ///   Resets corresponding Bar's Max Value and the current value
+    /// </summary>
+
+
+    /// <summary> 
+    ///   Resets Mineral Bar
+    /// </summary>
+    private void ResetMineralBar(int maxValue)
+    {
+        mineralBar.maxValue = maxValue;
+        if (mineralValue > maxValue)
+        {
+            mineralBar.value = maxValue;
+        }
+        else
+            mineralBar.value = mineralValue;
+        mineralMaxValue.SetText(maxValue.ToString());
+    }
+
+    /// <summary> 
+    ///   Resets Mana Bar
+    /// </summary>
+    private void ResetManaBar(int maxValue)
+    {
+        manaBar.maxValue = maxValue;
+        if (manaValue > maxValue)
+            manaBar.value = maxValue;
+        else
+            manaBar.value = manaValue;
+        manaMaxValue.SetText(maxValue.ToString());
+    }
+
+    /// <summary> 
+    ///   Resets Medkit Bar
+    /// </summary>
+    private void ResetMedkitBar(int maxValue)
+    {
+        medkitBar.maxValue = maxValue;
+        if (medkitValue > maxValue)
+            medkitBar.value = maxValue;
+        else
+            medkitBar.value = medkitValue;
+        medkitMaxValue.SetText(maxValue.ToString());
+    }
+
+    /// <summary> 
+    ///   Resets Health Bar
+    /// </summary>
+    private void ResetHealthBar(int maxValue)
+    {
+        healthBar.maxValue = maxValue;
+        if (healthValue > maxValue)
+            healthBar.value = maxValue;
+        else
+            healthBar.value = healthValue;
+        healthMaxValue.SetText(maxValue.ToString());
+    }
+
+    /// <summary> 
+    ///   Updates corresponding bar's Value and do not touch the Max Valus of Bar
+    /// </summary>
+
+    /// <summary> 
+    ///   Updates Mineral Bar's value and cache it
+    /// </summary>
+    private void UpdateMineralValue(int value)
     {
         mineralBar.value = value;
         mineralValue = value;
     }
 
-    private void ResetManaValue(int value)
+    /// <summary> 
+    ///   Updates Mana Bar's value and cache it
+    /// </summary>
+    private void UpdateManaValue(int value)
     {
         manaBar.value = value;
         manaValue = value;
     }
 
-    private void ResetMedkitValue(int value)
+    /// <summary> 
+    ///   Updates Medkit Bar's value and cache it
+    /// </summary>
+    private void UpdateMedkitValue(int value)
     {
         medkitBar.value = value;
         medkitValue = value;
     }
 
-    private void ResetHealthValue(int value)
+    /// <summary> 
+    ///   Updates Health Bar's value and cache it
+    /// </summary>
+    private void UpdateHealthValue(int value)
     {
         healthBar.value = value;
         healthValue = value;
