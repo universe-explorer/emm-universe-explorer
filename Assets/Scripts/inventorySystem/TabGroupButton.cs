@@ -2,9 +2,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-/**
- * Represents a single Button with TabGroup, not used any more.
- */
+/// <summary> 
+///   Represents a single Button with TabGroup, not used any more.
+/// </summary>
 [RequireComponent(typeof(Image))]
 public class TabGroupButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {

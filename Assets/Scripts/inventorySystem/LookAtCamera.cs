@@ -1,9 +1,9 @@
 using UnityEngine;
 
-/**
- *  Enforce 2D Game Object to look at the main camera all the time which 
- *  makes it feel like a 3D Game Object
- */
+/// <summary> 
+///   Enforce 2D Game Object to look at the main camera all the time which 
+///   makes it feel like a 3D Game Object
+/// </summary>
 public class LookAtCamera : MonoBehaviour
 {
     private Camera mainCamera;

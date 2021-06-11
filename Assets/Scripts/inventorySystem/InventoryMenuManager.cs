@@ -1,9 +1,9 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-/**
- * Inventory Menu Manager, not used any more.
- */
+/// <summary> 
+/// Inventory Menu Manager, not used any more.
+/// </summary>
 public class InventoryMenuManager : MonoBehaviour
 {
     public GameObject menu;
