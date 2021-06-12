@@ -5,6 +5,8 @@ using System.Collections.Generic;
 /// </summary>
 public class LevelRankTable
 {
+    private static Dictionary<int, RankEntry> table = null;
+
     /// <summary> 
     ///   Represents level Rank for all levels 
     /// </summary>
@@ -19,12 +21,15 @@ public class LevelRankTable
     /// <summary> 
     ///   Returns the Level Rank for all levels, starting from the Level 1
     /// </summary>
-    public static Dictionary<int,RankEntry> GetLevelTable()
+    public static Dictionary<int, RankEntry> GetLevelTable()
     {
-        Dictionary<int, RankEntry> table = new Dictionary<int, RankEntry>();
-        for (int level = 0; level < rankEntries.Count; level++)
+        if (table == null)
         {
-            table.Add(level + 1, rankEntries[level]) ;
+            table = new Dictionary<int, RankEntry>();
+            for (int level = 0; level < rankEntries.Count; level++)
+            {
+                table.Add(level + 1, rankEntries[level]);
+            }
         }
         return table;
     }
