@@ -16,7 +16,7 @@ public class RankEntry : IComparable<RankEntry>
     public int healthRequired { get; set; }
 
     /// <summary> 
-    ///   Compare RankEntry Objects
+    ///   Compares RankEntry Objects
     /// </summary>
     public int CompareTo(RankEntry other)
     {

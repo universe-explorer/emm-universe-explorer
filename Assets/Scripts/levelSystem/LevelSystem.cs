@@ -23,7 +23,7 @@ public class LevelSystem
     }
 
     /// <summary> 
-    ///   Set Inventory which acts as a Item Repository for this level system
+    ///   Sets Inventory which acts as a Item Repository for this level system
     /// </summary>
     public void SetInventory(Inventory inventory)
     {
@@ -71,7 +71,7 @@ public class LevelSystem
     }
 
     /// <summary> 
-    ///   Upgrades level according the item properties
+    ///   Upgrades level according to the item's properties
     /// </summary>
     private void Upgrade(RankEntry changedRank)
     {
@@ -90,7 +90,7 @@ public class LevelSystem
     }
 
     /// <summary> 
-    ///   Downgrades level according the item properties
+    ///   Downgrades level according to the item's properties
     /// </summary>
     private void Downgrade(RankEntry changedRank)
     {
@@ -111,7 +111,7 @@ public class LevelSystem
     /**
      * TODO: cache returned value 
      * 
-     * every time when space ship collects new items, the following Getter are called which 
+     * every time when space ship collects new items, the following Getters are called which 
      * cause a interation of the item list that runs in linear time, we should cache the
      * corresponding values, but in our usecase this should not be a performance issue because 
      * the item list is relative small.

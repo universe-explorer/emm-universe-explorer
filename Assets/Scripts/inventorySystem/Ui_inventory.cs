@@ -41,7 +41,7 @@ public class Ui_inventory : MonoBehaviour
     /// </summary>
     public void SetGameObject(GameObject gameObject)
     {
-        this.player = gameObject;
+        player = gameObject;
     }
 
     /// <summary> 

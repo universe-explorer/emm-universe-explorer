@@ -122,12 +122,7 @@ public class Ui_level : MonoBehaviour
     private void ResetMineralBar(int maxValue)
     {
         mineralBar.maxValue = maxValue;
-        if (mineralValue > maxValue)
-        {
-            mineralBar.value = maxValue;
-        }
-        else
-            mineralBar.value = mineralValue;
+        mineralBar.value = mineralValue > maxValue ? maxValue : mineralValue;
         mineralMaxValue.SetText(maxValue.ToString());
     }
 
@@ -137,10 +132,7 @@ public class Ui_level : MonoBehaviour
     private void ResetManaBar(int maxValue)
     {
         manaBar.maxValue = maxValue;
-        if (manaValue > maxValue)
-            manaBar.value = maxValue;
-        else
-            manaBar.value = manaValue;
+        manaBar.value = manaValue > maxValue ? maxValue : manaValue;
         manaMaxValue.SetText(maxValue.ToString());
     }
 
@@ -150,10 +142,7 @@ public class Ui_level : MonoBehaviour
     private void ResetMedkitBar(int maxValue)
     {
         medkitBar.maxValue = maxValue;
-        if (medkitValue > maxValue)
-            medkitBar.value = maxValue;
-        else
-            medkitBar.value = medkitValue;
+        medkitBar.value = medkitValue > maxValue ? maxValue : medkitValue;
         medkitMaxValue.SetText(maxValue.ToString());
     }
 
@@ -163,10 +152,7 @@ public class Ui_level : MonoBehaviour
     private void ResetHealthBar(int maxValue)
     {
         healthBar.maxValue = maxValue;
-        if (healthValue > maxValue)
-            healthBar.value = maxValue;
-        else
-            healthBar.value = healthValue;
+        healthBar.value = healthValue > maxValue ? maxValue : healthValue;
         healthMaxValue.SetText(maxValue.ToString());
     }
 

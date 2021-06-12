@@ -8,10 +8,6 @@ public class InventoryMenuManager : MonoBehaviour
 {
     public GameObject menu;
 
-    void Start()
-    {
-    }
-
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.O))
