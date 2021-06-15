@@ -15,23 +15,38 @@ public class Ui_inventory : MonoBehaviour
         itemSlotTemplate = itemSlotContainer.Find("itemSlotTemplate");
     }
 
+    /// <summary> 
+    ///   Sets the associated Inventory System which provides Events utilities and data accessibilities
+    /// </summary>
     public void SetInventory(Inventory inventory)
     {
         this.inventory = inventory;
-        inventory.OnItemListChanged += Inventory_OnItemListChanged;
+        inventory.OnItemAdded += Inventory_OnItemAddeded;
+        inventory.OnItemRemoved += Inventory_OnItemRemoved;
         RefreshInventoryItems();
     }
 
+    private void Inventory_OnItemAddeded(object sender, System.EventArgs e)
+    {
+        RefreshInventoryItems();
+    }
+
+    private void Inventory_OnItemRemoved(object sender, System.EventArgs e)
+    {
+        RefreshInventoryItems();
+    }
+
+    /// <summary> 
+    ///   Sets the associated Game Object (Space ship) which provides location and other data 
+    /// </summary>
     public void SetGameObject(GameObject gameObject)
     {
-        this.player = gameObject;
+        player = gameObject;
     }
 
-    private void Inventory_OnItemListChanged(object sender, System.EventArgs e)
-    {
-        RefreshInventoryItems();
-    }
-
+    /// <summary> 
+    ///   Updates Inventory UI Elements when the Items list is changed
+    /// </summary>
     private void RefreshInventoryItems()
     {
         if (itemSlotContainer == null) return;
@@ -55,6 +70,9 @@ public class Ui_inventory : MonoBehaviour
         }
     }
 
+    /// <summary> 
+    ///   Handles mouse right click Events on the Inentory Item
+    /// </summary>
     private void HandleRightClick(Transform parent, Item item)
     {
         parent.GetComponent<MouseUIEvents>().RightClickHandler = () =>
@@ -72,6 +90,9 @@ public class Ui_inventory : MonoBehaviour
         };
     }
 
+    /// <summary> 
+    ///   Handles mouse hover Events on the Inentory Item
+    /// </summary>
     private void HandleMouseHover(Transform parent, Item item)
     {
         TextMeshProUGUI infoText = parent.Find("info").GetComponent<TextMeshProUGUI>();
@@ -88,12 +109,18 @@ public class Ui_inventory : MonoBehaviour
         };
     }
 
+    /// <summary> 
+    ///   Sets Item Slot template image
+    /// </summary>
     private void SetImage(Transform parent, Item item)
     {
         Image image = parent.Find("image").GetComponent<Image>();
         image.sprite = item.GetSprite();
     }
 
+    /// <summary> 
+    ///   Sets Item's amount within UI
+    /// </summary>
     private void SetAmount(Transform parent, Item item)
     {
         TextMeshProUGUI amount = parent.Find("amount").GetComponent<TextMeshProUGUI>();
