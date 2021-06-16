@@ -327,6 +327,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: rakete
       objectReference: {fileID: 0}
+    - target: {fileID: 3581636488670245244, guid: 7c7e5c7dd2e3e2d46814c106abf916b5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4251213074321910726, guid: 7c7e5c7dd2e3e2d46814c106abf916b5, type: 3}
       propertyPath: m_RootOrder
       value: 14
@@ -411,6 +415,7 @@ MonoBehaviour:
   movementSpeed: 250
   horizontalMovementInverted: 0
   verticalMovementInverted: 0
+  uiInventory: {fileID: 0}
 --- !u!64 &379727059
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -425,22 +430,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4460180872323117134, guid: c3077fbe17a8e544590cfcd46c9fa5b9, type: 3}
---- !u!54 &379727060
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 379727057}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!114 &379727061
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -544,15 +533,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c3077fbe17a8e544590cfcd46c9fa5b9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 459.46603
+      value: 459.394
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c3077fbe17a8e544590cfcd46c9fa5b9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 220.1776
+      value: 220.178
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c3077fbe17a8e544590cfcd46c9fa5b9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 391.33777
+      value: 391.363
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c3077fbe17a8e544590cfcd46c9fa5b9, type: 3}
       propertyPath: m_LocalRotation.w
@@ -585,6 +574,18 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: c3077fbe17a8e544590cfcd46c9fa5b9, type: 3}
       propertyPath: m_Name
       value: MainSpaceship
+      objectReference: {fileID: 0}
+    - target: {fileID: 8122837702962252887, guid: c3077fbe17a8e544590cfcd46c9fa5b9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8122837702962252887, guid: c3077fbe17a8e544590cfcd46c9fa5b9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.005
+      objectReference: {fileID: 0}
+    - target: {fileID: 8122837702962252887, guid: c3077fbe17a8e544590cfcd46c9fa5b9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c3077fbe17a8e544590cfcd46c9fa5b9, type: 3}
@@ -775,6 +776,7 @@ MonoBehaviour:
   movementSpeed: 350
   horizontalMovementInverted: 0
   verticalMovementInverted: 0
+  uiInventory: {fileID: 0}
 --- !u!4 &707234708 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c3077fbe17a8e544590cfcd46c9fa5b9, type: 3}
@@ -917,6 +919,20 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!64 &707234711
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 707234706}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4460180872323117134, guid: c3077fbe17a8e544590cfcd46c9fa5b9, type: 3}
 --- !u!1001 &890449216
 PrefabInstance:
   m_ObjectHideFlags: 0

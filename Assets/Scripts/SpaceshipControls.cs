@@ -5,36 +5,64 @@ using UnityEngine.UI;
 public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
 {
     /* move */
+    [Header("Movement Settings")]
     public bool enableDrifting = true;
-    private const float defaultVelocity = 5;
-    private float maxVelocity = 80;
+    public bool autoDeceleration = false;
+    
+    [SerializeField] //remove in production
+    private float defaultVelocity = 5;
+    
+    [SerializeField] //remove in production
+    private float maxVelocity = 30;
+    
+    [SerializeField] //remove in production
     private float _accelerationSpeed = 0.3f;
+    
+    [SerializeField] //remove in production
+    private float _deccelerationSpeed = 0.03f;
+    
 
 
     /* rotate */
-    private const float sensitivity = 1;
-    private const float maxZRotation = 35;
-    private const float zRotationSpeed = 2.5f;
+    [Header("Rotation Settings")]
+    [SerializeField]
+    private float sensitivity = 1;
+    
+    [SerializeField] //remove in production
+    private float maxZRotation = 35;
+    
+    [SerializeField] //remove in production
+    private float zRotationSpeed = 2.5f;
 
 
     /* boost */
+    [Header("Boost Settings")]
+    
+    [SerializeField] //remove in production
     private float _boostMultiplier = 1.5f;
+    
+    [SerializeField] //remove in production
     private int _maxBoostDuration = 120;
+    
     private bool _isBoosting;
     private int _currentBoostTime;
 
 
     /* rolling */
-    private const float defaultRollingForce = 30f;
+    [Header("Rolling Settings")]
+    
+    [SerializeField] //remove in production
+    private float defaultRollingForce = 30f;
+    
     private const float fullRoll = 360;
-    private const float rollPerFrame = 8;
-
+    private float rollPerFrame = 8;
     private float _currentRoll;
     private bool _isRolling;
     private float _rollingDirection;
 
 
     /* input */
+    [Header("Input Settings")] 
     public bool useAlternativeMouseInput = false;
 
     private float _verticalInput;
@@ -44,16 +72,27 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
 
 
     /* crosshair */
-    public Boolean debugCrosshair = false;
+    [Header("Crosshair Settings")] 
+    
+    [SerializeField] //remove in production
+    private Boolean _debugCrosshair = false;
 
     private GameObject _crosshair, _crosshairUI;
-    private float _crosshairOffset = 1.5f;
-    private float _crosshairMovementSpeed = 2.5f;
+    
+    [SerializeField] //remove in production
+    private float _crosshairOffsetX = 18f;
+    
+    [SerializeField] //remove in production
+    private float _crosshairOffsetY = 7f;
+    
+    [SerializeField] //remove in production
+    private float _crosshairMovementSpeed = 100f;
     private Vector3 _crosshairPosition;
 
     /* other */
     private Rigidbody _ship;
 
+    [Header("Debug")] public float velocity;
 
     /// <summary>
     ///   <para>Maps value from original range to new range</para>
@@ -67,6 +106,48 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
     {
         float t = Mathf.InverseLerp(fromMin, fromMax, value);
         return Mathf.Lerp(toMin, toMax, t);
+    }
+    
+    [SerializeField] private Ui_inventory uiInventory;
+    [SerializeField] private Ui_level uiLevel;
+
+    private Inventory inventory;
+    private LevelSystem levelSystem;
+
+    /// <summary> 
+    ///   Detects Collision and add items to the Inventory System
+    /// </summary>
+    private void OnTriggerEnter(Collider other)
+    {
+        if (gameObject.tag == "MainSpaceShip")
+        {
+            ItemWorld itemWorld = other.gameObject.GetComponent<ItemWorld>();
+            if (itemWorld != null)
+            {
+                inventory.AddItem(itemWorld.GetItem());
+                itemWorld.DestroySelf();
+            }
+        }
+    }
+
+    private void Awake()
+    {
+        // initialize Inventory System
+        inventory = new Inventory();
+        uiInventory.SetInventory(inventory);
+        uiInventory.SetGameObject(gameObject);
+
+        // initialize Level System
+        levelSystem = new LevelSystem();
+        levelSystem.SetInventory(inventory);
+        levelSystem.OnLevelChanged += LevelSystem_OnLevelChanged;
+        uiLevel.SetLevelSystem(levelSystem);
+    }
+
+    // TODO: based on level change the Speed, Boost duration and so on.
+    private void LevelSystem_OnLevelChanged(object sender, EventArgs e)
+    {
+        Debug.Log("Change Speed and Boost Duration based on the Level");
     }
 
     void Start()
@@ -82,8 +163,21 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
         Cursor.lockState = CursorLockMode.Confined;
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            uiInventory.gameObject.SetActive(!uiInventory.gameObject.activeSelf);
+        }
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            uiLevel.gameObject.SetActive(!uiLevel.gameObject.activeSelf);
+        }
+    }
+
     void FixedUpdate()
     {
+        velocity = _ship.velocity.magnitude;
         _verticalInput = Input.GetAxis("Vertical");
         _isBoosting = false;
         if (!useAlternativeMouseInput)
@@ -154,9 +248,20 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
     /// </summary>
     public void Move(Vector3 direction, float force)
     {
+        print(force);
+
         float _maxVelocity = maxVelocity;
         float speedOffset = .01f;
 
+
+        if (autoDeceleration)
+        {
+            if (force == 0 && _ship.velocity.magnitude > 0)
+            {
+                _ship.velocity = Vector3.Lerp(_ship.velocity, -direction, _deccelerationSpeed);
+            }
+        }
+        
         if (_isBoosting && _currentBoostTime < _maxBoostDuration)
         {
             _maxVelocity *= _boostMultiplier;
@@ -264,8 +369,8 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
     {
         Vector3 pos = _crosshair.transform.localPosition;
 
-        float x = mouseInput.x * _crosshairOffset;
-        float y = mouseInput.y * _crosshairOffset * (-1);
+        float x = mouseInput.x * _crosshairOffsetX;
+        float y = mouseInput.y * _crosshairOffsetY * (-1);
 
         x = Mathf.Lerp(pos.x, x, Time.deltaTime * _crosshairMovementSpeed);
         y = Mathf.Lerp(pos.y, y, Time.deltaTime * _crosshairMovementSpeed);
@@ -283,7 +388,7 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
             Vector3.Lerp(_crosshairUI.transform.position, screenPoint, Time.deltaTime * 10f);
 
         //debug options
-        if (debugCrosshair)
+        if (_debugCrosshair)
         {
             _crosshair.GetComponent<MeshRenderer>().enabled = true;
         }
