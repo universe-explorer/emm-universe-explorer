@@ -11,6 +11,8 @@ TagManager:
   - Asteroid
   - MainSpaceShip
   - MeteorSpawnerField
+  - Enemy
+  - Collectible
   layers:
   - Default
   - TransparentFX
