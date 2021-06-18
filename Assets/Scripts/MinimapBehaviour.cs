@@ -7,6 +7,7 @@ public class MinimapBehaviour : MonoBehaviour
 {
 
     public Transform spaceShip;
+    [SerializeField] private Shader emissionShader;
     private float cameraHeight = 100;
     private float referenceHeight;
     private string planetTag = "Planet";
@@ -71,7 +72,11 @@ public class MinimapBehaviour : MonoBehaviour
             GameObject minimapIconObj = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             minimapIconObj.name = minimapIconObjName;
             MeshRenderer minimapIconMeshRenderer = minimapIconObj.GetComponent<MeshRenderer>();
-            minimapIconMeshRenderer.material = planetMeshRenderer.material;
+            minimapIconMeshRenderer.material.CopyPropertiesFromMaterial( planetMeshRenderer.material);
+           // minimapIconMeshRenderer.material.shader = emissionShader;
+           minimapIconMeshRenderer.material.EnableKeyword("_EMISSION");
+           minimapIconMeshRenderer.material.SetColor("_EmissionColor",Color.white*Mathf.LinearToGammaSpace(0.05f));
+  
             // TODO: Set minimapIconObj layer to minimap
             // TODO: Add shader to change brightness
 
