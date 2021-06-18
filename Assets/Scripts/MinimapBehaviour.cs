@@ -15,4 +15,9 @@ public class MinimapBehaviour : MonoBehaviour
     {
         
     }
+
+    private void CreatePlanetIcon()
+    {
+        // test 
+    }
 }
