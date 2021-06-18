@@ -18,6 +18,11 @@ public class MinimapBehaviour : MonoBehaviour
 
     private void SetPosition()
     {
+		
+	}
 
+    private void CreatePlanetIcon()
+    {
+        // test 
     }
 }
