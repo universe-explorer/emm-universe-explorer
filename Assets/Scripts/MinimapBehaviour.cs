@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MinimapBehaviour : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class MinimapBehaviour : MonoBehaviour
     public Transform spaceShip;
     private float cameraHeight = 100;
     private float referenceHeight;
+    private string planetTag = "Planet";
 
     void Start()
     {
@@ -40,8 +42,16 @@ public class MinimapBehaviour : MonoBehaviour
         cameraHeight = newCameraHeight;
     }
 
-    private void CreatePlanetIcon()
+    private void AddMinimapIcons()
     {
-        // test 
+        GameObject[] planets = GameObject.FindGameObjectsWithTag(planetTag);
+        Debug.Log("Amount of planets: " + planets.Length);
+        foreach (var planet in planets)
+        {
+            MeshRenderer meshRenderer = planet.GetComponentInChildren<MeshRenderer>();
+            Debug.Log("Material name: " + meshRenderer.material.name);
+            
+        }
+        
     }
 }
