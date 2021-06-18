@@ -50,10 +50,10 @@ public class MinimapBehaviour : MonoBehaviour
         
         foreach (var planet in planets)
         {
-            MeshRenderer meshRenderer = planet.GetComponentInChildren<MeshRenderer>();
-            Debug.Log("Material name: " + meshRenderer.material.name);
+            MeshRenderer planetMeshRenderer = planet.GetComponentInChildren<MeshRenderer>();
+            Debug.Log("Material name: " + planetMeshRenderer.material.name);
             
-            
+            /*
             // temporary test texture
             Texture2D iconTexture = new Texture2D(100, 100);
             Color[] colors = new Color[10000];
@@ -63,24 +63,46 @@ public class MinimapBehaviour : MonoBehaviour
             }
             iconTexture.SetPixels(0, 0, 100, 100, colors);
             iconTexture.Apply();
-
+            */
 
 
             string minimapIconObjName = "minimapIconObj_" + planet.name;
-            GameObject minimapIconObj = new GameObject(minimapIconObjName);
-            // TODO: Set minimapIconObjName layer to minimap
-            
+            //GameObject minimapIconObj = new GameObject(minimapIconObjName);
+            GameObject minimapIconObj = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            minimapIconObj.name = minimapIconObjName;
+            MeshRenderer minimapIconMeshRenderer = minimapIconObj.GetComponent<MeshRenderer>();
+            minimapIconMeshRenderer.material = planetMeshRenderer.material;
+            // TODO: Set minimapIconObj layer to minimap
+            // TODO: Add shader to change brightness
+
+            /*
             SpriteRenderer spriteRenderer = minimapIconObj.AddComponent<SpriteRenderer>();
             
             Sprite iconSprite = Sprite.Create(iconTexture, new Rect(0, 0, iconTexture.width, iconTexture.height), new Vector2(0.5f, 0.5f));
+            //iconSprite = GenerateIconSprite(meshRenderer.material);
             spriteRenderer.sprite = iconSprite;
+            */
+
+            minimapIconObj.transform.localScale = new Vector3(1, 0, 1);
             
             minimapIconObj.transform.SetParent(planet.transform);
-            minimapIconObj.transform.localPosition = Vector3.zero; // TODO: Center icon. Zero vector is not the center of the planet model.
+            float radius = planet.GetComponent<CelestialBody>().Radius;
+            minimapIconObj.transform.localPosition = Vector3.zero; // TODO: Center icon. Zero vector is not the center of the planet model?
             
         }
         
     }
+
+    /*
+    private Sprite GenerateIconSprite(Material material)
+    {
+        Texture2D iconTexture = (Texture2D) material.mainTexture;
+        iconTexture.Resize(100, 100);
+        
+        return Sprite.Create(iconTexture, new Rect(0, 0, 100, 100),
+            new Vector2(0.5f, 0.5f));
+    }
+    */
     
      
 }
