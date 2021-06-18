@@ -6,6 +6,8 @@ public class MinimapBehaviour : MonoBehaviour
 {
 
     public Transform spaceShip;
+    private float cameraHeight;
+
     void Start()
     {
         
@@ -16,11 +18,21 @@ public class MinimapBehaviour : MonoBehaviour
         
     }
 
-    private void SetPosition()
+    private void UpdatePosition()
     {
 		
 	}
 
+    public float getCameraHeight()
+    {
+        return cameraHeight;
+    }
+
+
+    public void setCameraHeight(float newCameraHeight)
+    {
+        cameraHeight = newCameraHeight;
+    }
     private void CreatePlanetIcon()
     {
         // test 
