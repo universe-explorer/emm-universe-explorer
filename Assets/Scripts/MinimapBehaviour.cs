@@ -14,6 +14,7 @@ public class MinimapBehaviour : MonoBehaviour
     void Start()
     {
         referenceHeight = spaceShip.position.y;
+        AddMinimapIcons();
     }
 
     void FixedUpdate()
@@ -46,22 +47,36 @@ public class MinimapBehaviour : MonoBehaviour
     {
         GameObject[] planets = GameObject.FindGameObjectsWithTag(planetTag);
         Debug.Log("Amount of planets: " + planets.Length);
+        
         foreach (var planet in planets)
         {
             MeshRenderer meshRenderer = planet.GetComponentInChildren<MeshRenderer>();
             Debug.Log("Material name: " + meshRenderer.material.name);
             
-            Texture2D icon = new Texture2D(100, 100);
+            
+            // temporary test texture
+            Texture2D iconTexture = new Texture2D(100, 100);
             Color[] colors = new Color[10000];
             for (var i = 0; i < colors.Length; i++)
             {
                 colors[i] = Color.green;
             }
-            icon.SetPixels(0, 0, 100, 100, colors);
-            icon.Apply();
+            iconTexture.SetPixels(0, 0, 100, 100, colors);
+            iconTexture.Apply();
 
-            RawImage rawImage = planet.AddComponent<RawImage>();
-            rawImage.texture = icon;
+
+
+            string minimapIconObjName = "minimapIconObj_" + planet.name;
+            GameObject minimapIconObj = new GameObject(minimapIconObjName);
+            // TODO: Set minimapIconObjName layer to minimap
+            
+            SpriteRenderer spriteRenderer = minimapIconObj.AddComponent<SpriteRenderer>();
+            
+            Sprite iconSprite = Sprite.Create(iconTexture, new Rect(0, 0, iconTexture.width, iconTexture.height), new Vector2(0.5f, 0.5f));
+            spriteRenderer.sprite = iconSprite;
+            
+            minimapIconObj.transform.SetParent(planet.transform);
+            minimapIconObj.transform.localPosition = Vector3.zero; // TODO: Center icon. Zero vector is not the center of the planet model.
             
         }
         
