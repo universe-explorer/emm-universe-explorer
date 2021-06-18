@@ -51,7 +51,21 @@ public class MinimapBehaviour : MonoBehaviour
             MeshRenderer meshRenderer = planet.GetComponentInChildren<MeshRenderer>();
             Debug.Log("Material name: " + meshRenderer.material.name);
             
+            Texture2D icon = new Texture2D(100, 100);
+            Color[] colors = new Color[10000];
+            for (var i = 0; i < colors.Length; i++)
+            {
+                colors[i] = Color.green;
+            }
+            icon.SetPixels(0, 0, 100, 100, colors);
+            icon.Apply();
+
+            RawImage rawImage = planet.AddComponent<RawImage>();
+            rawImage.texture = icon;
+            
         }
         
     }
+    
+     
 }
