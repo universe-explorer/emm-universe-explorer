@@ -72,11 +72,13 @@ public class MinimapBehaviour : MonoBehaviour
             GameObject minimapIconObj = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             minimapIconObj.name = minimapIconObjName;
             MeshRenderer minimapIconMeshRenderer = minimapIconObj.GetComponent<MeshRenderer>();
-            minimapIconMeshRenderer.material.CopyPropertiesFromMaterial( planetMeshRenderer.material);
-           // minimapIconMeshRenderer.material.shader = emissionShader;
-           minimapIconMeshRenderer.material.EnableKeyword("_EMISSION");
-           minimapIconMeshRenderer.material.SetColor("_EmissionColor",Color.white*Mathf.LinearToGammaSpace(0.05f));
-  
+            minimapIconMeshRenderer.material.CopyPropertiesFromMaterial(planetMeshRenderer.material);
+            //minimapIconMeshRenderer.material.shader = emissionShader;
+            minimapIconMeshRenderer.material.EnableKeyword("_EMISSION");
+            minimapIconMeshRenderer.material.SetColor("_EmissionColor",Color.white*Mathf.LinearToGammaSpace(0.05f));
+            //minimapIconMeshRenderer.material.DisableKeyword("_ReceiveShadows");
+            minimapIconMeshRenderer.material.EnableKeyword("_RECEIVE_SHADOWS_OFF");
+            
             // TODO: Set minimapIconObj layer to minimap
             // TODO: Add shader to change brightness
 
