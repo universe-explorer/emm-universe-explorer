@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -81,7 +82,7 @@ public class MinimapBehaviour : MonoBehaviour
             //minimapIconMeshRenderer.material.DisableKeyword("_ReceiveShadows");
             minimapIconMeshRenderer.material.EnableKeyword("_RECEIVE_SHADOWS_OFF");
             
-            // TODO: Set minimapIconObj layer to minimap
+            minimapIconObj.layer = 6;
             // TODO: Add shader to change brightness
 
             /*
