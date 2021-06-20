@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using System.Collections;
 using UnityEngine.UI;
 
 public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
@@ -55,7 +56,7 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
     private float defaultRollingForce = 30f;
     
     private const float fullRoll = 360;
-    private float rollPerFrame = 8;
+    private float rollPerFrame = 4;
     private float _currentRoll;
     private bool _isRolling;
     private float _rollingDirection;
@@ -173,6 +174,15 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
         {
             uiLevel.gameObject.SetActive(!uiLevel.gameObject.activeSelf);
         }
+
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            Roll(-defaultRollingForce);
+        }
+        else if (Input.GetKeyDown(KeyCode.D))
+        {
+            Roll(defaultRollingForce);
+        }
     }
 
     void FixedUpdate()
@@ -195,16 +205,6 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
             _mouseInput = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
         }
 
-
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            Roll(-defaultRollingForce);
-        }
-        else if (Input.GetKeyDown(KeyCode.D))
-        {
-            Roll(defaultRollingForce);
-        }
-
         if (Input.GetKey(KeyCode.LeftShift))
         {
             _isBoosting = true;
@@ -220,20 +220,8 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
             }
         }
 
-        //perform rolling rotation
-        if (_isRolling)
-        {
-            _currentRoll += rollPerFrame * _rollingDirection;
-
-            transform.Rotate(new Vector3(0, 0, rollPerFrame * _rollingDirection), Space.Self);
-
-            if (_currentRoll == fullRoll || _currentRoll == -fullRoll)
-            {
-                _isRolling = false;
-                _currentRoll = 0;
-            }
-        }
-        else
+        //Move if not rolling
+        if (!_isRolling)
         {
             Move(_verticalInput);
             Rotate(_mouseInput);
@@ -335,19 +323,29 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
             if (force > 0)
             {
                 _rollingDirection = -1;
+                StartCoroutine("RollCoroutine");
             }
             else
             {
                 _rollingDirection = 1;
+                StartCoroutine("RollCoroutine");
             }
 
             Vector3 newMovement = transform.right * force;
             newMovement += transform.forward * Vector3.Dot(transform.forward, _ship.velocity);
 
             _ship.velocity = newMovement;
-
-            //Move(transform.right * _rollingDirection, Math.Abs(force));
         }
+    }
+
+    IEnumerator RollCoroutine()
+    {
+        for (float i = 0; i < fullRoll; i += rollPerFrame)
+        {
+            transform.Rotate(new Vector3(0, 0, rollPerFrame * _rollingDirection), Space.Self);
+            yield return null;
+        }
+        _isRolling = false;
     }
 
     /// <summary> 
