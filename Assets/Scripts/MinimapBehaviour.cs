@@ -7,7 +7,9 @@ public class MinimapBehaviour : MonoBehaviour
 {
 
     public Transform spaceShip;
-    [SerializeField] private Shader emissionShader;
+    //[SerializeField] private Shader emissionShader;
+    [SerializeField] private float emissionValue = 0.005f;
+    [SerializeField] private float iconSize = 10; // Not relative to planet size
     private float cameraHeight = 100;
     private float referenceHeight;
     private string planetTag = "Planet";
@@ -75,7 +77,7 @@ public class MinimapBehaviour : MonoBehaviour
             minimapIconMeshRenderer.material.CopyPropertiesFromMaterial(planetMeshRenderer.material);
             //minimapIconMeshRenderer.material.shader = emissionShader;
             minimapIconMeshRenderer.material.EnableKeyword("_EMISSION");
-            minimapIconMeshRenderer.material.SetColor("_EmissionColor",Color.white*Mathf.LinearToGammaSpace(0.05f));
+            minimapIconMeshRenderer.material.SetColor("_EmissionColor", Color.white*Mathf.LinearToGammaSpace(emissionValue));
             //minimapIconMeshRenderer.material.DisableKeyword("_ReceiveShadows");
             minimapIconMeshRenderer.material.EnableKeyword("_RECEIVE_SHADOWS_OFF");
             
@@ -90,7 +92,7 @@ public class MinimapBehaviour : MonoBehaviour
             spriteRenderer.sprite = iconSprite;
             */
 
-            minimapIconObj.transform.localScale = new Vector3(1, 0, 1);
+            minimapIconObj.transform.localScale = new Vector3(1, 0, 1) * iconSize;
             
             minimapIconObj.transform.SetParent(planet.transform);
             float radius = planet.GetComponent<CelestialBody>().Radius;
