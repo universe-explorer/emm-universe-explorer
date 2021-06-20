@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,11 +13,14 @@ public class MinimapBehaviour : MonoBehaviour
     private float cameraHeight = 100;
     private float referenceHeight;
     private string planetTag = "Planet";
+    public Sprite playerMapMarker;
+    private float playerIconScale = 7;
 
     void Start()
     {
         referenceHeight = spaceShip.position.y;
         AddMinimapIcons();
+        createSpaceShipIcon();
     }
 
     void FixedUpdate()
@@ -101,6 +103,21 @@ public class MinimapBehaviour : MonoBehaviour
             
         }
         
+    }
+
+    private void createSpaceShipIcon()
+    {
+        GameObject go = new GameObject("playerMapMarker");
+        SpriteRenderer renderer = go.AddComponent<SpriteRenderer>();
+        renderer.sprite = playerMapMarker;
+
+        go.transform.parent = transform;
+        go.transform.localPosition = Vector3.zero;
+        go.transform.position += Vector3.forward; 
+
+        go.transform.localScale *= playerIconScale;
+
+        go.layer = 6;
     }
 
     /*
