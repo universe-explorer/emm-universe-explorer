@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e4e0c9276cc983458d58e285c5f4cf0, type: 3}
+  m_Name: Scout
+  m_EditorClassIdentifier: 
+  shotDelay: 50
+  maxHealth: 100
+  damage: 10
+  scale: 1
+  speedIdle: 0.1
+  speedChasing: 0.3
+  rotationSpeed: 0.05
+  movementRadius: 200
+  movementDuration: 200
+  aggroRange: 300
