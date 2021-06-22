@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Guardian
   m_EditorClassIdentifier: 
   shotDelay: 50
-  maxHealth: 100
-  damage: 10
-  scale: 1
-  speedIdle: 0.1
-  speedChasing: 0.3
-  rotationSpeed: 0.05
+  maxHealth: 300
+  damage: 15
+  scale: 2
+  speedIdle: 0
+  speedChasing: 0.2
+  rotationSpeed: 0.01
   movementRadius: 200
   movementDuration: 200
   aggroRange: 300

@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e4e0c9276cc983458d58e285c5f4cf0, type: 3}
   m_Name: Scout
   m_EditorClassIdentifier: 
-  shotDelay: 50
-  maxHealth: 100
-  damage: 10
-  scale: 1
-  speedIdle: 0.1
-  speedChasing: 0.3
-  rotationSpeed: 0.05
-  movementRadius: 200
+  shotDelay: 25
+  maxHealth: 50
+  damage: 5
+  scale: 0.5
+  speedIdle: 0.3
+  speedChasing: 0.5
+  rotationSpeed: 0.1
+  movementRadius: 1000
   movementDuration: 200
-  aggroRange: 300
+  aggroRange: 1000
