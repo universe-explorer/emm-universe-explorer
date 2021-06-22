@@ -4,13 +4,8 @@ using UnityEngine;
 
 public class EnemyBehaviour : MonoBehaviour
 {
-    private const int movementDuration = 200;
-    private const float movementRadius = 50;
-    private const float idleMovementSpeed = 0.1f;
-    private const float chaseMovementSpeed = 0.3f;
-    private const float rotationSpeed = 0.01f;
-    private const float aggroRange = 100;
-    private int shotDelay = 50;
+
+    public EnemyScriptableObject values;
 
     private bool shooting;
     private bool sharpTurn;
@@ -19,6 +14,8 @@ public class EnemyBehaviour : MonoBehaviour
     private Vector3 movementDirection;
     private Vector3 home;
     GameObject[] player;
+    Weapon weapon;
+    CombatControllerEnemy combatController;
 
     // Start is called before the first frame update
     void Start()
@@ -26,10 +23,23 @@ public class EnemyBehaviour : MonoBehaviour
         chaseMode = false;
         sharpTurn = false;
         shooting = false;
-        framesSinceMovementStart = movementDuration;
+        framesSinceMovementStart = values.movementDuration;
         home = transform.position;
 
+        weapon = GetComponentInChildren<Weapon>();
+        combatController = GetComponentInChildren<CombatControllerEnemy>();
+
         player = GameObject.FindGameObjectsWithTag("Player");
+
+        initialiseFromScriptableObject();
+    }
+
+    private void initialiseFromScriptableObject()
+    {
+        combatController._Damage = values.damage;
+        combatController.SetMaxHealth(values.maxHealth);
+
+        transform.localScale = new Vector3(values.scale, values.scale, values.scale);
     }
 
     // Update is called once per frame
@@ -49,7 +59,7 @@ public class EnemyBehaviour : MonoBehaviour
     public bool checkPlayerVicinity()
     {
 
-        if(player.Length >= 1  && Vector3.Distance(transform.position, player[0].transform.position) < aggroRange)
+        if(player.Length >= 1  && Vector3.Distance(transform.position, player[0].transform.position) < values.aggroRange)
         {
             return true;
         } else
@@ -62,7 +72,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         shooting = false;
 
-        if(framesSinceMovementStart >= movementDuration)
+        if(framesSinceMovementStart >= values.movementDuration)
         {
 
             sharpTurn = false;
@@ -71,7 +81,7 @@ public class EnemyBehaviour : MonoBehaviour
             {
                 //Small chance for the ship to not move
                 movementDirection = new Vector3(0, 0, 0);
-                framesSinceMovementStart = -movementDuration;
+                framesSinceMovementStart = -values.movementDuration;
             } else
             {
                 generateNewDestinationPoint();
@@ -79,7 +89,7 @@ public class EnemyBehaviour : MonoBehaviour
 
         } else
         {
-            continueMovement(idleMovementSpeed);
+            continueMovement(values.speedIdle);
         }
     }
 
@@ -87,7 +97,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         home = player[0].transform.position;
 
-        if (framesSinceMovementStart >= movementDuration)
+        if (framesSinceMovementStart >= values.movementDuration)
         {
             if(shooting)
             {
@@ -105,20 +115,19 @@ public class EnemyBehaviour : MonoBehaviour
         {
             if(!shooting)
             {
-                continueMovement(chaseMovementSpeed);
+                continueMovement(values.speedChasing);
             } else
             {
                 setMovementDirectionTowardsPoint(home);
 
                 if(movementDirection != Vector3.zero)
                 {
-                    transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(movementDirection, Vector3.up), rotationSpeed * 5);
+                    transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(movementDirection, Vector3.up), values.rotationSpeed * 5);
                 }
                 
-                if(framesSinceMovementStart % shotDelay == 0)
+                if(framesSinceMovementStart % values.shotDelay == 0)
                 {
-                    //TODO: Shoot
-                    Debug.Log("This would be a shot if it was actually implemented");
+                    weapon.Fire();
                 }
 
                 framesSinceMovementStart++;
@@ -131,7 +140,7 @@ public class EnemyBehaviour : MonoBehaviour
         do
         {
             movementDirection = Random.insideUnitCircle.normalized;
-        } while (Physics.Raycast(transform.position, movementDirection, idleMovementSpeed * movementDuration));
+        } while (Physics.Raycast(transform.position, movementDirection, values.speedIdle * values.movementDuration));
         framesSinceMovementStart = 0;
     }
 
@@ -141,16 +150,13 @@ public class EnemyBehaviour : MonoBehaviour
         //Rotate towards target
         if (movementDirection != Vector3.zero)
         {
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(movementDirection, Vector3.up), rotationSpeed);
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(movementDirection, Vector3.up), values.rotationSpeed);
 
             //Move if there is no danger ahead
             if (!Physics.Raycast(transform.position, transform.forward, speed * 60))
             {
 
-                if (!sharpTurn)
-                {
-                    transform.position += transform.forward * speed;
-                }
+              transform.position += transform.forward * speed;
 
             }
             else
@@ -168,7 +174,7 @@ public class EnemyBehaviour : MonoBehaviour
         framesSinceMovementStart++;
 
         //Return to home if too far away from it
-        if (Vector3.Distance(transform.position, home) > movementRadius)
+        if (Vector3.Distance(transform.position, home) > values.movementRadius)
         {
             setMovementDirectionTowardsPoint(home);
             framesSinceMovementStart = 0;
