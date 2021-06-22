@@ -29,10 +29,15 @@ public class EnemyBehaviour : MonoBehaviour
         weapon = GetComponentInChildren<Weapon>();
         combatController = GetComponentInChildren<CombatControllerEnemy>();
 
-        combatController._Damage = values.damage;
-        combatController.SetMaxHealth = values.maxHealth;
-
         player = GameObject.FindGameObjectsWithTag("Player");
+
+        initialiseFromScriptableObject();
+    }
+
+    private void initialiseFromScriptableObject()
+    {
+        combatController._Damage = values.damage;
+        combatController.SetMaxHealth(values.maxHealth);
 
         transform.localScale = new Vector3(values.scale, values.scale, values.scale);
     }
