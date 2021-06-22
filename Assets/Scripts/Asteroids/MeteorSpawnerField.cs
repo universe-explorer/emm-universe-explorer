@@ -5,31 +5,45 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class MeteorSpawnerField : MonoBehaviour
 {
+    [Header("MeteoridField Settings")]
     private Bounds bounds;
 
     public float ColliderSize { get { return _colliderOffest;  } }
 
     private BoxCollider _boxCollider;
 
+    [HideInInspector]
+    public bool SettingsFoldout = false;
+
     [SerializeField]
     private float _colliderOffest = 5f;
 
-    public void SpawnMeteors(int density)
-    {
-        for (int i = 0; i < density; i++)
-        {
-            int randomMeteor = Random.Range(0, MeteorSpawnerFieldCreator.Instance.Meteors.Length);
+    public AsteroidSettings AsteroidSettings;
 
-            Instantiate(MeteorSpawnerFieldCreator.Instance.Meteors[randomMeteor], RandomPointInBounds(bounds), Quaternion.identity, gameObject.transform);
+    public void SpawnMeteors()
+    {
+        float asteroidScale;
+        for (int i = 0; i < MeteorSpawnerFieldCreator.Instance.Meteors.Length; i++)
+        {
+            for (int j = 0; j < (AsteroidSettings.normalSizedAsteroids + AsteroidSettings.hugeSizedAsteroids) / MeteorSpawnerFieldCreator.Instance.Meteors.Length; j++)
+            {
+                asteroidScale = Random.Range(AsteroidSettings.hugeAsteroidSizeMin, AsteroidSettings.hugeAsteroidSizeMax);
+
+                int randomMeteor = Random.Range(0, MeteorSpawnerFieldCreator.Instance.Meteors.Length);
+
+                Transform spawnedAsteroid = Instantiate(MeteorSpawnerFieldCreator.Instance.Meteors[randomMeteor], RandomPointInBounds(bounds), Quaternion.identity, gameObject.transform);
+                spawnedAsteroid.gameObject.AddComponent<AsteroidBehaviour>().Setup(Random.Range(AsteroidSettings.thrustMin, AsteroidSettings.thrustMax), Random.Range(AsteroidSettings.rotationSpeedMin, AsteroidSettings.rotationSpeedMax), AsteroidSettings._mass, AsteroidSettings._drag, AsteroidSettings._angularDrag);
+                spawnedAsteroid.transform.localScale *= asteroidScale;
+            }
         }
     }
 
-    private void Start()
+    /*private void Awake()
     {
         CreateCollider();
-    }
+    }*/
 
-    private void CreateCollider()
+    public void CreateCollider()
     {
         if (gameObject.GetComponent<BoxCollider>() == null)
         {
@@ -65,7 +79,7 @@ public class MeteorSpawnerField : MonoBehaviour
         if (other.tag == "MainCamera")
         {
             Debug.Log("entered collider...");
-            SpawnMeteors(other.GetComponent<MeteorSpawner>().Density);
+            SpawnMeteors();
         }
     }
 
@@ -81,9 +95,9 @@ public class MeteorSpawnerField : MonoBehaviour
 
     private void DestroyMeteors()
     {
-        foreach (var item in gameObject.GetComponentsInChildren<AsteroidBehaviour>())
+        for (int i = 0; i < transform.childCount; i++)
         {
-            Destroy(item.gameObject);
+            Destroy(transform.GetChild(i).gameObject);
         }
         
     }

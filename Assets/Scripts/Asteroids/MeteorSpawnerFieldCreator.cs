@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MeteorSpawnerFieldCreator : MonoBehaviour
 {
+    [Header("FieldCreatorSettings Settings")]
     public Transform parent;
 
     [SerializeField]
@@ -17,7 +18,15 @@ public class MeteorSpawnerFieldCreator : MonoBehaviour
     [Range(1, 20)]
     private int _range = 10;
 
-    private List<Transform> _spawnedMeteors = new List<Transform>();
+    private List<Transform> _spawnedFields = new List<Transform>();
+
+    /// <summary>
+    /// The field in which the palyer is currently in.
+    /// </summary>
+    private Transform _activeField;
+
+    
+
 
     public void Awake()
     {
@@ -29,9 +38,6 @@ public class MeteorSpawnerFieldCreator : MonoBehaviour
         {
             _instance = this;
         }
-    }
-    private void Start()
-    {
         SpawnMeteorFields();
     }
 
@@ -49,12 +55,13 @@ public class MeteorSpawnerFieldCreator : MonoBehaviour
                 for (int k = 0; k < _range; k++)
                 {
                     Vector3 position = new Vector3(
-                        (i * ((float)size)) - (((float)size * _range) / 2),
-                        (j * ((float)size)) - (((float)size * _range) / 2),
-                        (k * ((float)size)) - (((float)size * _range) / 2)
+                        (i * ((float)size)) - (((float)size * _range) / 2) + transform.position.x,
+                        (j * ((float)size)) - (((float)size * _range) / 2) + transform.position.y,
+                        (k * ((float)size)) - (((float)size * _range) / 2) + transform.position.z
                         );
-                    _spawnedMeteors.Add(Instantiate(MeteorSpawnerField, position, Quaternion.identity, parent));
-
+                    Transform created = Instantiate(MeteorSpawnerField, position, Quaternion.identity, parent);
+                    created.GetComponent<MeteorSpawnerField>().CreateCollider();
+                    _spawnedFields.Add(created);
                 }
             }
         }
@@ -94,9 +101,9 @@ public class MeteorSpawnerFieldCreator : MonoBehaviour
                 for (int k = 0; k < _range; k++)
                 {
                     Vector3 position = new Vector3(
-                        (i * ((float)size)) - (((float)size * _range) / 2),
-                        (j * ((float)size)) - (((float)size * _range) / 2),
-                        (k * ((float)size)) - (((float)size * _range) / 2)
+                        (i * ((float)size)) - (((float)size * _range) / 2) + transform.position.x,
+                        (j * ((float)size)) - (((float)size * _range) / 2) + transform.position.y,
+                        (k * ((float)size)) - (((float)size * _range) / 2) + transform.position.z
                         );
                     Gizmos.DrawWireCube(position, size * Vector3.one );
 
