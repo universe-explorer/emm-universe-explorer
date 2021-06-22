@@ -30,7 +30,7 @@ public class EnemyBehaviour : MonoBehaviour
         combatController = GetComponentInChildren<CombatControllerEnemy>();
 
         combatController._Damage = values.damage;
-        //TODO: Set Max health once possible
+        combatController.SetMaxHealth = values.maxHealth;
 
         player = GameObject.FindGameObjectsWithTag("Player");
 
