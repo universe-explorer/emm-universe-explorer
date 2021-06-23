@@ -9,7 +9,8 @@ public class MinimapBehaviour : MonoBehaviour
     public Transform spaceShip;
     //[SerializeField] private Shader emissionShader;
     [SerializeField] private float emissionValue = 0.005f;
-    [SerializeField] private float iconSize = 10; // Not relative to planet size
+    [SerializeField] private float iconSize = 20; // Not relative to planet size
+    [SerializeField] private float iconScale = 1; // 1 equals original size
     private float cameraHeight = 100;
     private float referenceHeight;
     private string planetTag = "Planet";
@@ -95,10 +96,11 @@ public class MinimapBehaviour : MonoBehaviour
             spriteRenderer.sprite = iconSprite;
             */
 
-            minimapIconObj.transform.localScale = new Vector3(1, 0, 1) * iconSize;
+            float radius = planet.GetComponent<CelestialBody>().Radius;
+            minimapIconObj.transform.localScale = new Vector3(1, 0, 1) * (iconScale * radius);
             
             minimapIconObj.transform.SetParent(planet.transform);
-            float radius = planet.GetComponent<CelestialBody>().Radius;
+            
             minimapIconObj.transform.localPosition = Vector3.zero; // TODO: Center icon. Zero vector is not the center of the planet model?
             
         }
