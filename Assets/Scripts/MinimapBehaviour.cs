@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
 using UnityEngine.UI;
+using Quaternion = UnityEngine.Quaternion;
+using Vector3 = UnityEngine.Vector3;
 
 public class MinimapBehaviour : MonoBehaviour
 {
@@ -101,7 +104,7 @@ public class MinimapBehaviour : MonoBehaviour
             
             minimapIconObj.transform.SetParent(planet.transform);
             
-            minimapIconObj.transform.localPosition = Vector3.zero; // TODO: Center icon. Zero vector is not the center of the planet model?
+            minimapIconObj.transform.localPosition = Vector3.zero;
             
         }
         
