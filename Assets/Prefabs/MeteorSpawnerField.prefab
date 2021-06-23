@@ -44,8 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1020e8fc3e8a4b34a8f02ab1c49f47c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SettingsFoldout: 0
-  _colliderOffest: 200
+  SettingsFoldout: 1
+  _colliderOffest: 125
   AsteroidSettings: {fileID: 11400000, guid: 48748fced290f8246b8acbb912588aff, type: 2}
 --- !u!65 &4984248006588823166
 BoxCollider:
@@ -58,5 +58,5 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 200, y: 200, z: 200}
+  m_Size: {x: 125, y: 125, z: 125}
   m_Center: {x: 0, y: 0, z: 0}

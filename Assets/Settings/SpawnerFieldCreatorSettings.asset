@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 710200c2db165724f88e9929a62663ba, type: 3}
   m_Name: SpawnerFieldCreatorSettings
   m_EditorClassIdentifier: 
-  hugeSizedAsteroids: 15
-  normalSizedAsteroids: 100
+  hugeSizedAsteroids: 2
+  normalSizedAsteroids: 5
   normalAsteroidSizeMin: 0.25
   normalAsteroidSizeMax: 0.75
   hugeAsteroidSizeMin: 1.5
   hugeAsteroidSizeMax: 2.5
-  rotationSpeedMin: 0.01
-  rotationSpeedMax: 0.1
+  rotationSpeedMin: 0.001
+  rotationSpeedMax: 0.005
   thrustMin: 0.2
   thrustMax: 0.6
   _mass: 1

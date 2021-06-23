@@ -82,7 +82,6 @@ public class MeteorSpawnerField : MonoBehaviour
         {
             Debug.Log("entered collider...");
             SpawnMeteors();
-            NotifyCreatorEntered();
         }
     }
 
@@ -93,7 +92,6 @@ public class MeteorSpawnerField : MonoBehaviour
         {
             Debug.Log("entered collider...");
             DestroyMeteors();
-            NotifyCreatorLeft();
         }
     }
 
@@ -101,23 +99,8 @@ public class MeteorSpawnerField : MonoBehaviour
     {
         for (int i = 0; i < transform.childCount; i++)
         {
-            Destroy(transform.GetChild(i).gameObject);
+            transform.GetChild(i).gameObject.GetComponent<AsteroidBehaviour>().Remove();
         }
         
-    }
-
-    public void SetID(Vector3Int iD)
-    {
-        _iD = new Vector3Int(iD.x, iD.y, iD.z);
-    }
-
-    private void NotifyCreatorEntered()
-    {
-        MeteorSpawnerFieldCreator.Instance.NewActiveEntered(_iD);
-    }
-
-    private void NotifyCreatorLeft()
-    {
-        MeteorSpawnerFieldCreator.Instance.NewActiveLeft(_iD);
     }
 }

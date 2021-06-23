@@ -20,14 +20,8 @@ public class MeteorSpawnerFieldCreator : MonoBehaviour
 
     private List<Transform> _spawnedFields = new List<Transform>();
 
-    /// <summary>
-    /// The field in which the palyer is currently in.
-    /// </summary>
-    private Transform _activeField;
-
     private bool[,,] _FieldArray;
 
-    private MeteorSpawnerField[,,] _FieldSciprtsArray;
 
     public void Awake()
     {
@@ -41,7 +35,6 @@ public class MeteorSpawnerFieldCreator : MonoBehaviour
         }
         SpawnMeteorFields();
         _FieldArray = new bool[_range, _range, _range];
-        _FieldSciprtsArray = new MeteorSpawnerField[_range, _range, _range];
 
         for (int i = 0; i < _range; i++)
         {
@@ -120,15 +113,6 @@ public class MeteorSpawnerFieldCreator : MonoBehaviour
 
     }
 
-    public void NewActiveEntered(Vector3Int iD)
-    {
-        _FieldArray[iD.x, iD.y, iD.z] = true;
-    }
-
-    public void NewActiveLeft(Vector3Int iD)
-    {
-        _FieldArray[iD.x, iD.y, iD.z] = false;
-    }
 
     private void OnDrawGizmosSelected()
     {
