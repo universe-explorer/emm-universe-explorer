@@ -62,7 +62,7 @@ public class AsteroidBehaviour : MonoBehaviour
 
     public void Remove()
     {
-        StartCoroutine(ScaleDown());
+        StartCoroutine(ScaleDown(gameObject));
     }
 
     private void Update()
@@ -78,7 +78,7 @@ public class AsteroidBehaviour : MonoBehaviour
     public float growFactor = 2f;
     public float waitTime = 100f;
 
-    IEnumerator ScaleDown()
+    IEnumerator ScaleDown(GameObject go)
     {
         float timer = 0;
 
@@ -89,8 +89,7 @@ public class AsteroidBehaviour : MonoBehaviour
             transform.localScale -= new Vector3(1, 1, 1) * Time.deltaTime * growFactor;
             yield return null;
         }
-
-        Destroy(gameObject);
+        Destroy(go);
     }
 
     IEnumerator ScaleUp()
