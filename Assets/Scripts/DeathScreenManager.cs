@@ -13,6 +13,9 @@ public class DeathScreenManager : MonoBehaviour
 
     private float lerpValue = 0f;
     [SerializeField] private float fadeSpeed = 1f;
+    [SerializeField] private float minBackgroundAlpha = 0.7f;
+    [SerializeField] private float backgroundAlphaFadeDuration = 5f; // In seconds
+    [SerializeField] private float minTimeScale = 0.1f;
 
     // Start is called before the first frame update
     void Start()
@@ -27,7 +30,7 @@ public class DeathScreenManager : MonoBehaviour
         if (active)
         {
             lerpValue += fadeSpeed * Time.deltaTime;
-            Time.timeScale = Mathf.Lerp(1f, 0.1f, lerpValue);
+            Time.timeScale = Mathf.Lerp(1f, minTimeScale, lerpValue); // time scale might not be 1 when death screen gets enabled -> TODO
         }
 
         // temporary
@@ -42,7 +45,7 @@ public class DeathScreenManager : MonoBehaviour
         infoText.SetActive(true);
         menuButton.SetActive(true);
 
-        imgBackground.CrossFadeAlpha(0.7f, 5f, true);
+        imgBackground.CrossFadeAlpha(minBackgroundAlpha, backgroundAlphaFadeDuration, true);
 
         Cursor.lockState = CursorLockMode.None;
     }
