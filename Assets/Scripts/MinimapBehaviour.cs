@@ -10,7 +10,7 @@ public class MinimapBehaviour : MonoBehaviour
 {
 
     public Transform spaceShip;
-    //[SerializeField] private Shader emissionShader;
+    [SerializeField] private Shader emissionShader;
     [SerializeField] private float emissionValue = 0.005f;
     [SerializeField] private float iconSize = 20; // Not relative to planet size
     [SerializeField] private float iconScale = 1; // 1 equals original size
@@ -100,14 +100,27 @@ public class MinimapBehaviour : MonoBehaviour
             */
 
             float radius = planet.GetComponent<CelestialBody>().Radius;
-            minimapIconObj.transform.localScale = new Vector3(1, 0, 1) * (iconScale * radius);
+            minimapIconObj.transform.localScale = new Vector3(1, 0, 1) * (iconScale * radius); // TODO: Fix scale
             
             minimapIconObj.transform.SetParent(planet.transform);
-            
+
             minimapIconObj.transform.localPosition = Vector3.zero;
             
+            addPlanetOutline(planet);
         }
         
+    }
+
+    private void addPlanetOutline(GameObject planet)
+    {
+        GameObject planetOutline = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        string outlineName = "planetOutline_" + planet.name;
+        planetOutline.name = outlineName;
+        planetOutline.layer = 6;
+
+        planetOutline.transform.SetParent(planet.transform);
+        planetOutline.transform.localPosition =new Vector3(0, -1, 0);
+        planetOutline.transform.localScale =new Vector3(1, 0, 1) * planet.GetComponent<CelestialBody>().Radius * 1.2f;
     }
 
     private void createSpaceShipIcon()
