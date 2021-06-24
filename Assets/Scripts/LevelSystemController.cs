@@ -9,10 +9,15 @@ public class LevelSystemController : MonoBehaviour
     private SpaceshipControls spaceshipControls;
     private InventoryController inventoryController;
 
-    private void Start()
+    /// <summary> 
+    ///   Sets inventory system for this level system, ensure that this happens
+    ///   before UI access the level system which would result in NullReferenceException 
+    /// </summary>
+    private void Awake()
     {
         spaceshipControls = GetComponent<SpaceshipControls>();
         inventoryController = GetComponent<InventoryController>();
+
         levelSystem = new LevelSystem();
         levelSystem.SetInventory(inventoryController.GetInventory());
         levelSystem.OnLevelChanged += LevelSystem_OnLevelChanged;
