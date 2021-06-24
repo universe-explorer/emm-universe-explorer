@@ -109,48 +109,6 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
         return Mathf.Lerp(toMin, toMax, t);
     }
     
-    [SerializeField] private Ui_inventory uiInventory;
-    [SerializeField] private Ui_level uiLevel;
-
-    private Inventory inventory;
-    private LevelSystem levelSystem;
-
-    /// <summary> 
-    ///   Detects Collision and add items to the Inventory System
-    /// </summary>
-    private void OnTriggerEnter(Collider other)
-    {
-        if (gameObject.tag == "MainSpaceShip")
-        {
-            ItemWorld itemWorld = other.gameObject.GetComponent<ItemWorld>();
-            if (itemWorld != null)
-            {
-                inventory.AddItem(itemWorld.GetItem());
-                itemWorld.DestroySelf();
-            }
-        }
-    }
-
-    private void Awake()
-    {
-        // initialize Inventory System
-        inventory = new Inventory();
-        uiInventory.SetInventory(inventory);
-        uiInventory.SetGameObject(gameObject);
-
-        // initialize Level System
-        levelSystem = new LevelSystem();
-        levelSystem.SetInventory(inventory);
-        levelSystem.OnLevelChanged += LevelSystem_OnLevelChanged;
-        uiLevel.SetLevelSystem(levelSystem);
-    }
-
-    // TODO: based on level change the Speed, Boost duration and so on.
-    private void LevelSystem_OnLevelChanged(object sender, EventArgs e)
-    {
-        Debug.Log("Change Speed and Boost Duration based on the Level");
-    }
-
     void Start()
     {
         _ship = gameObject.GetComponent<Rigidbody>();
@@ -166,15 +124,6 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            uiInventory.gameObject.SetActive(!uiInventory.gameObject.activeSelf);
-        }
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            uiLevel.gameObject.SetActive(!uiLevel.gameObject.activeSelf);
-        }
-
         if (Input.GetKeyDown(KeyCode.A))
         {
             Roll(-defaultRollingForce);

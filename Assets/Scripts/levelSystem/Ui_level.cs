@@ -6,6 +6,7 @@ public class Ui_level : MonoBehaviour
 {
     private LevelSystem levelSystem;
     private TextMeshProUGUI level;
+    private float tweenTime = 3f;
 
     private int mineralValue;
     private int manaValue;
@@ -40,23 +41,23 @@ public class Ui_level : MonoBehaviour
     /// </summary>
     private void SetInitialValue()
     {
-        RankEntry entry = levelSystem.GetCurrentLevelRank();
+        ItemRankEntry entry = levelSystem.GetCurrentItemLevelRank();
 
         mineralBar.value = mineralValue;
-        mineralBar.maxValue = entry.mineralRequired;
-        mineralMaxValue.SetText(entry.mineralRequired.ToString());
+        mineralBar.maxValue = entry.MineralRequired;
+        mineralMaxValue.SetText(entry.MineralRequired.ToString());
 
         medkitBar.value = medkitValue;
-        medkitBar.maxValue = entry.medkitRequired;
-        medkitMaxValue.SetText(entry.medkitRequired.ToString());
+        medkitBar.maxValue = entry.MedkitRequired;
+        medkitMaxValue.SetText(entry.MedkitRequired.ToString());
 
         manaBar.value = manaValue;
-        manaBar.maxValue = entry.manaRequired;
-        manaMaxValue.SetText(entry.manaRequired.ToString());
+        manaBar.maxValue = entry.ManaRequired;
+        manaMaxValue.SetText(entry.ManaRequired.ToString());
 
         healthBar.value = healthValue;
-        healthBar.maxValue = entry.healthRequired;
-        healthMaxValue.SetText(entry.healthRequired.ToString());
+        healthBar.maxValue = entry.HealthRequired;
+        healthMaxValue.SetText(entry.HealthRequired.ToString());
     }
 
     /// <summary> 
@@ -103,12 +104,13 @@ public class Ui_level : MonoBehaviour
     private void UpdateLevelWindow()
     {
         level.SetText("Level: " + levelSystem.GetLevelNumber().ToString());
+        LeanTween.scale(level.gameObject, Vector3.one * 2, tweenTime).setEasePunch();
 
-        RankEntry entry = levelSystem.GetCurrentLevelRank();
-        ResetMineralBar(entry.mineralRequired);
-        ResetManaBar(entry.manaRequired);
-        ResetMedkitBar(entry.medkitRequired);
-        ResetHealthBar(entry.healthRequired);
+        ItemRankEntry entry = levelSystem.GetCurrentItemLevelRank();
+        ResetMineralBar(entry.MineralRequired);
+        ResetManaBar(entry.ManaRequired);
+        ResetMedkitBar(entry.MedkitRequired);
+        ResetHealthBar(entry.HealthRequired);
     }
 
     /// <summary> 

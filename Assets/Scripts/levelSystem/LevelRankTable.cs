@@ -5,40 +5,68 @@ using System.Collections.Generic;
 /// </summary>
 public class LevelRankTable
 {
-    private static Dictionary<int, RankEntry> table = null;
+    private static Dictionary<int, PlayerRankEntry> playerRankTable = null;
+    private static Dictionary<int, ItemRankEntry> itemRankTable = null;
 
     /// <summary> 
-    ///   Represents level Rank for all levels 
+    ///   Represents player level Rank for all levels 
     /// </summary>
-    private static readonly List<RankEntry> rankEntries = new List<RankEntry>{
-       new RankEntry { mineralRequired = 20, manaRequired = 20, medkitRequired = 1, healthRequired = 5},
-       new RankEntry { mineralRequired = 30, manaRequired = 40, medkitRequired = 2, healthRequired = 10},
-       new RankEntry { mineralRequired = 50, manaRequired = 60, medkitRequired = 3, healthRequired = 15},
-       new RankEntry { mineralRequired = 60, manaRequired = 80, medkitRequired = 4, healthRequired = 20},
-       new RankEntry { mineralRequired = 80, manaRequired = 100, medkitRequired = 5, healthRequired = 25},
+    private static readonly List<PlayerRankEntry> playerRankEntries = new List<PlayerRankEntry>{
+       new PlayerRankEntry { MaxVelocity = 30, BoostDuration = 120 },
+       new PlayerRankEntry { MaxVelocity = 40, BoostDuration = 140 },
+       new PlayerRankEntry { MaxVelocity = 50, BoostDuration = 160 },
+       new PlayerRankEntry { MaxVelocity = 60, BoostDuration = 180 },
+       new PlayerRankEntry { MaxVelocity = 70, BoostDuration = 200 },
     };
 
     /// <summary> 
-    ///   Returns the Level Rank for all levels, starting from the Level 1
+    ///   Represents item level Rank for all levels 
     /// </summary>
-    public static Dictionary<int, RankEntry> GetLevelTable()
+    private static readonly List<ItemRankEntry> itemRankEntries = new List<ItemRankEntry>{
+       new ItemRankEntry { MineralRequired = 20, ManaRequired = 20, MedkitRequired = 1, HealthRequired = 5},
+       new ItemRankEntry { MineralRequired = 30, ManaRequired = 40, MedkitRequired = 2, HealthRequired = 10},
+       new ItemRankEntry { MineralRequired = 50, ManaRequired = 60, MedkitRequired = 3, HealthRequired = 15},
+       new ItemRankEntry { MineralRequired = 60, ManaRequired = 80, MedkitRequired = 4, HealthRequired = 20},
+       new ItemRankEntry { MineralRequired = 80, ManaRequired = 100, MedkitRequired = 5, HealthRequired = 25},
+    };
+
+    /// <summary> 
+    ///   Returns the player Level Rank for all levels, starting from the Level 1
+    /// </summary>
+    public static Dictionary<int, PlayerRankEntry> GetPlayerLevelTable()
     {
-        if (table == null)
+        if (playerRankTable == null)
         {
-            table = new Dictionary<int, RankEntry>();
-            for (int level = 0; level < rankEntries.Count; level++)
+            playerRankTable = new Dictionary<int, PlayerRankEntry>();
+            for (int level = 0; level < playerRankEntries.Count; level++)
             {
-                table.Add(level + 1, rankEntries[level]);
+                playerRankTable.Add(level + 1, playerRankEntries[level]);
             }
         }
-        return table;
+        return playerRankTable;
+    }
+
+    /// <summary> 
+    ///   Returns the item Level Rank for all levels, starting from the Level 1
+    /// </summary>
+    public static Dictionary<int, ItemRankEntry> GetItemLevelTable()
+    {
+        if (itemRankTable == null)
+        {
+            itemRankTable = new Dictionary<int, ItemRankEntry>();
+            for (int level = 0; level < itemRankEntries.Count; level++)
+            {
+                itemRankTable.Add(level + 1, itemRankEntries[level]);
+            }
+        }
+        return itemRankTable;
     }
 
     /// <summary> 
     ///   Returns the Level Rank List for all levels
     /// </summary>
-    public static List<RankEntry> GetLevelRankList()
+    public static List<ItemRankEntry> GetLevelRankList()
     {
-        return rankEntries;
+        return itemRankEntries;
     }
 }
