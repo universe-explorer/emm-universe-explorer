@@ -105,10 +105,14 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
         uiLevel.SetLevelSystem(levelSystem);
     }
 
-    // TODO: based on level change the Speed, Boost duration and so on.
+    /// <summary> 
+    ///   Updates Player's Properties based on the current level
+    /// </summary>
     private void LevelSystem_OnLevelChanged(object sender, EventArgs e)
     {
-        Debug.Log("Change Speed and Boost Duration based on the Level");
+        PlayerRankEntry entry = levelSystem.GetCurrentPlayerLevelRank();
+        setMaximumVelocity(entry.MaxVelocity);
+        setMaxBoostDuration(entry.BoostDuration);
     }
 
     void Start()
