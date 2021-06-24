@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 710200c2db165724f88e9929a62663ba, type: 3}
+  m_Name: SpawnerFieldCreatorSettings
+  m_EditorClassIdentifier: 
+  hugeSizedAsteroids: 2
+  normalSizedAsteroids: 5
+  normalAsteroidSizeMin: 0.25
+  normalAsteroidSizeMax: 0.75
+  hugeAsteroidSizeMin: 1.5
+  hugeAsteroidSizeMax: 2.5
+  rotationSpeedMin: 0.001
+  rotationSpeedMax: 0.005
+  thrustMin: 0.2
+  thrustMax: 0.6
+  _mass: 1
+  _drag: 0.001
+  _angularDrag: 0.0001

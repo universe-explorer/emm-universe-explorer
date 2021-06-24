@@ -56,6 +56,13 @@ public class AsteroidBehaviour : MonoBehaviour
         {
             _asteroid.isKinematic = true;
         }
+
+        StartCoroutine(ScaleUp());
+    }
+
+    public void Remove()
+    {
+        StartCoroutine(ScaleDown(gameObject));
     }
 
     private void Update()
@@ -65,5 +72,36 @@ public class AsteroidBehaviour : MonoBehaviour
             transform.RotateAround(_parent.transform.position, _parent.transform.up, _orbitSpeed * Time.deltaTime);
             transform.Rotate(_rotationVector, _rotationSpeed * Time.deltaTime);
         }
+    }
+
+    public float maxSize = 1f;
+    public float growFactor = 2f;
+    public float waitTime = 100f;
+
+    IEnumerator ScaleDown(GameObject go)
+    {
+        float timer = 0;
+
+        timer = 0;
+        while (0 < transform.localScale.x)
+        {
+            timer += Time.deltaTime;
+            transform.localScale -= new Vector3(1, 1, 1) * Time.deltaTime * growFactor;
+            yield return null;
+        }
+        Destroy(go);
+    }
+
+    IEnumerator ScaleUp()
+    {
+        float timer = 0;
+        transform.localScale = Vector3.zero;
+
+        while (maxSize > transform.localScale.x)
+        {
+            timer += Time.deltaTime;
+            transform.localScale += new Vector3(1, 1, 1) * Time.deltaTime * growFactor;
+            yield return null;
+        }           
     }
 }

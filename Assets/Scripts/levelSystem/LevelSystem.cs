@@ -14,7 +14,7 @@ public class LevelSystem
     private int currentLevel;
 
     private Inventory inventory;
-    private List<RankEntry> rankEntries;
+    private List<ItemRankEntry> rankEntries;
 
     public LevelSystem()
     {
@@ -51,34 +51,42 @@ public class LevelSystem
     /// <summary> 
     ///   Returns Item Properties associated with the current level
     /// </summary>
-    public RankEntry GetCurrentLevelRank()
+    public ItemRankEntry GetCurrentItemLevelRank()
     {
-        return LevelRankTable.GetLevelTable()[currentLevel];
+        return LevelRankTable.GetItemLevelTable()[currentLevel];
+    }
+
+    /// <summary> 
+    ///   Returns Item Properties associated with the current level
+    /// </summary>
+    public PlayerRankEntry GetCurrentPlayerLevelRank()
+    {
+        return LevelRankTable.GetPlayerLevelTable()[currentLevel];
     }
 
     /// <summary> 
     ///   Returns a RankEntry which represents the incoming changed Item properties
     /// </summary>
-    private RankEntry GetChangedLevelRank()
+    private ItemRankEntry GetChangedLevelRank()
     {
-        return new RankEntry
+        return new ItemRankEntry
         {
-            mineralRequired = GetMineralLevelValue(),
-            manaRequired = GetManaLevelValue(),
-            medkitRequired = GetMedkitLevelValue(),
-            healthRequired = GetHealthLevelValue(),
+            MineralRequired = GetMineralLevelValue(),
+            ManaRequired = GetManaLevelValue(),
+            MedkitRequired = GetMedkitLevelValue(),
+            HealthRequired = GetHealthLevelValue(),
         };
     }
 
     /// <summary> 
     ///   Upgrades level according to the item's properties
     /// </summary>
-    private void Upgrade(RankEntry changedRank)
+    private void Upgrade(ItemRankEntry changedRank)
     {
         bool levelChanged = false;
         for (int levelIter = 0; levelIter < rankEntries.Count; levelIter++)
         {
-            RankEntry levelRank = rankEntries[levelIter];
+            ItemRankEntry levelRank = rankEntries[levelIter];
             int level = levelIter + 1;
             if (changedRank.CompareTo(levelRank) >= 0 && level > currentLevel - 1)
             {
@@ -92,13 +100,13 @@ public class LevelSystem
     /// <summary> 
     ///   Downgrades level according to the item's properties
     /// </summary>
-    private void Downgrade(RankEntry changedRank)
+    private void Downgrade(ItemRankEntry changedRank)
     {
         bool levelChanged = false;
 
         for (int levelIter = rankEntries.Count - 1; levelIter > 0; levelIter--)
         {
-            RankEntry levelRank = rankEntries[levelIter];
+            ItemRankEntry levelRank = rankEntries[levelIter];
             if (changedRank.CompareTo(levelRank) < 0 && currentLevel > levelIter) 
             {
                 currentLevel -= 1;

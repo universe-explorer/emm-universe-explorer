@@ -4,6 +4,7 @@ using UnityEngine.EventSystems;
 
 public class MouseUIEvents : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
+    private static LTDescr delay;
     public Action RightClickHandler = null;
     public Action MouseEnterHandler = null;
     public Action MouseExitHandler = null;
@@ -22,7 +23,10 @@ public class MouseUIEvents : MonoBehaviour, IPointerClickHandler, IPointerEnterH
     /// </summary>
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (MouseEnterHandler != null) MouseEnterHandler();
+        delay = LeanTween.delayedCall(0.5f, () =>
+        {
+            if (MouseEnterHandler != null) MouseEnterHandler();
+        });
     }
 
     /// <summary> 
@@ -30,6 +34,7 @@ public class MouseUIEvents : MonoBehaviour, IPointerClickHandler, IPointerEnterH
     /// </summary>
     public void OnPointerExit(PointerEventData eventData)
     {
+        LeanTween.cancel(delay.uniqueId);
         if (MouseExitHandler != null) MouseExitHandler();
     }
 }

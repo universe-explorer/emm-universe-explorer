@@ -7,7 +7,9 @@ using Random = UnityEngine.Random;
 
 public class AsteroidField : MonoBehaviour
 {
-    [Header("AsteroidField Settings")] public int hugeSizedAsteroids = 15;
+    [Header("AsteroidField Settings")] 
+    
+    public int hugeSizedAsteroids = 15;
     public int normalSizedAsteroids = 150;
 
     public float normalAsteroidSizeMin = .5f;
@@ -17,7 +19,9 @@ public class AsteroidField : MonoBehaviour
     public float hugeAsteroidSizeMax = 9f;
 
 
-    [Header("Asteroid Settings")] public float rotationSpeedMin = .25f;
+    [Header("Asteroid Settings")] 
+    
+    public float rotationSpeedMin = .25f;
     public float rotationSpeedMax = 3f;
 
     public float thrustMin = .1f;
