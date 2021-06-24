@@ -14,7 +14,8 @@ public class MinimapBehaviour : MonoBehaviour
     [SerializeField] private float emissionValue = 0.005f;
     [SerializeField] private float iconSize = 20; // Not relative to planet size
     [SerializeField] private float iconScale = 1; // 1 equals original size
-    [SerializeField] private float outlineSize = 1.1f; 
+    [SerializeField] private float outlineSize = 1.1f;
+    [SerializeField] private Color planetOutlineColor = new Color(90f/255, 0, 5f/255);
     private float cameraHeight = 100;
     private float referenceHeight;
     private string planetTag = "Planet";
@@ -128,7 +129,7 @@ public class MinimapBehaviour : MonoBehaviour
         
         MeshRenderer outlineMeshRenderer = planetOutline.GetComponent<MeshRenderer>();
         outlineMeshRenderer.material.shader = emissionShader;
-        outlineMeshRenderer.material.SetColor("_Color", new Color(90f/255, 0, 5f/255)); // Access Color property of emission shader on material
+        outlineMeshRenderer.material.SetColor("_Color", planetOutlineColor); // Access Color property of emission shader on material
     }
 
     private void createSpaceShipIcon()
