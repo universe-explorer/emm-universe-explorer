@@ -6,6 +6,7 @@ public class Ui_level : MonoBehaviour
 {
     private LevelSystem levelSystem;
     private TextMeshProUGUI level;
+    private float tweenTime = 3f;
 
     private int mineralValue;
     private int manaValue;
@@ -103,6 +104,7 @@ public class Ui_level : MonoBehaviour
     private void UpdateLevelWindow()
     {
         level.SetText("Level: " + levelSystem.GetLevelNumber().ToString());
+        LeanTween.scale(level.gameObject, Vector3.one * 2, tweenTime).setEasePunch();
 
         RankEntry entry = levelSystem.GetCurrentLevelRank();
         ResetMineralBar(entry.mineralRequired);
