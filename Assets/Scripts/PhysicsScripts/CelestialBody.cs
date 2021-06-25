@@ -49,19 +49,18 @@ public class CelestialBody : MonoBehaviour
     /// updates the local velocity by the acceleration
     /// </summary>
     /// <param name="acceleration"></param>
-    /// <param name="timeStep"></param>
-    public void UpdateVelocity(Vector3 acceleration, float timeStep)
+    public void UpdateVelocity(Vector3 acceleration)
     {
-        Velocity += acceleration * timeStep;
+        Velocity += acceleration;
     }
 
     /// <summary>
     /// Updates the local position
     /// </summary>
-    /// <param name="timeStep"></param>
-    public void UpdatePosition(float timeStep)
+    /// <param name="scalar"></param>
+    public void UpdatePosition(float scalar)
     {
-        Rigidbody.MovePosition(Rigidbody.position + Velocity * timeStep);    
+        Rigidbody.MovePosition(Rigidbody.position + Velocity * scalar);
     }
 
     private void RecalculateMass()

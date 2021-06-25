@@ -28,11 +28,11 @@ public class TestMovement : MonoBehaviour
 
         if (Input.GetAxis("Horizontal") > 0)
         {
-            transform.localRotation *= Quaternion.Euler(0, 0.02f, 0);
+            transform.rotation *= Quaternion.Euler(0, 0.02f, 0);
         }
         else if (Input.GetAxis("Horizontal") < 0)
         {
-            transform.localRotation *= Quaternion.Euler(0, -0.02f, 0);
+            transform.rotation *= Quaternion.Euler(0, -0.02f, 0);
         }
     }
 }
