@@ -78,6 +78,11 @@ public class AsteroidBehaviour : MonoBehaviour
     public float growFactor = 2f;
     public float waitTime = 100f;
 
+    /// <summary>
+    /// Scales Down a GameObject. When SCaled to zero the GO is being destroyed
+    /// </summary>
+    /// <param name="go"></param>
+    /// <returns></returns>
     IEnumerator ScaleDown(GameObject go)
     {
         float timer = 0;

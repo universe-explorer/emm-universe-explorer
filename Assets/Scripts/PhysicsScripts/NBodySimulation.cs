@@ -14,7 +14,6 @@ public class NBodySimulation : MonoBehaviour
     private void Awake()
     {
         _Bodies = GameObject.FindObjectsOfType<CelestialBody>();
-        Debug.Log("Setting fixed delta time to: " + Time.fixedDeltaTime);
     }
 
     void FixedUpdate()

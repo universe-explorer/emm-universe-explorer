@@ -40,7 +40,6 @@ public class CelestialBody : MonoBehaviour
     {
         _Rigidbody = GetComponent<Rigidbody>();
         Velocity = InitialVelocity;
-        Debug.Log("new Velocity: " + Velocity);
         RecalculateMass();
 
     }
