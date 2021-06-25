@@ -4,7 +4,17 @@ using UnityEngine;
 
 public class CombatControllerPlayer : AbstractCombatController
 {
-    public LineRenderer _LineRenderer;
+    public override void Die()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void HealthChanged()
+    {
+        throw new System.NotImplementedException();
+    }
+}
+    /*public LineRenderer _LineRenderer;
 
     public float _LaserWidth = 0.1f;
     public float _LaserMaxLength;
@@ -65,4 +75,4 @@ public class CombatControllerPlayer : AbstractCombatController
     {
         //Todo: change Slider in UI...
     }
-}
+}*/
