@@ -21,6 +21,10 @@ public class InventoryController : MonoBehaviour
         }
     }
 
+    /// <summary> 
+    ///   Sets inventory for this controller, ensure that this happens
+    ///   before UI access the inventory system which would result in NullReferenceException 
+    /// </summary>
     void Awake()
     {
         inventory = new Inventory();

@@ -57,7 +57,7 @@ public class LevelSystem
     }
 
     /// <summary> 
-    ///   Returns Item Properties associated with the current level
+    ///   Returns Player Properties associated with the current level
     /// </summary>
     public PlayerRankEntry GetCurrentPlayerLevelRank()
     {
