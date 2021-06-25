@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CombatControllerPlayer : AbstractCombatController
 {
+    /*
     public LineRenderer _LineRenderer;
 
     public float _LaserWidth = 0.1f;
@@ -51,7 +52,7 @@ public class CombatControllerPlayer : AbstractCombatController
             }
             else
             {
-                _LineRenderer.enabled = false;
+                //_LineRenderer.enabled = false;
             }
         }
     }
@@ -64,5 +65,15 @@ public class CombatControllerPlayer : AbstractCombatController
     public override void HealthChanged()
     {
         //Todo: change Slider in UI...
+    }
+    */
+    public override void Die()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void HealthChanged()
+    {
+        throw new System.NotImplementedException();
     }
 }
