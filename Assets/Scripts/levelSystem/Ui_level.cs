@@ -6,7 +6,7 @@ public class Ui_level : MonoBehaviour
 {
     private LevelSystem levelSystem;
     private TextMeshProUGUI level;
-    private float tweenTime = 3f;
+    private readonly float tweenTime = 3f;
 
     private int mineralValue;
     private int manaValue;
@@ -22,6 +22,16 @@ public class Ui_level : MonoBehaviour
     public TextMeshProUGUI medkitMaxValue;
     public TextMeshProUGUI manaMaxValue;
     public TextMeshProUGUI healthMaxValue;
+
+    /// <summary> 
+    ///   Sets the associated Level System which provides Events utilities and data accessibilities
+    /// </summary>
+    public void SetLevelSystem(LevelSystem levelSystem)
+    {
+        this.levelSystem = levelSystem;
+        levelSystem.OnExperienceChanged += LevelSystem_OnExperienceChanged;
+        levelSystem.OnLevelChanged += LevelSystem_OnLevelChanged;
+    }
 
     private void Start()
     {
@@ -58,16 +68,6 @@ public class Ui_level : MonoBehaviour
         healthBar.value = healthValue;
         healthBar.maxValue = entry.HealthRequired;
         healthMaxValue.SetText(entry.HealthRequired.ToString());
-    }
-
-    /// <summary> 
-    ///   Sets the associated Level System which provides Events utilities and data accessibilities
-    /// </summary>
-    public void SetLevelSystem(LevelSystem levelSystem)
-    {
-        this.levelSystem = levelSystem;
-        levelSystem.OnExperienceChanged += LevelSystem_OnExperienceChanged;
-        levelSystem.OnLevelChanged += LevelSystem_OnLevelChanged;
     }
 
     private void LevelSystem_OnExperienceChanged(object sender, System.EventArgs e)

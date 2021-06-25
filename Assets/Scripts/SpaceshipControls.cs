@@ -185,7 +185,7 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
     /// </summary>
     public void Move(Vector3 direction, float force)
     {
-        print(force);
+        //print(force);
 
         float _maxVelocity = maxVelocity;
         float speedOffset = .01f;

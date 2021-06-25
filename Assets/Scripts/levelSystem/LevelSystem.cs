@@ -14,12 +14,12 @@ public class LevelSystem
     private int currentLevel;
 
     private Inventory inventory;
-    private List<ItemRankEntry> rankEntries;
+    private List<ItemRankEntry> itemRankEntries;
 
     public LevelSystem()
     {
         currentLevel = 1;
-        rankEntries = LevelRankTable.GetLevelRankList();
+        itemRankEntries = LevelRankTable.GetItemLevelRankList();
     }
 
     /// <summary> 
@@ -84,9 +84,9 @@ public class LevelSystem
     private void Upgrade(ItemRankEntry changedRank)
     {
         bool levelChanged = false;
-        for (int levelIter = 0; levelIter < rankEntries.Count; levelIter++)
+        for (int levelIter = 0; levelIter < itemRankEntries.Count; levelIter++)
         {
-            ItemRankEntry levelRank = rankEntries[levelIter];
+            ItemRankEntry levelRank = itemRankEntries[levelIter];
             int level = levelIter + 1;
             if (changedRank.CompareTo(levelRank) >= 0 && level > currentLevel - 1)
             {
@@ -104,9 +104,9 @@ public class LevelSystem
     {
         bool levelChanged = false;
 
-        for (int levelIter = rankEntries.Count - 1; levelIter > 0; levelIter--)
+        for (int levelIter = itemRankEntries.Count - 1; levelIter > 0; levelIter--)
         {
-            ItemRankEntry levelRank = rankEntries[levelIter];
+            ItemRankEntry levelRank = itemRankEntries[levelIter];
             if (changedRank.CompareTo(levelRank) < 0 && currentLevel > levelIter) 
             {
                 currentLevel -= 1;
@@ -120,13 +120,13 @@ public class LevelSystem
      * TODO: cache returned value 
      * 
      * every time when space ship collects new items, the following Getters are called which 
-     * cause a interation of the item list that runs in linear time, we should cache the
+     * causes a interation of the Item list that runs in linear time, we should cache the
      * corresponding values, but in our usecase this should not be a performance issue because 
-     * the item list is relative small.
+     * the Item list is relative small.
      */
 
     /// <summary> 
-    ///   Returns the total amount of the mineral Items within Inventory 
+    ///   Returns the total amount of the mineral Items from the Inventory System 
     /// </summary>
     public int GetMineralLevelValue()
     {
@@ -142,7 +142,7 @@ public class LevelSystem
     }
 
     /// <summary> 
-    ///   Returns the total amount of the medkit Items within Inventory
+    ///   Returns the total amount of the medkit Items from the Inventory System
     /// </summary>
     public int GetMedkitLevelValue()
     {
@@ -158,7 +158,7 @@ public class LevelSystem
     }
 
     /// <summary> 
-    ///   Returns the total amount of the mana Items within Inventory
+    ///   Returns the total amount of the mana Items from the Inventory System
     /// </summary>
     public int GetManaLevelValue()
     {
@@ -174,7 +174,7 @@ public class LevelSystem
     }
 
     /// <summary> 
-    ///   Returns the total amount of the health Items within Inventory
+    ///   Returns the total amount of the health Items from the Inventory System
     /// </summary>
     public int GetHealthLevelValue()
     {

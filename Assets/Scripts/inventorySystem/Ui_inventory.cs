@@ -119,18 +119,11 @@ public class Ui_inventory : MonoBehaviour
     }
 
     /// <summary> 
-    ///   Sets Item's amount within UI
+    ///   Sets Item's amount
     /// </summary>
     private void SetAmount(Transform parent, Item item)
     {
         TextMeshProUGUI amount = parent.Find("amount").GetComponent<TextMeshProUGUI>();
-        if (item.amount > 1)
-        {
-            amount.SetText(item.amount.ToString());
-        }
-        else
-        {
-            amount.SetText("");
-        }
+        amount.SetText(item.amount > 1 ? item.amount.ToString() : "");
     }
 }
