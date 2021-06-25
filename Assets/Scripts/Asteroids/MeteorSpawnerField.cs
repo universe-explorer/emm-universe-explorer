@@ -80,7 +80,6 @@ public class MeteorSpawnerField : MonoBehaviour
     {
         if (other.tag == "MainCamera")
         {
-            Debug.Log("entered collider...");
             SpawnMeteors();
         }
     }
@@ -90,7 +89,6 @@ public class MeteorSpawnerField : MonoBehaviour
     {
         if (other.tag == "MainCamera")
         {
-            Debug.Log("entered collider...");
             DestroyMeteors();
         }
     }
