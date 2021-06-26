@@ -35,24 +35,39 @@ public class InfoCircleScript : MonoBehaviour
             Reduce(10);
         }
 
-        if (value < delayedValue)
+        if (Input.GetKeyDown(KeyCode.I))
         {
+            Increase(10);
+        }
+
+        //if (value < delayedValue)
+        //{
             progress += Time.deltaTime;
-            imgCircle.fillAmount = Mathf.Lerp(imgCircle.fillAmount, value / maxValue, progress * speed);
+            imgCircle.fillAmount = Mathf.Lerp(imgCircle.fillAmount, value / maxValue, progress * speed); // Takes some time to reach 1
             delayedValue = imgCircle.fillAmount * maxValue;
 
             txtCircle.text = String.Format("{0}%", (int)(imgCircle.fillAmount*100));
-        }
+        //}
     }
 
     public void Reduce(float value)
     {
-        this.value -= value;
+        if (this.value - value >= 0)
+            this.value -= value;
+        else
+            this.value = 0;
+        
         progress = 0;
     }
 
     public void Increase(float value)
     {
         // TODO
+        if (this.value + value <= maxValue)
+            this.value += value;
+        else
+            this.value = maxValue;
+        
+        progress = 0;
     }
 }
