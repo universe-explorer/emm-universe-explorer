@@ -18,6 +18,9 @@ public class DeathScreenManager : MonoBehaviour
     [SerializeField] private float backgroundAlphaFadeDuration = 5f; // In seconds
     [SerializeField] private float minTimeScale = 0.1f;
 
+    //[SerializeField] private Scene _scene;
+    [SerializeField] private string _mainMenuSceneName;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -48,12 +51,18 @@ public class DeathScreenManager : MonoBehaviour
 
         imgBackground.CrossFadeAlpha(minBackgroundAlpha, backgroundAlphaFadeDuration, true);
 
+        
+        
+        // TODO: Disable controls and pause menu
+        Destroy(GetComponentInParent<SpaceshipControls>());
+        Destroy(GetComponentInParent<CombatControllerPlayer>());
+        
         Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     public void LoadMainMenuScene()
     {
-        // TODO
-        // SceneManager.LoadScene();
+        SceneManager.LoadScene(_mainMenuSceneName);
     }
 }
