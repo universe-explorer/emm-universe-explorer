@@ -65,7 +65,8 @@ public class MeteorSpawnerField : MonoBehaviour
             item.manaPortion = Random.Range(5, 36);
             item.medkitPortion = Random.Range(1, 3);
 
-            ItemWorld.SpawnItemWorld(RandomPointInBounds(bounds), item);
+            ItemWorld itemWorld = ItemWorld.SpawnItemWorld(RandomPointInBounds(bounds), item);
+            itemWorld.transform.SetParent(transform);
         }
     }
 
@@ -137,6 +138,7 @@ public class MeteorSpawnerField : MonoBehaviour
         {
             DestroyMeteors();
             DestroyEnemies();
+            DestroyItems();
         }
     }
 
@@ -161,6 +163,19 @@ public class MeteorSpawnerField : MonoBehaviour
             if (behaviour != null)
             {
                 behaviour.Die();
+            }
+        }
+
+    }
+
+    private void DestroyItems()
+    {
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            ItemWorld behaviour = transform.GetChild(i).gameObject.GetComponent<ItemWorld>();
+            if (behaviour != null)
+            {
+                behaviour.DestroySelf();
             }
         }
 
