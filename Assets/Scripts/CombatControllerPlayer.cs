@@ -4,21 +4,29 @@ using UnityEngine;
 
 public class CombatControllerPlayer : AbstractCombatController
 {
-    /*
     public LineRenderer _LineRenderer;
 
     public float _LaserWidth = 0.1f;
     public float _LaserMaxLength;
     // Start is called before the first frame update
+
+    [SerializeField]
+    public WeaponController WeaponController;
+    
     void Start()
     {
-        _LaserMaxLength = _MaxShootDistance;
+        if (WeaponController == null)
+        {
+            WeaponController = gameObject.GetComponentInChildren<WeaponController>();
+        }
+
+        /*_LaserMaxLength = _MaxShootDistance;
         _LineRenderer = GetComponent<LineRenderer>();
         _MaxHealth = _Health;
 
         Vector3[] initLaserPositions = new Vector3[2] { Vector3.zero, Vector3.zero };
         _LineRenderer.SetPositions(initLaserPositions);
-        _LineRenderer.SetWidth(_LaserWidth, _LaserWidth);
+        _LineRenderer.SetWidth(_LaserWidth, _LaserWidth);*/
     }
 
     // Update is called once per frame
@@ -28,7 +36,8 @@ public class CombatControllerPlayer : AbstractCombatController
         {
             if (Input.GetButtonDown("Fire1"))
             {
-                _Ammo--;
+                WeaponController.FireActiveWeapon();
+                /*_Ammo--;
                 RaycastHit hit;
                 _LineRenderer.enabled = true;
                 if (Physics.Raycast(transform.position, -transform.forward, out hit, _MaxShootDistance))
@@ -48,7 +57,8 @@ public class CombatControllerPlayer : AbstractCombatController
                     
 
                     Debug.Log("Hit: " + hit.collider.name);
-                }
+                }*/
+
             }
             else
             {
@@ -56,17 +66,7 @@ public class CombatControllerPlayer : AbstractCombatController
             }
         }
     }
-
-    public override void Die()
-    {
-        Destroy(gameObject);
-    }
-
-    public override void HealthChanged()
-    {
-        //Todo: change Slider in UI...
-    }
-    */
+    
     public override void Die()
     {
         throw new System.NotImplementedException();

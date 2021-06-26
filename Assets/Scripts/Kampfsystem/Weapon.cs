@@ -89,7 +89,7 @@ public abstract class Weapon : MonoBehaviour
                 _currentAmmo--;
             }
         }
-        if (_maxAmmo <= 0)
+        if (_maxAmmo <= 0 && _hasAmmo)
         {
             _canShoot = false;
         }

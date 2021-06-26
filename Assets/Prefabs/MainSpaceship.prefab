@@ -1,5 +1,131 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &594678396
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 594678397}
+  m_Layer: 0
+  m_Name: Socket
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &594678397
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 594678396}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -1.16, z: 4.56}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1782772452}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1183871405
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1183871406}
+  - component: {fileID: 1183871407}
+  m_Layer: 0
+  m_Name: RocketLauncher
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1183871406
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1183871405}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1782772452}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1183871407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1183871405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1edd27633df712f44be68e08a919337e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxAmmo: 0
+  _weaponType: 0
+  _maxShootingDistance: 0
+  _rocketSpeed: 5
+  _rocket: {fileID: 7780717535766068066, guid: 117ae24a2e533774eb6c602f88dac4f9, type: 3}
+  Socket: {fileID: 594678397}
+--- !u!1 &1782772451
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1782772452}
+  - component: {fileID: 1782772454}
+  m_Layer: 0
+  m_Name: WeaponController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1782772452
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1782772451}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1183871406}
+  - {fileID: 594678397}
+  m_Father: {fileID: 7886217851453619046}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1782772454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1782772451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce0ab07617e4096419b75d71d287ee3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Weapons:
+  - {fileID: 1183871407}
 --- !u!1 &189767756753616106
 GameObject:
   m_ObjectHideFlags: 0
@@ -90,6 +216,8 @@ GameObject:
   - component: {fileID: 6346074013267755291}
   - component: {fileID: 7293744273408118888}
   - component: {fileID: 960982384141628198}
+  - component: {fileID: 456765986}
+  - component: {fileID: 456765987}
   m_Layer: 0
   m_Name: MainSpaceship
   m_TagString: Untagged
@@ -111,6 +239,7 @@ Transform:
   - {fileID: 3759823015516276866}
   - {fileID: 493692966066869540}
   - {fileID: 3324088283096672857}
+  - {fileID: 1782772452}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -138,10 +267,10 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 200795982287762043}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 6.3797407, y: 0.98265564, z: 5.7657166}
+  m_Size: {x: 5, y: 5, z: 5}
   m_Center: {x: -0.039248466, y: 0.52736515, z: -0.23317099}
 --- !u!114 &1096494335108308553
 MonoBehaviour:
@@ -168,7 +297,7 @@ MonoBehaviour:
   _maxBoostDuration: 120
   defaultRollingForce: 30
   useAlternativeMouseInput: 0
-  _debugCrosshair: 0
+  _debugCrosshair: 1
   _crosshairOffsetX: 18
   _crosshairOffsetY: 7
   _crosshairMovementSpeed: 100
@@ -193,6 +322,7 @@ MonoBehaviour:
   _LineRenderer: {fileID: 0}
   _LaserWidth: 0.1
   _LaserMaxLength: 0
+  WeaponController: {fileID: 0}
 --- !u!114 &7293744273408118888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -219,6 +349,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiLevel: {fileID: 6264352193124437348}
+--- !u!135 &456765986
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 200795982287762043}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 100
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &456765987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 200795982287762043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 197ea1b8b8dcc93489fa5cdbd2c84637, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _density: 100
+  _radius: 100
 --- !u!1 &235175457994461347
 GameObject:
   m_ObjectHideFlags: 0
