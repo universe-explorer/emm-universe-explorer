@@ -103,7 +103,7 @@ namespace SerialCommunication
             {
                 try
                 {
-                    int[] dataBuffer = VerifyIncomingData();
+                    byte[] dataBuffer = VerifyIncomingData();
                     invalidChecksumCounter = 0; // Reset counter to zero
                     ParseData(dataBuffer);
                 }
@@ -131,34 +131,38 @@ namespace SerialCommunication
          * <exception cref="InvalidDataException">Thrown when incoming data doesn't match our protocol</exception>
          * <exception cref="InvalidChecksumException">Thrown when checksum of dataBuffer is invalid</exception>
          */
-        private int[] VerifyIncomingData()
+        private byte[] VerifyIncomingData()
         {
             // Check if first byte matches startByte
             if (sp.ReadByte() != startByte)
                 throw new InvalidDataException("Invalid startByte");
-
-            // TODO: Convert to unsigned byte?
-            int length = sp.ReadByte(); // TODO: One byte might not be large enough in the future 
+            
+            // Length of data
+            int length = sp.ReadByte(); // TODO: One byte might not be large enough in the future
+            Debug.Log("Length: " + length);
             if (length <= 0)
                 throw new InvalidCastException("Length can't be less or equal than zero");
-                
-
+            
             // Save actual data in buffer and verify it with crc before using it
-            int[] dataBuffer = new int[length];
-            for (var i = 0; i < dataBuffer.Length; i++)
-                dataBuffer[i] = sp.ReadByte();
+            byte[] dataBuffer = new byte[length+1];  // Increase length by one to append the crc8 byte at the end
+            for (var i = 0; i < dataBuffer.Length-1; i++)
+            {
+                // TODO: Casting to byte without checking if ReadByte returns -1 might not be safe
+                dataBuffer[i] = (byte) sp.ReadByte(); 
+                Debug.Log("byte " + i + ": " + dataBuffer[i]);
+            }
 
-
-            // Check if byte matches endByte
-            if (sp.ReadByte() != endByte)
-                throw new InvalidDataException("Invalid endByte");
-
-            // TODO: Check hash at the end
-            // crc
-            if (false) // TODO: change condition with return value of checksum check
+            // crc8
+            dataBuffer[dataBuffer.Length - 1] = (byte) sp.ReadByte(); // Append crc8 byte
+            
+            byte crc = crc8(dataBuffer);
+            Debug.Log("crc8: " + crc);
+            if (crc != 0) // crc8 byte must be zero else throw an exception
                 throw new InvalidChecksumException();
-
-            return dataBuffer;
+            
+            byte[] returnBuffer = new byte[length];
+            Array.Copy(dataBuffer, returnBuffer, returnBuffer.Length); // Might not be the most efficient way
+            return returnBuffer;
         }
 
         /**
@@ -166,7 +170,7 @@ namespace SerialCommunication
          * 
          * <exception cref="InvalidDataException">Thrown when an invalid data type has been read</exception>
          */
-        private void ParseData(int[] dataBuffer)
+        private void ParseData(byte[] dataBuffer)
         {
             for (var i = 0; i < dataBuffer.Length; i++)
             {
@@ -175,6 +179,8 @@ namespace SerialCommunication
                 {
                     case speedByte:
                         // TODO: read one byte and set speed
+                        i++;
+                        Debug.Log("Speed: " + dataBuffer[i].ToString("X"));
                         break;
                     case rotationByte:
                         // Read multiple bytes?
@@ -183,6 +189,26 @@ namespace SerialCommunication
                         throw new InvalidDataException("Invalid data type"); // TODO: Maybe use another exception
                 }
             }
+        }
+        
+        /**
+         * Calculates crc8
+         */
+        private byte crc8(byte[] bytes)
+        {
+            byte crc = 0;
+            for (int i = 0; i < bytes.Length; i++)
+            {
+                crc ^= bytes[i];
+                for (int j = 0; j < 8; j++)
+                {
+                    if ((crc & 0x80) != 0)
+                        crc = (byte) ((crc << 1) ^ 0x15);
+                    else
+                        crc <<= 1;
+                }
+            }
+            return crc;
         }
     }
 }
