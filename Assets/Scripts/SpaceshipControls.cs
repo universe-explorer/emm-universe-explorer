@@ -389,7 +389,15 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
     }
 
     /// <summary> 
-    ///   Returns the current maximum boost duration in frames
+    ///   Returns the current boost duration in frames
+    /// </summary>
+    public int getCurrentBoostDuration()
+    {
+        return _currentBoostTime;
+    }
+
+    /// <summary> 
+    ///   Returns the maximum boost duration in frames
     /// </summary>
     public int getMaxBoostDuration()
     {
