@@ -12,6 +12,8 @@ public class CombatControllerPlayer : AbstractCombatController
 
     [SerializeField]
     public WeaponController WeaponController;
+
+    private HealthBarScript _healthBarScript;
     
     void Start()
     {
@@ -19,6 +21,8 @@ public class CombatControllerPlayer : AbstractCombatController
         {
             WeaponController = gameObject.GetComponentInChildren<WeaponController>();
         }
+
+        _healthBarScript = gameObject.GetComponentInChildren<HealthBarScript>();
 
         /*_LaserMaxLength = _MaxShootDistance;
         _LineRenderer = GetComponent<LineRenderer>();
@@ -74,6 +78,7 @@ public class CombatControllerPlayer : AbstractCombatController
 
     public override void HealthChanged()
     {
-        throw new System.NotImplementedException();
+        _healthBarScript.TakeDamageTemporary(_Health); // Test implementation -> health can also increase in this method
+        //throw new System.NotImplementedException();
     }
 }

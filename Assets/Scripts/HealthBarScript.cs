@@ -13,8 +13,8 @@ public class HealthBarScript : MonoBehaviour
 
     private Image imgCurrentHealth;
     private Image imgDelayedHealth;
-    private float maxHealth = 100;
-    private float currentHealth = 100;
+    private float maxHealth;
+    private float currentHealth;
     private float progress = 0;
     [SerializeField] private float delayedHealthBarSpeed = 0.02f;
 
@@ -23,6 +23,10 @@ public class HealthBarScript : MonoBehaviour
     {
         imgCurrentHealth = currentHealthBar.GetComponent<Image>();
         imgDelayedHealth = delayedHealthBar.GetComponent<Image>();
+        
+        // TODO: Currently just a workaround; CombatControllerPlayer needs to have maxHealth initialized
+        maxHealth = GetComponentInParent<CombatControllerPlayer>()._Health; 
+        currentHealth = GetComponentInParent<CombatControllerPlayer>()._Health;
     }
 
     // Update is called once per frame
@@ -36,7 +40,7 @@ public class HealthBarScript : MonoBehaviour
             imgDelayedHealth.fillAmount = Mathf.Lerp(imgDelayedHealth.fillAmount, imgCurrentHealth.fillAmount, progress*delayedHealthBarSpeed);
         }
 
-        Debug.Log(imgCurrentHealth.fillAmount);
+        //Debug.Log(imgCurrentHealth.fillAmount);
         
         /*
         // TODO: Remove before branch gets merged
@@ -50,6 +54,15 @@ public class HealthBarScript : MonoBehaviour
         if (currentHealth - damage >= 0)
         {
             currentHealth -= damage;
+            progress = 0;
+        }
+    }
+    
+    public void TakeDamageTemporary(float newHealthValue)
+    {
+        if (newHealthValue >= 0)
+        {
+            currentHealth = newHealthValue;
             progress = 0;
         }
     }
