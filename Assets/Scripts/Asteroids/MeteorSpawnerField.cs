@@ -126,7 +126,7 @@ public class MeteorSpawnerField : MonoBehaviour
         {
             SpawnMeteors();
             SpawnCollectables();
-            //SpawnEnemies();
+            SpawnEnemies();
         }
     }
 
@@ -136,7 +136,7 @@ public class MeteorSpawnerField : MonoBehaviour
         if (other.tag == "MainCamera")
         {
             DestroyMeteors();
-            //DestroyEnemies();
+            DestroyEnemies();
         }
     }
 
@@ -144,7 +144,11 @@ public class MeteorSpawnerField : MonoBehaviour
     {
         for (int i = 0; i < transform.childCount; i++)
         {
-            transform.GetChild(i).gameObject.GetComponent<AsteroidBehaviour>().Remove();
+            AsteroidBehaviour behaviour = transform.GetChild(i).gameObject.GetComponent<AsteroidBehaviour>();
+            if(behaviour != null)
+            {
+                behaviour.Remove();
+            }
         }
         
     }
@@ -153,7 +157,11 @@ public class MeteorSpawnerField : MonoBehaviour
     {
         for (int i = 0; i < transform.childCount; i++)
         {
-            transform.GetChild(i).gameObject.GetComponent<CombatControllerEnemy>().Die();
+            CombatControllerEnemy behaviour = transform.GetChild(i).gameObject.GetComponent<CombatControllerEnemy>();
+            if (behaviour != null)
+            {
+                behaviour.Die();
+            }
         }
 
     }
