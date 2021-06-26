@@ -57,7 +57,7 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
     
     private const float fullRoll = 360;
     private float rollPerFrame = 4;
-    private float _currentRoll;
+    private bool _startRoll;
     private bool _isRolling;
     private float _rollingDirection;
 
@@ -124,13 +124,15 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.A) && !_isRolling)
         {
-            Roll(-defaultRollingForce);
+            _rollingDirection = 1;
+            _startRoll = true;
         }
-        else if (Input.GetKeyDown(KeyCode.D))
+        else if (Input.GetKeyDown(KeyCode.D) && !_isRolling)
         {
-            Roll(defaultRollingForce);
+            _rollingDirection = -1;
+            _startRoll = true;
         }
     }
 
@@ -139,6 +141,13 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
         velocity = _ship.velocity.magnitude;
         _verticalInput = Input.GetAxis("Vertical");
         _isBoosting = false;
+
+        if(_startRoll)
+        {
+            Roll(defaultRollingForce);
+            _startRoll = false;
+        }
+
         if (!useAlternativeMouseInput)
         {
             _mouseInput = Input.mousePosition;
@@ -266,16 +275,13 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
         if (!_isRolling && force != 0)
         {
             _isRolling = true;
-            _currentRoll = 0;
 
             if (force > 0)
             {
-                _rollingDirection = -1;
                 StartCoroutine("RollCoroutine");
             }
             else
             {
-                _rollingDirection = 1;
                 StartCoroutine("RollCoroutine");
             }
 
