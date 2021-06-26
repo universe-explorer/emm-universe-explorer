@@ -60,6 +60,23 @@ public class MeteorSpawnerField : MonoBehaviour
         }
     }
 
+    public void SpawnEnemies()
+    {
+        int random = (int)Random.Range(0, 3);
+        GameObject enemyPrefab = (GameObject)Resources.Load("Enemy", typeof(GameObject));
+        Object[] scriptableObjects = Resources.LoadAll("ScriptableObjects", typeof(EnemyScriptableObject));
+        int randomIndex = (int) Random.Range(0, scriptableObjects.Length);
+        EnemyScriptableObject enemyScriptableObject = (EnemyScriptableObject) scriptableObjects[randomIndex];
+
+        EnemyBehaviour behaviour = (EnemyBehaviour) enemyPrefab.GetComponent(typeof(EnemyBehaviour));
+        behaviour.values = enemyScriptableObject;
+
+        if (random == 1)
+        {
+            Instantiate(enemyPrefab, RandomPointInBounds(bounds), Quaternion.identity);
+        }
+    }
+
     /*private void Awake()
     {
         CreateCollider();
@@ -102,6 +119,7 @@ public class MeteorSpawnerField : MonoBehaviour
         {
             SpawnMeteors();
             SpawnCollectables();
+            SpawnEnemies();
         }
     }
 
