@@ -16,11 +16,11 @@ public class MinimapBehaviour : MonoBehaviour
     [SerializeField] private float iconScale = 1; // 1 equals original size
     [SerializeField] private float outlineSize = 4f;
     [SerializeField] private Color planetOutlineColor = new Color(90f/255, 0, 5f/255);
-    private float cameraHeight = 100;
+    [SerializeField] private float cameraHeight = 100;
     private float referenceHeight;
     private string planetTag = "Planet";
     public Sprite playerMapMarker;
-    private float playerIconScale = 7;
+    private float playerIconScale = 7f;
     
 
     void Start()
