@@ -468,7 +468,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 208d54249e11d1b40802b067ca849dcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameSceneName: Solar System
+  gameSceneName: PlanetScene
 --- !u!1 &1247154028
 GameObject:
   m_ObjectHideFlags: 0
