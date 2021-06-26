@@ -38,9 +38,11 @@ public class HealthBarScript : MonoBehaviour
 
         Debug.Log(imgCurrentHealth.fillAmount);
         
+        /*
         // TODO: Remove before branch gets merged
         if (Input.GetKeyDown(KeyCode.Space))
             TakeDamage(5);
+        */
     }
 
     public void TakeDamage(float damage)
