@@ -73,7 +73,8 @@ public class CombatControllerPlayer : AbstractCombatController
     
     public override void Die()
     {
-        throw new System.NotImplementedException();
+        GetComponentInChildren<DeathScreenManager>().enableDeathScreen(); // TODO: test before merging with main
+        //throw new System.NotImplementedException();
     }
 
     public override void HealthChanged()
