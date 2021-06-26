@@ -30,6 +30,7 @@ public class InfoCircleScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*
         if (Input.GetKeyDown(KeyCode.C))
         {
             Reduce(10);
@@ -39,7 +40,8 @@ public class InfoCircleScript : MonoBehaviour
         {
             Increase(10);
         }
-
+        */
+        
         //if (value < delayedValue)
         //{
             progress += Time.deltaTime;
@@ -69,5 +71,17 @@ public class InfoCircleScript : MonoBehaviour
             this.value = maxValue;
         
         progress = 0;
+    }
+
+    public void SetMaxValue(float maxValue)
+    {
+        progress = 0;
+        this.maxValue = maxValue;
+    }
+
+    public void SetCurrentValue(float currentValue)
+    {
+        progress = 0;
+        value = currentValue;
     }
 }

@@ -95,6 +95,8 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
 
     [Header("Debug")] public float velocity;
 
+    private InfoCircleScript _infoCircleScript;
+
     /// <summary>
     ///   <para>Maps value from original range to new range</para>
     ///   <param name="value"> Original value</param>
@@ -115,6 +117,11 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
         _crosshair = GameObject.FindGameObjectsWithTag("Crosshair")[0];
         _crosshairUI = GameObject.FindGameObjectsWithTag("CrosshairUI")[0];
 
+        _infoCircleScript = GetComponentInChildren<InfoCircleScript>();
+        if(_infoCircleScript != null)
+            _infoCircleScript.SetMaxValue(_maxBoostDuration);
+        
+        
         transform.rotation = Quaternion.identity;
         _ship.velocity = transform.forward * defaultVelocity;
 
@@ -177,6 +184,9 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
                 _currentBoostTime--;
             }
         }
+        
+        if(_infoCircleScript != null)
+            _infoCircleScript.SetCurrentValue(_maxBoostDuration-_currentBoostTime);
 
         //Move if not rolling
         if (!_isRolling)
@@ -410,6 +420,8 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
     public void setMaxBoostDuration(int newMaxBoostDuration)
     {
         _maxBoostDuration = newMaxBoostDuration;
+        if(_infoCircleScript != null)
+            _infoCircleScript.SetMaxValue(_maxBoostDuration);
     }
 
     /// <summary> 
