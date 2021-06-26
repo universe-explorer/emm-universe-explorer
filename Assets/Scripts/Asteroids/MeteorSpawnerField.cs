@@ -40,6 +40,26 @@ public class MeteorSpawnerField : MonoBehaviour
         }
     }
 
+    public void SpawnCollectables()
+    {
+        int numberOfCollectables = (int) Random.Range(0, 3);
+
+        for(int i = 0; i < numberOfCollectables; i++)
+        {
+            Item.ItemType itemType = (Item.ItemType)Random.Range(0, System.Enum.GetNames(typeof(Item.ItemType)).Length);
+
+            Item item = new Item();
+            item.itemType = itemType;
+            item.amount = Random.Range(20, 40);
+            item.healthPortion = Random.Range(5, 15);
+            item.maxSpeed = Random.Range(0, 0); // TODO: Change later
+            item.manaPortion = Random.Range(10, 30);
+            item.medkitPortion = Random.Range(1, 3);
+
+            ItemWorld.SpawnItemWorld(RandomPointInBounds(bounds), item);
+        }
+    }
+
     /*private void Awake()
     {
         CreateCollider();
@@ -81,6 +101,7 @@ public class MeteorSpawnerField : MonoBehaviour
         if (other.tag == "MainCamera")
         {
             SpawnMeteors();
+            SpawnCollectables();
         }
     }
 
