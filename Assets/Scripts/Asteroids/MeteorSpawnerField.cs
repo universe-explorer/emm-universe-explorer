@@ -22,6 +22,15 @@ public class MeteorSpawnerField : MonoBehaviour
 
     public AsteroidSettings AsteroidSettings;
 
+    private GameObject enemyPrefab;
+    private Object[] scriptableObjects;
+
+    public void Start()
+    {
+        enemyPrefab = (GameObject)Resources.Load("Enemy", typeof(GameObject));
+        scriptableObjects = Resources.LoadAll("ScriptableObjects", typeof(EnemyScriptableObject));
+    }
+
     public void SpawnMeteors()
     {
         float asteroidScale;
@@ -63,8 +72,6 @@ public class MeteorSpawnerField : MonoBehaviour
     public void SpawnEnemies()
     {
         int random = (int)Random.Range(0, 6);
-        GameObject enemyPrefab = (GameObject)Resources.Load("Enemy", typeof(GameObject));
-        Object[] scriptableObjects = Resources.LoadAll("ScriptableObjects", typeof(EnemyScriptableObject));
         int randomIndex = (int) Random.Range(0, scriptableObjects.Length);
         EnemyScriptableObject enemyScriptableObject = (EnemyScriptableObject) scriptableObjects[randomIndex];
 
@@ -73,7 +80,7 @@ public class MeteorSpawnerField : MonoBehaviour
 
         if (random == 1)
         {
-            Instantiate(enemyPrefab, RandomPointInBounds(bounds), Quaternion.identity);
+            Instantiate(enemyPrefab, RandomPointInBounds(bounds), Quaternion.identity, gameObject.transform);
         }
     }
 
@@ -129,6 +136,7 @@ public class MeteorSpawnerField : MonoBehaviour
         if (other.tag == "MainCamera")
         {
             DestroyMeteors();
+            //DestroyEnemies();
         }
     }
 
@@ -139,6 +147,15 @@ public class MeteorSpawnerField : MonoBehaviour
             transform.GetChild(i).gameObject.GetComponent<AsteroidBehaviour>().Remove();
         }
         
+    }
+
+    private void DestroyEnemies()
+    {
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            transform.GetChild(i).gameObject.GetComponent<CombatControllerEnemy>().Die();
+        }
+
     }
 
 }
