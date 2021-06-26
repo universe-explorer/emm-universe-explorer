@@ -165,7 +165,7 @@ public class LevelSystem
         int result = 0;
         foreach (Item item in inventory.GetItemList())
         {
-            if (item.itemType == Item.ItemType.ManaPotion)
+            if (item.itemType == Item.ItemType.Mana)
             {
                 result += item.amount;
             }
@@ -181,7 +181,7 @@ public class LevelSystem
         int result = 0;
         foreach (Item item in inventory.GetItemList())
         {
-            if (item.itemType == Item.ItemType.HealthPotion)
+            if (item.itemType == Item.ItemType.Health)
             {
                 result += item.amount;
             }

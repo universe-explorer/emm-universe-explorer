@@ -7,8 +7,8 @@ public class Item
 {
     public enum ItemType
     {
-        HealthPotion,
-        ManaPotion,
+        Health,
+        Mana,
         Mineral,
         Medkit,
     }
@@ -17,8 +17,8 @@ public class Item
     public int amount;
 
     public int healthPortion;
-    public float maxSpeed;
     public int manaPortion;
+    public int mineralPortion;
     public int medkitPortion;
 
     /// <summary> 
@@ -33,9 +33,9 @@ public class Item
 
         info.Append(string.Concat("Health Portion: ", healthPortion));
         info.Append(Environment.NewLine);
-        info.Append(string.Concat("Max Speed: ", maxSpeed.ToString()));
-        info.Append(Environment.NewLine);
         info.Append(string.Concat("Mama Portion: ", manaPortion));
+        info.Append(Environment.NewLine);
+        info.Append(string.Concat("Mineral Portion: ", mineralPortion.ToString()));
         info.Append(Environment.NewLine);
         info.Append(string.Concat("Medkit Portion: ", medkitPortion));
 
@@ -50,8 +50,8 @@ public class Item
         switch (itemType)
         {
             default:
-            case ItemType.HealthPotion: return ItemAssets.Instance.healthPotionSprite;
-            case ItemType.ManaPotion:   return ItemAssets.Instance.manaPotionSprite;
+            case ItemType.Health:       return ItemAssets.Instance.healthPotionSprite;
+            case ItemType.Mana:         return ItemAssets.Instance.manaPotionSprite;
             case ItemType.Mineral:      return ItemAssets.Instance.mineralSprite;
             case ItemType.Medkit:       return ItemAssets.Instance.medkitSprite;
         }
@@ -65,8 +65,8 @@ public class Item
         switch (itemType)
         {
             default:
-            case ItemType.HealthPotion:
-            case ItemType.ManaPotion:
+            case ItemType.Health:
+            case ItemType.Mana:
             case ItemType.Mineral:
                 return true;
             case ItemType.Medkit:
@@ -82,8 +82,8 @@ public class Item
         switch (itemType)
         {
             default:
-            case ItemType.HealthPotion: return "Health";
-            case ItemType.ManaPotion:   return "Mana";
+            case ItemType.Health:       return "Health";
+            case ItemType.Mana:         return "Mana";
             case ItemType.Mineral:      return "Mineral";
             case ItemType.Medkit:       return "Medkit";
         }

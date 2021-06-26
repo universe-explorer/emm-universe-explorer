@@ -10,7 +10,7 @@ public class InventoryController : MonoBehaviour
     /// </summary>
     private void OnTriggerEnter(Collider other)
     {
-        if (gameObject.tag == "MainSpaceShip")
+        if (gameObject.tag == "Player")
         {
             ItemWorld itemWorld = other.gameObject.GetComponent<ItemWorld>();
             if (itemWorld != null)

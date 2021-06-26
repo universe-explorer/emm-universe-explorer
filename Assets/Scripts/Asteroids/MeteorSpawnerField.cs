@@ -50,10 +50,10 @@ public class MeteorSpawnerField : MonoBehaviour
 
             Item item = new Item();
             item.itemType = itemType;
-            item.amount = Random.Range(20, 40);
-            item.healthPortion = Random.Range(5, 15);
-            item.maxSpeed = Random.Range(0, 0); // TODO: Change later
-            item.manaPortion = Random.Range(10, 30);
+            item.amount = Random.Range(1, 10);
+            item.healthPortion = Random.Range(5, 16);
+            item.mineralPortion = Random.Range(1, 6);
+            item.manaPortion = Random.Range(5, 36);
             item.medkitPortion = Random.Range(1, 3);
 
             ItemWorld.SpawnItemWorld(RandomPointInBounds(bounds), item);

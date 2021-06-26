@@ -81,7 +81,7 @@ public class Ui_inventory : MonoBehaviour
                 itemType = item.itemType,
                 amount = item.amount,
                 healthPortion = item.healthPortion,
-                maxSpeed = item.maxSpeed,
+                mineralPortion = item.mineralPortion,
                 manaPortion = item.manaPortion,
                 medkitPortion = item.medkitPortion
             };
