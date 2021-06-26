@@ -34,13 +34,13 @@ public class SpeedDisplay : MonoBehaviour
         float percentage = _currentSpeed / _maxSpeed;
         float rotationAmount = fullRotation - (fullRotation * percentage);
 
-        if(rotationAmount == 0)
+        arrow.rotation = Quaternion.Euler(0, 0, Mathf.Lerp(arrow.rotation.eulerAngles.z, rotationAmount, 0.05f));
+
+        if(arrow.rotation.eulerAngles.z > 180)
         {
-            rotationAmount++;
+            arrow.rotation = Quaternion.Euler(0, 0, 0);
         }
 
-        arrow.rotation = Quaternion.Euler(0, 0, Mathf.Lerp(arrow.rotation.eulerAngles.z, rotationAmount, 0.05f));
-        
     }
 
     public void SetNewMaxSpeed(float newMaxSpeed)
