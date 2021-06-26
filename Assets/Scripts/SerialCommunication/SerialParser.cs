@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO.Ports;
+using System.Linq;
 using System.Threading;
 using SerialCommunication;
 using UnityEditor;
@@ -28,6 +29,8 @@ namespace SerialCommunication
 
         private const byte speedByte = 0x00;
         private const byte rotationByte = 0x01;
+
+        private Dictionary<byte, IReader> dataReaderDictionary = new Dictionary<byte, IReader>();
 
         /**
          * SerialParser constructor gets only called by the class itself -> singleton
@@ -172,9 +175,28 @@ namespace SerialCommunication
          */
         private void ParseData(byte[] dataBuffer)
         {
+
+            int counter = 0;
+
+            while (counter < dataBuffer.Length)
+            {
+                IReader reader;
+                if ((reader = dataReaderDictionary[dataBuffer[counter]]) != null)
+                {
+                    counter++;
+                    counter += reader.read(dataBuffer.Skip(counter).ToArray());
+                }
+                else
+                {
+                    throw new InvalidDataException("Invalid data type");
+                }
+                
+            }
+            /*
             for (var i = 0; i < dataBuffer.Length; i++)
             {
                 // Get data type (speed, rotation, etc.) to conclude which value we have to update and how many bytes we need to read
+                
                 switch (dataBuffer[i])
                 {
                     case speedByte:
@@ -189,6 +211,7 @@ namespace SerialCommunication
                         throw new InvalidDataException("Invalid data type"); // TODO: Maybe use another exception
                 }
             }
+            */
         }
         
         /**
@@ -209,6 +232,26 @@ namespace SerialCommunication
                 }
             }
             return crc;
+        }
+
+        /**
+         * Adds a reader
+         *
+         * TODO: Check for race condition
+         * <exception cref="ArgumentException">type already has a reader</exception>
+         */
+        public bool addReader(byte type, IReader reader)
+        {
+            try
+            {
+                dataReaderDictionary.Add(type, reader);
+                return true;
+            }
+            catch (ArgumentException e)
+            {
+                return false;
+            }
+            
         }
     }
 }

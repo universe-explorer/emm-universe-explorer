@@ -10,6 +10,7 @@ public class TestScript : MonoBehaviour
     {
         Debug.Log("hello world :)");
         ISerialParser sp = SerialParser.Instance;
+        sp.addReader(0x00, new SpeedReader());
     }
 
     // Update is called once per frame
