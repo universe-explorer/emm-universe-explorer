@@ -16,20 +16,40 @@ public class SpeedDisplay : MonoBehaviour
 
     private const float fullRotation = 90;
 
-    //TODO: Remove after testing
+    private void Start()
+    {
+        float percentage = _currentSpeed / _maxSpeed;
+        float rotationAmount = fullRotation - (fullRotation * percentage);
+        arrow.rotation = Quaternion.Euler(0, 0, rotationAmount);
+    }
+
     private void FixedUpdate()
     {
         UpdateArrowRotation();
     }
 
     // Update is called once per frame
-    void UpdateArrowRotation()
+    private void UpdateArrowRotation()
     {
         float percentage = _currentSpeed / _maxSpeed;
-
         float rotationAmount = fullRotation - (fullRotation * percentage);
+
+        if(rotationAmount == 0)
+        {
+            rotationAmount++;
+        }
 
         arrow.rotation = Quaternion.Euler(0, 0, Mathf.Lerp(arrow.rotation.eulerAngles.z, rotationAmount, 0.05f));
         
+    }
+
+    public void SetNewMaxSpeed(float newMaxSpeed)
+    {
+        _maxSpeed = newMaxSpeed;
+    }
+
+    public void SetNewCurrentSpeed(float newCurrentSpeed)
+    {
+        _currentSpeed = newCurrentSpeed;
     }
 }

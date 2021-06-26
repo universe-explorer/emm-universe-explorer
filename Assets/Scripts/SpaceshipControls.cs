@@ -96,6 +96,7 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
     [Header("Debug")] public float velocity;
 
     private InfoCircleScript _infoCircleScript;
+    private SpeedDisplay _speedDisplay;
 
     /// <summary>
     ///   <para>Maps value from original range to new range</para>
@@ -120,8 +121,14 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
         _infoCircleScript = GetComponentInChildren<InfoCircleScript>();
         if(_infoCircleScript != null)
             _infoCircleScript.SetMaxValue(_maxBoostDuration);
-        
-        
+
+        _speedDisplay = GetComponentInChildren<SpeedDisplay>();
+        if (_speedDisplay != null)
+        {
+            _speedDisplay.SetNewMaxSpeed(maxVelocity * _boostMultiplier);
+            _speedDisplay.SetNewCurrentSpeed(_ship.velocity.magnitude);
+        }
+            
         transform.rotation = Quaternion.identity;
         _ship.velocity = transform.forward * defaultVelocity;
 
@@ -194,6 +201,11 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
             Move(_verticalInput);
             Rotate(_mouseInput);
             SetCrosshairPosition(_mouseInput);
+        }
+
+        if(_speedDisplay != null)
+        {
+            _speedDisplay.SetNewCurrentSpeed(_ship.velocity.magnitude);
         }
     }
 
