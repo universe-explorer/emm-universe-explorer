@@ -62,7 +62,7 @@ public class MeteorSpawnerField : MonoBehaviour
 
     public void SpawnEnemies()
     {
-        int random = (int)Random.Range(0, 3);
+        int random = (int)Random.Range(0, 6);
         GameObject enemyPrefab = (GameObject)Resources.Load("Enemy", typeof(GameObject));
         Object[] scriptableObjects = Resources.LoadAll("ScriptableObjects", typeof(EnemyScriptableObject));
         int randomIndex = (int) Random.Range(0, scriptableObjects.Length);
@@ -119,7 +119,7 @@ public class MeteorSpawnerField : MonoBehaviour
         {
             SpawnMeteors();
             SpawnCollectables();
-            SpawnEnemies();
+            //SpawnEnemies();
         }
     }
 
@@ -140,4 +140,5 @@ public class MeteorSpawnerField : MonoBehaviour
         }
         
     }
+
 }
