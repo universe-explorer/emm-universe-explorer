@@ -37,9 +37,11 @@ public class DeathScreenManager : MonoBehaviour
             Time.timeScale = Mathf.Lerp(1f, minTimeScale, lerpValue); // time scale might not be 1 when death screen gets enabled -> TODO
         }
 
+        /*
         // temporary
         if (Input.GetKeyDown(KeyCode.Space))
             enableDeathScreen();
+        */
     }
 
     public void enableDeathScreen()
