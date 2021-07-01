@@ -1,5 +1,37 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1287413220945749749
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3178758357648668048}
+  m_Layer: 0
+  m_Name: SocketHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3178758357648668048
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1287413220945749749}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 5218466256822283061}
+  - {fileID: 7379615314520977020}
+  m_Father: {fileID: 6817489231285477713}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!64 &3500338017837622058
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -25,7 +57,7 @@ GameObject:
   - component: {fileID: 6817489231285477713}
   - component: {fileID: 2859468092000431876}
   - component: {fileID: 1858189123972611074}
-  - component: {fileID: 1328207589023659250}
+  - component: {fileID: 2478518027520205934}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -46,6 +78,7 @@ Transform:
   m_Children:
   - {fileID: 1797308507097080808}
   - {fileID: 197955878001071299}
+  - {fileID: 3178758357648668048}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -79,7 +112,7 @@ MonoBehaviour:
   _MaxShootDistance: 200
   _Ammo: 0
   _Damage: 10
---- !u!114 &1328207589023659250
+--- !u!114 &2478518027520205934
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -88,12 +121,78 @@ MonoBehaviour:
   m_GameObject: {fileID: 4868197230431655024}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe47669429716d94abb0299eb2e11b32, type: 3}
+  m_Script: {fileID: 11500000, guid: 1edd27633df712f44be68e08a919337e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Target: 1
   _maxAmmo: 0
   _weaponType: 0
   _maxShootingDistance: 0
+  _rocketSpeed: 15
+  _rocket: {fileID: 7780717535766068066, guid: d76c67aebc08ef645a7ae089df1e948c, type: 3}
+  _damage: 10
+  SocketLeft: {fileID: 5218466256822283061}
+  SocketRight: {fileID: 7379615314520977020}
+--- !u!1 &5641108493444090100
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7379615314520977020}
+  m_Layer: 0
+  m_Name: Socket_Right
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7379615314520977020
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5641108493444090100}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5.11, y: -0.82, z: 6.38}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3178758357648668048}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6822060215926816659
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5218466256822283061}
+  m_Layer: 0
+  m_Name: Socket_Left
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5218466256822283061
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6822060215926816659}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5.31, y: -0.82, z: 6.38}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3178758357648668048}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9126016914385738453
 GameObject:
   m_ObjectHideFlags: 0

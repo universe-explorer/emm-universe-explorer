@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 237ef1c127979464bbfc027fda645eb6, type: 2}
+  - {fileID: 2100000, guid: 7ac1c8908bd0b894b9806be2092f8ed0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 6056652455487756335}
   - component: {fileID: 8115839937192759792}
   m_Layer: 0
-  m_Name: BallBlaster
+  m_Name: EnemyBallBlaster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

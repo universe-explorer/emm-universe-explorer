@@ -12,7 +12,6 @@ public class RocketBehaivor : MonoBehaviour
    
     private Rigidbody rb;
 
-    [SerializeField]
     private bool _engaged = false;
 
     [SerializeField]
@@ -28,13 +27,16 @@ public class RocketBehaivor : MonoBehaviour
 
     private float _damage;
 
+    private Target _projectileTarget;
+
     /// <summary>
     /// Sets the Initial Direction of the Missle
     /// </summary>
     /// <param name="direction"></param>
-    public void SetUp(float damage)
+    public void SetUp(float damage, Target art)
     {
         _damage = damage;
+        _projectileTarget = art;
     }
 
     private void OnValidate()
@@ -86,7 +88,7 @@ public class RocketBehaivor : MonoBehaviour
 
     private void RocketDestroyAnimator()
     {
-
+        Destroy(gameObject);
     }
 
     internal void Engage(float speed)
@@ -98,9 +100,20 @@ public class RocketBehaivor : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Enemy")
+        if (_projectileTarget == Target.Enemy)
         {
-            _target = other.transform;
+            if (other.tag == "Enemy")
+            {
+                _target = other.transform;
+            }
+
+        }
+        else
+        {
+            if (other.tag == "Player")
+            {
+                _target = other.transform;
+            }
         }
     }
 
@@ -117,11 +130,32 @@ public class RocketBehaivor : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.transform.tag == "EnemyHealthCollider")
+        if (_projectileTarget == Target.Enemy)
         {
-            collision.transform.GetComponentInParent<CombatControllerEnemy>().TakeDamage(_damage);
-            //other.gameObject.gameObject.GetComponent<CombatControllerEnemy>().TakeDamage(_damage);
-            Destroy(gameObject);
+            if (collision.transform.tag == "EnemyHealthCollider")
+            {
+                collision.transform.GetComponentInParent<CombatControllerEnemy>().TakeDamage(_damage);
+                //other.gameObject.gameObject.GetComponent<CombatControllerEnemy>().TakeDamage(_damage);
+                Destroy(gameObject);
+            }
+        }
+        else if (_projectileTarget == Target.Allied)
+        {
+            if (collision.transform.tag == "PlayerHealthCollider")
+            {
+                Debug.Log("Projectile: Touched Player!!!!");
+                collision.transform.GetComponentInParent<CombatControllerPlayer>().TakeDamage(_damage);
+                //other.gameObject.gameObject.GetComponent<CombatControllerEnemy>().TakeDamage(_damage);
+                Destroy(gameObject);
+            }
+            else
+            {
+                Debug.Log("Collided with: " + collision.transform.tag);
+            }
+        }
+        else
+        {
+            Debug.Log("WRONG STATE:::");
         }
     }
 }

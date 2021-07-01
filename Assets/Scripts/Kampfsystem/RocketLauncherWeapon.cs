@@ -27,22 +27,12 @@ public class RocketLauncherWeapon : Weapon
     {
         GameObject firedMissleRight = Instantiate(_rocket, SocketRight.position, SocketRight.transform.rotation).gameObject;
         GameObject firedMissleLeft = Instantiate(_rocket, SocketLeft.position, SocketLeft.transform.rotation).gameObject;
-        firedMissleRight.GetComponent<RocketBehaivor>().SetUp(_damage);
-        firedMissleLeft.GetComponent<RocketBehaivor>().SetUp(_damage);
+        firedMissleRight.GetComponent<RocketBehaivor>().SetUp(_damage, Target);
+        firedMissleLeft.GetComponent<RocketBehaivor>().SetUp(_damage, Target);
         firedMissleRight.GetComponent<RocketBehaivor>().Engage(_rocketSpeed);
         firedMissleLeft.GetComponent<RocketBehaivor>().Engage(_rocketSpeed);
         //LaunchRocket(firedMissle);
         //Destroy(firedMissleRight, 15f);
         //Destroy(firedMissleLeft, 15f);
     }
-
-    IEnumerator LaunchRocket(GameObject rocket)
-    {
-        yield return new WaitForSeconds(10f);
-        Destroy(rocket);
-        //Todo: Spawn VFX Destroy Animation
-        Debug.Log("Rocket Destroyed");
-        yield return null;
-    }
-    
 }

@@ -15,6 +15,7 @@ TagManager:
   - Collectible
   - EnemyTrackPoint
   - EnemyHealthCollider
+  - PlayerHealthCollider
   layers:
   - Default
   - TransparentFX
