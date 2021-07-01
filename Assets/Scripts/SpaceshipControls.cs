@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using SerialCommunication;
 using UnityEditor;
 using UnityEngine;
 
@@ -16,6 +17,8 @@ public class SpaceshipControls : MonoBehaviour
     private float angleHorizontal;
     private float angleVertical;
 
+    private JoystickReader _joystickReader;
+
     private void Start()
     {
         //init spaceship position 
@@ -29,6 +32,8 @@ public class SpaceshipControls : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        _joystickReader = JoystickReader.Instance;
     }
 
 
@@ -37,8 +42,12 @@ public class SpaceshipControls : MonoBehaviour
         float rotationSpeedConverted = rotationSpeed * Time.deltaTime * 0.25f;
         float movementSpeedConverted = movementSpeed * Time.deltaTime * 0.25f;
 
-        float horizontalInput = Input.GetAxis("Mouse X");
-        float verticalInput = Input.GetAxis("Mouse Y");
+        // float horizontalInput = Input.GetAxis("Mouse X");
+        // float verticalInput = Input.GetAxis("Mouse Y");
+        // float movementInput = Input.GetAxis("Vertical");
+
+        float horizontalInput = (float) _joystickReader.pitch;
+        float verticalInput = (float) _joystickReader.roll;
         float movementInput = Input.GetAxis("Vertical");
 
         if (horizontalMovementInverted)
