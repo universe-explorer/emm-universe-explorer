@@ -14,6 +14,9 @@ public class RocketLauncherWeapon : Weapon
     [SerializeField]
     private Transform _rocket;
 
+    [SerializeField]
+    private float _damage = 10f;
+
     /// <summary>
     /// Position to spawn the Rocket at
     /// </summary>
@@ -24,7 +27,8 @@ public class RocketLauncherWeapon : Weapon
     {
         GameObject firedMissleRight = Instantiate(_rocket, SocketRight.position, SocketRight.transform.rotation).gameObject;
         GameObject firedMissleLeft = Instantiate(_rocket, SocketLeft.position, SocketLeft.transform.rotation).gameObject;
-        //firedMissle.GetComponent<RocketBehaivor>().SetUp();
+        firedMissleRight.GetComponent<RocketBehaivor>().SetUp(_damage);
+        firedMissleLeft.GetComponent<RocketBehaivor>().SetUp(_damage);
         firedMissleRight.GetComponent<RocketBehaivor>().Engage(_rocketSpeed);
         firedMissleLeft.GetComponent<RocketBehaivor>().Engage(_rocketSpeed);
         //LaunchRocket(firedMissle);

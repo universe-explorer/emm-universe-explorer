@@ -26,13 +26,15 @@ public class RocketBehaivor : MonoBehaviour
 
     private float _speed;
 
+    private float _damage;
+
     /// <summary>
     /// Sets the Initial Direction of the Missle
     /// </summary>
     /// <param name="direction"></param>
-    public void SetUp(Vector3 direction)
+    public void SetUp(float damage)
     {
-        _launchDirection = direction;
+        _damage = damage;
     }
 
     private void OnValidate()
@@ -110,6 +112,16 @@ public class RocketBehaivor : MonoBehaviour
         {
             Gizmos.color = Color.yellow;
             Gizmos.DrawWireSphere(_target.position, 3f);
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.transform.tag == "EnemyHealthCollider")
+        {
+            collision.transform.GetComponentInParent<CombatControllerEnemy>().TakeDamage(_damage);
+            //other.gameObject.gameObject.GetComponent<CombatControllerEnemy>().TakeDamage(_damage);
+            Destroy(gameObject);
         }
     }
 }
