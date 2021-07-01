@@ -392,6 +392,8 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
     public void setMaximumVelocity(float newMaxVelocity)
     {
         maxVelocity = newMaxVelocity;
+        if(_speedDisplay != null)
+            _speedDisplay.SetNewMaxSpeed(maxVelocity * _boostMultiplier);
     }
 
     /// <summary> 
@@ -408,6 +410,9 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
     public void setBoostMultiplier(float newBoostMultiplier)
     {
         _boostMultiplier = newBoostMultiplier;
+
+        if (_speedDisplay != null)
+            _speedDisplay.SetNewMaxSpeed(maxVelocity * _boostMultiplier);
     }
 
     /// <summary> 
