@@ -65,7 +65,7 @@ MonoBehaviour:
   _launchDirection: {x: 0, y: 0, z: 0}
   _engaged: 0
   _timeToLive: 10
-  _DetectionRadius: 36.23
+  _DetectionRadius: 50
 --- !u!135 &8115839937192759792
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -77,7 +77,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 36.23
+  m_Radius: 50
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &6236432509308589140
 PrefabInstance:
