@@ -47,7 +47,6 @@ public class RocketBehaivor : MonoBehaviour
         rb.useGravity = false;
         rb.AddExplosionForce(2f, transform.position, 2f);
 
-
         StartCoroutine(RocketDestroyer());
     }
 
@@ -64,7 +63,7 @@ public class RocketBehaivor : MonoBehaviour
 
     internal void Engage(float speed)
     {
-
+        _speed = speed;
         _engaged = true;
     }
 

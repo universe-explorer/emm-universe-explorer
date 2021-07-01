@@ -24,14 +24,15 @@ public class RocketLauncherWeapon : Weapon
         firedMissleRight.GetComponent<RocketBehaivor>().Engage(_rocketSpeed);
         firedMissleLeft.GetComponent<RocketBehaivor>().Engage(_rocketSpeed);
         //LaunchRocket(firedMissle);
-        Destroy(firedMissleRight, 15f);
-        Destroy(firedMissleLeft, 15f);
+        //Destroy(firedMissleRight, 15f);
+        //Destroy(firedMissleLeft, 15f);
     }
 
     IEnumerator LaunchRocket(GameObject rocket)
     {
         yield return new WaitForSeconds(10f);
         Destroy(rocket);
+        //Todo: Spawn VFX Destroy Animation
         Debug.Log("Rocket Destroyed");
         yield return null;
     }

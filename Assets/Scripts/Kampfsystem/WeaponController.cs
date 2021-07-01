@@ -35,7 +35,7 @@ public class WeaponController : MonoBehaviour
         {
             return;
         }
-        Debug.Log("Current Weapon: " + _activeWeaponIndex);
+        //Debug.Log("Current Weapon: " + _activeWeaponIndex);
         int newWeaponIndex = _activeWeaponIndex;
         while (_activeWeapon == Weapons[newWeaponIndex])
         {
@@ -47,7 +47,7 @@ public class WeaponController : MonoBehaviour
         }
         _activeWeapon = Weapons[newWeaponIndex];
         _activeWeaponIndex = newWeaponIndex;
-        Debug.Log("New Weapon: " + _activeWeaponIndex);
+        //Debug.Log("New Weapon: " + _activeWeaponIndex);
     }
 
     [SerializeField]
