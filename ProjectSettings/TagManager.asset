@@ -13,6 +13,8 @@ TagManager:
   - MeteorSpawnerField
   - Enemy
   - Collectible
+  - EnemyTrackPoint
+  - EnemyHealthCollider
   layers:
   - Default
   - TransparentFX

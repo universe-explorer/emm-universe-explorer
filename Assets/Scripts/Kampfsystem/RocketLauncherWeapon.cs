@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// 
+/// </summary>
 public class RocketLauncherWeapon : Weapon
 {
     [SerializeField]
@@ -10,24 +14,33 @@ public class RocketLauncherWeapon : Weapon
     [SerializeField]
     private Transform _rocket;
 
+    [SerializeField]
+    private float _damage = 10f;
+
     /// <summary>
     /// Position to spawn the Rocket at
     /// </summary>
-    public Transform Socket;
+    public Transform SocketLeft;
+    public Transform SocketRight;
 
     protected override void FireProjectile()
     {
-        GameObject firedMissle = Instantiate(_rocket, Socket.position, Socket.transform.rotation).gameObject;
-        //firedMissle.GetComponent<RocketBehaivor>().SetUp();
-        firedMissle.GetComponent<RocketBehaivor>().Engage();
+        GameObject firedMissleRight = Instantiate(_rocket, SocketRight.position, SocketRight.transform.rotation).gameObject;
+        GameObject firedMissleLeft = Instantiate(_rocket, SocketLeft.position, SocketLeft.transform.rotation).gameObject;
+        firedMissleRight.GetComponent<RocketBehaivor>().SetUp(_damage);
+        firedMissleLeft.GetComponent<RocketBehaivor>().SetUp(_damage);
+        firedMissleRight.GetComponent<RocketBehaivor>().Engage(_rocketSpeed);
+        firedMissleLeft.GetComponent<RocketBehaivor>().Engage(_rocketSpeed);
         //LaunchRocket(firedMissle);
-        Destroy(firedMissle, 15f);
+        //Destroy(firedMissleRight, 15f);
+        //Destroy(firedMissleLeft, 15f);
     }
 
     IEnumerator LaunchRocket(GameObject rocket)
     {
         yield return new WaitForSeconds(10f);
         Destroy(rocket);
+        //Todo: Spawn VFX Destroy Animation
         Debug.Log("Rocket Destroyed");
         yield return null;
     }
