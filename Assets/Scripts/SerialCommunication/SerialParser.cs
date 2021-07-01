@@ -51,7 +51,7 @@ namespace SerialCommunication
                     sp.Open();
 
                     // Timeout if we don't receive data within 10 milliseconds. Might be too low, but it never failed so far.
-                    sp.ReadTimeout = 10;
+                    sp.ReadTimeout = 8000;
 
                     // Read amount of bytes and check if we find startByte within these bytes. Need to implement more complex check in the future, e.g. verify one packet.
                     for (var i = 0; i < maxBytes; i++)
