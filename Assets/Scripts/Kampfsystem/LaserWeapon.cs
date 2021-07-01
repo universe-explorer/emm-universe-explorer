@@ -7,6 +7,6 @@ public class LaserWeapon : Weapon
 
     protected override void FireProjectile()
     {
-        throw new System.NotImplementedException();
+        //
     }
 }
