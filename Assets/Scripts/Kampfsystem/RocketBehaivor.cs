@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Inspiriert von: https://www.theappguruz.com/blog/create-homing-missiles-in-game-unity-tutorial
 [RequireComponent(typeof(Rigidbody))]
 public class RocketBehaivor : MonoBehaviour
 {
@@ -50,6 +51,31 @@ public class RocketBehaivor : MonoBehaviour
         StartCoroutine(RocketDestroyer());
     }
 
+    [SerializeField]
+    private float _angleChangingSpeed = 5f;
+
+    private void FixedUpdate()
+    {
+        if (_engaged)
+        {
+            if (_target == null)
+            {
+                //rb.AddForce(transform.forward * _speed, ForceMode.Acceleration);
+                rb.velocity = transform.forward * _speed;
+                return;
+            }
+            else
+            {
+                Vector3 direction = _target.position - rb.position;
+                direction.Normalize();
+                Vector3 rateAmount = Vector3.Cross(transform.forward, direction);
+
+                rb.angularVelocity = _angleChangingSpeed * rateAmount;
+                rb.velocity = transform.forward * _speed;
+            }
+        }
+    }
+
     IEnumerator RocketDestroyer()
     {
         yield return new WaitForSeconds(_timeToLive);
@@ -67,23 +93,6 @@ public class RocketBehaivor : MonoBehaviour
         _engaged = true;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        Vector3 force;
-        if (_engaged)
-        {
-            if (_target != null)
-            {
-                force = (_target.position - transform.position).normalized;
-            }
-            else
-            {
-                force = transform.forward;
-            }
-            rb.AddForce(force * _speed, ForceMode.Acceleration);
-        }
-    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -97,5 +106,10 @@ public class RocketBehaivor : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, _DetectionRadius);
+        if (_target != null)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(_target.position, 3f);
+        }
     }
 }

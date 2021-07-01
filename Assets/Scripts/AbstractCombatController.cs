@@ -49,4 +49,5 @@ public abstract class AbstractCombatController: MonoBehaviour
     public abstract void Die();
 
     public abstract void HealthChanged();
+
 }
