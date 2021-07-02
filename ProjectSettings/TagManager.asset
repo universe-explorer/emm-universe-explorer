@@ -16,6 +16,8 @@ TagManager:
   - EnemyTrackPoint
   - EnemyHealthCollider
   - PlayerHealthCollider
+  - Fire
+  - Projectile
   layers:
   - Default
   - TransparentFX

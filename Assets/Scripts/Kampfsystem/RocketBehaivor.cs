@@ -8,6 +8,9 @@ using UnityEngine;
 public class RocketBehaivor : MonoBehaviour
 {
     [SerializeField]
+    private Transform _expolsionVFX;
+
+    [SerializeField]
     private Vector3 _launchDirection;
    
     private Rigidbody rb;
@@ -89,6 +92,7 @@ public class RocketBehaivor : MonoBehaviour
     private void RocketDestroyAnimator()
     {
         Destroy(gameObject);
+        Destroy(Instantiate(_expolsionVFX, rb.position, Quaternion.identity).gameObject, 4f);
     }
 
     internal void Engage(float speed)
@@ -137,28 +141,35 @@ public class RocketBehaivor : MonoBehaviour
                 collision.transform.GetComponentInParent<CombatControllerEnemy>().TakeDamage(_damage);
                 //other.gameObject.gameObject.GetComponent<CombatControllerEnemy>().TakeDamage(_damage);
                 Destroy(gameObject);
+                Destroy(Instantiate(_expolsionVFX, collision.GetContact(0).point, Quaternion.identity).gameObject, 4f);
+                return;
             }
         }
         else if (_projectileTarget == Target.Allied)
         {
             if (collision.transform.tag == "Player")
             {
-                Debug.Log("Projectile: Touched Player!!!!"); 
+                Debug.Log("Projectile: Touched Player!!!!");
                 if (collision.transform.GetComponentInParent<CombatControllerPlayer>() != null)
                 {
                     collision.transform.GetComponentInParent<CombatControllerPlayer>().TakeDamage(_damage);
                 }
                 //other.gameObject.gameObject.GetComponent<CombatControllerEnemy>().TakeDamage(_damage);
                 Destroy(gameObject);
-            }
-            else
-            {
-                Debug.Log("Collided with: " + collision.transform.tag);
+                Destroy(Instantiate(_expolsionVFX, collision.GetContact(0).point, Quaternion.identity).gameObject, 4f);
+                return;
             }
         }
         else
         {
             Debug.Log("WRONG STATE:::");
+        }
+
+        if (collision.transform.tag != "EnemyHealthCollider" && collision.transform.tag != "Player" && collision.transform.tag != "Projectile")
+        {
+            //make shure, rockets explode even when touching another collider
+            Destroy(gameObject);
+            Destroy(Instantiate(_expolsionVFX, collision.GetContact(0).point, Quaternion.identity).gameObject, 4f);
         }
     }
 }
