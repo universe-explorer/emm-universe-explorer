@@ -18,6 +18,7 @@ TagManager:
   - PlayerHealthCollider
   - Fire
   - Projectile
+  - PlanetSubObject
   layers:
   - Default
   - TransparentFX
