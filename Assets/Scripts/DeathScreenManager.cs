@@ -18,6 +18,8 @@ public class DeathScreenManager : MonoBehaviour
     [SerializeField] private float backgroundAlphaFadeDuration = 5f; // In seconds
     [SerializeField] private float minTimeScale = 0.1f;
 
+    private float oldTimeScale;
+    
     //[SerializeField] private Scene _scene;
     [SerializeField] private string _mainMenuSceneName;
 
@@ -65,7 +67,9 @@ public class DeathScreenManager : MonoBehaviour
 
     public void LoadMainMenuScene()
     {
-        SceneManager.LoadScene(_mainMenuSceneName);
+        Debug.Log("old time scale: " + Time.timeScale);
         Time.timeScale = 1;
+        SceneManager.LoadScene(_mainMenuSceneName);
+        
     }
 }
