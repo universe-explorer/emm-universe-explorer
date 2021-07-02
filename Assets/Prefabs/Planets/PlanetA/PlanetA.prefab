@@ -1,5 +1,18 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!135 &1368871289
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7614652128191167367}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.63662034
+  m_Center: {x: -3.6187656e-14, y: 0.6366206, z: 0.00000023841858}
 --- !u!1 &8784963280649551810
 GameObject:
   m_ObjectHideFlags: 0
@@ -5954,6 +5967,7 @@ GameObject:
   - component: {fileID: 8784963281292265237}
   - component: {fileID: 8784963281292265236}
   - component: {fileID: 8784963281292265235}
+  - component: {fileID: 1812308191}
   m_Layer: 0
   m_Name: PlanetA
   m_TagString: Planet
@@ -6006,10 +6020,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Body: 0
-  Radius: 8.86
+  Radius: 270
   SurfaceGravity: 0
-  InitialVelocity: {x: 0, y: 0, z: 8.47}
+  InitialVelocity: {x: 0, y: 0, z: 5.72}
   BodyName: PlanetA
+--- !u!114 &1812308191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8784963281292265234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e24f1c632ef34c49beccf53d0d0fe3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _amount: {x: 0, y: 0.005, z: 0}
 --- !u!1001 &8784963280996053392
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6023,15 +6050,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7386117827323504756, guid: 00022314ee6883943bc6468844ee08a0, type: 3}
       propertyPath: m_LocalScale.x
-      value: 8.86
+      value: 270
       objectReference: {fileID: 0}
     - target: {fileID: 7386117827323504756, guid: 00022314ee6883943bc6468844ee08a0, type: 3}
       propertyPath: m_LocalScale.y
-      value: 8.86
+      value: 270
       objectReference: {fileID: 0}
     - target: {fileID: 7386117827323504756, guid: 00022314ee6883943bc6468844ee08a0, type: 3}
       propertyPath: m_LocalScale.z
-      value: 8.86
+      value: 270
       objectReference: {fileID: 0}
     - target: {fileID: 7386117827323504756, guid: 00022314ee6883943bc6468844ee08a0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6082,5 +6109,10 @@ PrefabInstance:
 --- !u!4 &2263822461803076068 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7386117827323504756, guid: 00022314ee6883943bc6468844ee08a0, type: 3}
+  m_PrefabInstance: {fileID: 8784963280996053392}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7614652128191167367 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1172862569705048599, guid: 00022314ee6883943bc6468844ee08a0, type: 3}
   m_PrefabInstance: {fileID: 8784963280996053392}
   m_PrefabAsset: {fileID: 0}
