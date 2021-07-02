@@ -141,7 +141,7 @@ public class RocketBehaivor : MonoBehaviour
         }
         else if (_projectileTarget == Target.Allied)
         {
-            if (collision.transform.tag == "PlayerHealthCollider")
+            if (collision.transform.tag == "Player")
             {
                 Debug.Log("Projectile: Touched Player!!!!");
                 collision.transform.GetComponentInParent<CombatControllerPlayer>().TakeDamage(_damage);
