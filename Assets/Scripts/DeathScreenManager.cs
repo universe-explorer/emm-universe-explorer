@@ -67,6 +67,7 @@ public class DeathScreenManager : MonoBehaviour
 
     public void LoadMainMenuScene()
     {
+        active = false;
         Debug.Log("old time scale: " + Time.timeScale);
         Time.timeScale = 1;
         SceneManager.LoadScene(_mainMenuSceneName);
