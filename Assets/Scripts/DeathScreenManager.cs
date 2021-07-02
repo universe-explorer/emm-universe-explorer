@@ -66,5 +66,6 @@ public class DeathScreenManager : MonoBehaviour
     public void LoadMainMenuScene()
     {
         SceneManager.LoadScene(_mainMenuSceneName);
+        Time.timeScale = 1;
     }
 }
