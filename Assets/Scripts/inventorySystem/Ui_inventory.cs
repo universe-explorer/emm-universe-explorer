@@ -79,11 +79,7 @@ public class Ui_inventory : MonoBehaviour
         {
             Item duplicate = new Item {
                 itemType = item.itemType,
-                amount = item.amount,
-                healthPortion = item.healthPortion,
-                mineralPortion = item.mineralPortion,
-                manaPortion = item.manaPortion,
-                medkitPortion = item.medkitPortion
+                amount = item.amount
             };
             inventory.RemoveItem(item);
             ItemWorld.DropItem(player.transform.position, duplicate);
@@ -100,7 +96,7 @@ public class Ui_inventory : MonoBehaviour
 
         parent.GetComponent<MouseUIEvents>().MouseEnterHandler = () =>
         {
-            infoText.SetText(item.GetInfoText());
+            infoText.SetText(item.GetTitle());
         };
 
         parent.GetComponent<MouseUIEvents>().MouseExitHandler = () =>

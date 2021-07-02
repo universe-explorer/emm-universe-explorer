@@ -16,32 +16,6 @@ public class Item
     public ItemType itemType;
     public int amount;
 
-    public int healthPortion;
-    public int manaPortion;
-    public int mineralPortion;
-    public int medkitPortion;
-
-    /// <summary> 
-    ///   Returns a summary of this Item with all the properties
-    /// </summary>
-    public string GetInfoText()
-    {
-        StringBuilder info = new StringBuilder();
-
-        info.Append(GetTitle());
-        info.Append(Environment.NewLine);
-
-        info.Append(string.Concat("Health Portion: ", healthPortion));
-        info.Append(Environment.NewLine);
-        info.Append(string.Concat("Mama Portion: ", manaPortion));
-        info.Append(Environment.NewLine);
-        info.Append(string.Concat("Mineral Portion: ", mineralPortion.ToString()));
-        info.Append(Environment.NewLine);
-        info.Append(string.Concat("Medkit Portion: ", medkitPortion));
-
-        return info.ToString();
-    }
-
     /// <summary> 
     ///   Returns the associated Sprite of the individual Item Type
     /// </summary>
@@ -77,15 +51,15 @@ public class Item
     /// <summary> 
     ///   Returns Type of this Item
     /// </summary>
-    private string GetTitle()
+    public string GetTitle()
     {
         switch (itemType)
         {
             default:
-            case ItemType.Health:       return "Health";
-            case ItemType.Mana:         return "Mana";
-            case ItemType.Mineral:      return "Mineral";
-            case ItemType.Medkit:       return "Medkit";
+            case ItemType.Health:       return "Health Item";
+            case ItemType.Mana:         return "Mana Item";
+            case ItemType.Mineral:      return "Mineral Item";
+            case ItemType.Medkit:       return "Medkit Item";
         }
     }
 }

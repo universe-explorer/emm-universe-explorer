@@ -11,10 +11,7 @@ public class CombatControllerEnemy : AbstractCombatController
         Item item = new Item();
         item.itemType = itemType;
         item.amount = Random.Range(1, 10);
-        item.healthPortion = Random.Range(5, 16);
-        item.mineralPortion = Random.Range(1, 6);
-        item.manaPortion = Random.Range(5, 36);
-        item.medkitPortion = Random.Range(1, 3);
+        
         ItemWorld itemWorld = ItemWorld.SpawnItemWorld(transform.position, item);
         itemWorld.transform.SetParent(transform.parent);
 
