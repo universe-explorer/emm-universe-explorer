@@ -279,7 +279,6 @@ GameObject:
   - component: {fileID: 7293744273408118888}
   - component: {fileID: 960982384141628198}
   - component: {fileID: 456765986}
-  - component: {fileID: 456765987}
   m_Layer: 0
   m_Name: MainSpaceship
   m_TagString: Player
@@ -429,22 +428,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 347.68
+  m_Radius: 20.68
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &456765987
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 200795982287762043}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 197ea1b8b8dcc93489fa5cdbd2c84637, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _density: 100
-  _radius: 347.68
 --- !u!1 &235175457994461347
 GameObject:
   m_ObjectHideFlags: 0
@@ -4788,6 +4773,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 404db82d903f6bf4680dac7327731eae, type: 3}
+--- !u!224 &5237500453174357544 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2111465594339249448, guid: 404db82d903f6bf4680dac7327731eae, type: 3}
+  m_PrefabInstance: {fileID: 6188570602885571328}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &5237500453174357547 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2111465594339249451, guid: 404db82d903f6bf4680dac7327731eae, type: 3}
@@ -4799,11 +4789,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f52422cd6187d6541994c521e7786451, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!224 &5237500453174357544 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 2111465594339249448, guid: 404db82d903f6bf4680dac7327731eae, type: 3}
-  m_PrefabInstance: {fileID: 6188570602885571328}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6653909497101967697
 PrefabInstance:
   m_ObjectHideFlags: 0
