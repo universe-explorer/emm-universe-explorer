@@ -4,10 +4,17 @@ using UnityEngine;
 
 public class BaseMenu : MonoBehaviour
 {
-   
+
+    [SerializeField] private GameObject settings;
     public virtual void OpenSettings(bool active)
     {
         Debug.Log("base method: settings");
+        foreach (Transform t in gameObject.transform)
+        {
+            t.gameObject.SetActive(false);
+        }
+        settings.SetActive(true);
+        
     }
 
     public virtual void Exit()
