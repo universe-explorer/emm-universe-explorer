@@ -18,22 +18,16 @@ public class Inventory
     /// </summary>
     public void AddItem(Item item)
     {
-        if (item.IsStackable())
+        bool itemPresents = false;
+        foreach (Item inventoryItem in itemList)
         {
-            bool itemPresents = false;
-            foreach (Item inventoryItem in itemList)
+            if (inventoryItem.itemType == item.itemType)
             {
-                if (inventoryItem.itemType == item.itemType)
-                {
-                    inventoryItem.amount += item.amount;
-                    itemPresents = true;
-                }
+                inventoryItem.amount += item.amount;
+                itemPresents = true;
             }
-            if (!itemPresents)
-            {
-                itemList.Add(item);
-            }
-        } else
+        }
+        if (!itemPresents)
         {
             itemList.Add(item);
         }
@@ -45,25 +39,18 @@ public class Inventory
     /// </summary>
     public void RemoveItem(Item item)
     {
-        if (item.IsStackable())
+        Item found = null;
+        foreach (Item inventoryItem in itemList)
         {
-            Item found = null;
-            foreach (Item inventoryItem in itemList)
+            if (inventoryItem.itemType == item.itemType)
             {
-                if (inventoryItem.itemType == item.itemType)
-                {
-                    inventoryItem.amount -= item.amount;
-                    found = inventoryItem;
-                }
-            }
-            if (found != null && found.amount <= 0)
-            {
-                itemList.Remove(found);
+                inventoryItem.amount -= item.amount;
+                found = inventoryItem;
             }
         }
-        else
+        if (found != null && found.amount <= 0)
         {
-            itemList.Remove(item);
+            itemList.Remove(found);
         }
         OnItemRemoved?.Invoke(this, EventArgs.Empty);
     }

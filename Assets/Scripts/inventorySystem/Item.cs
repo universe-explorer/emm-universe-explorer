@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Text;
 using UnityEngine;
 
 [Serializable]
@@ -28,23 +27,6 @@ public class Item
             case ItemType.Mana:         return ItemAssets.Instance.manaPotionSprite;
             case ItemType.Mineral:      return ItemAssets.Instance.mineralSprite;
             case ItemType.Medkit:       return ItemAssets.Instance.medkitSprite;
-        }
-    }
-
-    /// <summary> 
-    ///   Checks whether this Item is stackable
-    /// </summary>
-    public bool IsStackable()
-    {
-        switch (itemType)
-        {
-            default:
-            case ItemType.Health:
-            case ItemType.Mana:
-            case ItemType.Mineral:
-                return true;
-            case ItemType.Medkit:
-                return false;
         }
     }
 
