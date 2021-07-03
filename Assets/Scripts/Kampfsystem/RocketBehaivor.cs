@@ -56,6 +56,9 @@ public class RocketBehaivor : MonoBehaviour
         rb.AddExplosionForce(2f, transform.position, 2f);
 
         StartCoroutine(RocketDestroyer());
+
+        rb.velocity = transform.forward * _speed * 200;
+        rb.velocity = transform.forward * _speed * 200;
     }
 
     [SerializeField]
