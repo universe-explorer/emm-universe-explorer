@@ -10,6 +10,8 @@ public class PlayerRankEntry
 
     public int BoostDuration { get; set; }
 
+    public float DamageFactor { get; set; }
+
     public override string ToString()
     {
         StringBuilder entry = new StringBuilder();
@@ -18,6 +20,7 @@ public class PlayerRankEntry
 
         entry.Append(string.Concat("MaxVelocity: ", MaxVelocity.ToString())).Append(" ");
         entry.Append(string.Concat("BoostDuration: ", BoostDuration.ToString())).Append(" ");
+        entry.Append(string.Concat("DamageFactor: ", DamageFactor.ToString())).Append(" ");
 
         return entry.ToString();
     }

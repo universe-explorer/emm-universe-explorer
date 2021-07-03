@@ -8,6 +8,7 @@ public class LevelSystemController : MonoBehaviour
 
     private SpaceshipControls spaceshipControls;
     private InventoryController inventoryController;
+    private WeaponController weaponController;
 
     /// <summary> 
     ///   Sets inventory system, ensure that this happens before UI access the 
@@ -17,6 +18,7 @@ public class LevelSystemController : MonoBehaviour
     {
         spaceshipControls = GetComponent<SpaceshipControls>();
         inventoryController = GetComponent<InventoryController>();
+        weaponController = GetComponentInChildren<WeaponController>();
         levelSystem.SetInventory(inventoryController.GetInventory());
         uiLevel.SetLevelSystem(levelSystem);
     }
@@ -34,6 +36,7 @@ public class LevelSystemController : MonoBehaviour
         PlayerRankEntry entry = levelSystem.GetCurrentPlayerLevelRank();
         spaceshipControls.setMaximumVelocity(entry.MaxVelocity);
         spaceshipControls.setMaxBoostDuration(entry.BoostDuration);
+        weaponController.DamageMultiplier = entry.DamageFactor;
     }
 
     void Update()
