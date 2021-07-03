@@ -10,6 +10,8 @@ public class SelectionBarManager : MonoBehaviour
 
     [SerializeField] private GameObject selectionBar;
     [SerializeField] private WeaponController weaponController;
+
+    private List<SelectionBarIconManager> uiSelectionBarSlots = new List<SelectionBarIconManager>();
     
     // Start is called before the first frame update
     void Start()
@@ -32,10 +34,16 @@ public class SelectionBarManager : MonoBehaviour
             if (key > KeyCode.Alpha9)
                 throw new Exception("Current KeyCode is higher than KeyCode of the key 9");
 
+            uiSelectionBarSlots.Add(t.GetComponent<SelectionBarIconManager>());
+            
             t.GetComponent<SelectionBarIconManager>().Key = key;
             if (counter < weapons.Count)
             {
                 t.GetComponent<SelectionBarIconManager>().Name = weapons[counter].WeaponType.ToString(); // TODO: Add weapon name, so we don't have to use the type
+                if (counter == weaponController.ActiveWeaponIndex)
+                {
+                    t.GetComponent<SelectionBarIconManager>().Selected = true;
+                }
             }
             else
             {
@@ -55,11 +63,20 @@ public class SelectionBarManager : MonoBehaviour
             key++;
             counter++;
         }
+        
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        foreach(SelectionBarIconManager slot in uiSelectionBarSlots)
+        {
+            if (Input.GetKeyDown(slot.Key))
+            {
+                uiSelectionBarSlots.ForEach(e => e.Selected=false);
+                slot.Selected = true;
+            }
+        }
     }
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SelectionBarIconManager : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class SelectionBarIconManager : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI keyText;
     [SerializeField] private TextMeshProUGUI nameText;
+    [SerializeField] private Image frameImage;
     
     
     // Start is called before the first frame update
@@ -48,6 +50,10 @@ public class SelectionBarIconManager : MonoBehaviour
     public bool Selected
     {
         get => selected;
-        set => selected = value;
+        set
+        {
+            frameImage.gameObject.SetActive(value);
+            selected = value;
+        }
     }
 }
