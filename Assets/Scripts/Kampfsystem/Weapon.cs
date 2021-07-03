@@ -42,6 +42,21 @@ public abstract class Weapon : MonoBehaviour
             _weaponType = value;
         }
     }
+
+    public string Name
+    {
+        get
+        {
+            if (_weaponType == WeaponType.LASER)
+            {
+                return "Laser Blaster";
+            }
+            else
+            {
+                return "Rocket Launcher";
+            }
+        }
+    }
     
     [SerializeField]
     protected int _maxAmmo;
@@ -50,14 +65,28 @@ public abstract class Weapon : MonoBehaviour
 
     protected bool _canShoot;
 
-    [SerializeField]
     protected WeaponType _weaponType;
 
     private int _currentAmmo;
 
     [SerializeField]
     private float _maxShootingDistance;
-    
+
+    [SerializeField]
+    protected float _projectileSpeed;
+
+    [SerializeField]
+    protected Transform _projectile;
+
+    [SerializeField]
+    protected float _damage;
+
+    /// <summary>
+    /// Position to spawn the Rocket at
+    /// </summary>
+    public Transform SocketLeft;
+    public Transform SocketRight;
+
     public void Start()
     {
         if (_maxAmmo < 0)

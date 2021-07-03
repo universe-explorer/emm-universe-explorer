@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 6817489231285477713}
   - component: {fileID: 2859468092000431876}
   - component: {fileID: 1858189123972611074}
-  - component: {fileID: 2478518027520205934}
+  - component: {fileID: 1636481009351346756}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -112,7 +112,7 @@ MonoBehaviour:
   _MaxShootDistance: 200
   _Ammo: 0
   _Damage: 10
---- !u!114 &2478518027520205934
+--- !u!114 &1636481009351346756
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -121,16 +121,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 4868197230431655024}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1edd27633df712f44be68e08a919337e, type: 3}
+  m_Script: {fileID: 11500000, guid: fe47669429716d94abb0299eb2e11b32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Target: 1
   _maxAmmo: 0
-  _weaponType: 0
   _maxShootingDistance: 0
-  _rocketSpeed: 15
-  _rocket: {fileID: 7780717535766068066, guid: d76c67aebc08ef645a7ae089df1e948c, type: 3}
-  _damage: 10
+  _projectileSpeed: 80
+  _projectile: {fileID: 8324117823337860757, guid: 3d86bf55206fe3a4488cf2417398dd01, type: 3}
+  _damage: 20
   SocketLeft: {fileID: 5218466256822283061}
   SocketRight: {fileID: 7379615314520977020}
 --- !u!1 &5641108493444090100
