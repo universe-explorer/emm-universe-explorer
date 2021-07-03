@@ -53,5 +53,19 @@ public class WeaponController : MonoBehaviour
     [SerializeField]
     public Weapon[] Weapons;
 
-    public int ActiveWeaponIndex => _activeWeaponIndex;
+    
+    public int ActiveWeaponIndex
+    {
+        get => _activeWeaponIndex;
+        set
+        {
+            if (value < Weapons.Length)
+            {
+                _activeWeaponIndex = value;
+                _activeWeapon = Weapons[value];
+            }
+            // TODO: Else throw an exception?
+            
+        }
+    }
 }
