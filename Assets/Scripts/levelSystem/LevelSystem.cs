@@ -88,7 +88,8 @@ public class LevelSystem
         {
             ItemRankEntry levelRank = itemRankEntries[levelIter];
             int level = levelIter + 1;
-            if (changedRank.CompareTo(levelRank) >= 0 && level > currentLevel - 1)
+            // do not upgrade above the maximal Level 5 (itemRankEntries.Count)
+            if (changedRank.CompareTo(levelRank) >= 0 && level > currentLevel - 1 && currentLevel < itemRankEntries.Count)
             {
                 currentLevel += 1;
                 levelChanged = true;
