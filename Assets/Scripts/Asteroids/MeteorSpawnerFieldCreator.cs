@@ -15,7 +15,7 @@ public class MeteorSpawnerFieldCreator : MonoBehaviour
     public Transform MeteorSpawnerField;
 
     [SerializeField]
-    [Range(1, 20)]
+    [Range(1, 40)]
     private int _range = 10;
 
     private List<Transform> _spawnedFields = new List<Transform>();
