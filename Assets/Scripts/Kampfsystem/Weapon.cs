@@ -81,6 +81,21 @@ public abstract class Weapon : MonoBehaviour
     [SerializeField]
     protected float _damage;
 
+    [Header("Fire-Rate")]
+    [SerializeField]
+    private float _fireRate = 1f;
+
+    public float FireRate
+    {
+        get
+        {
+            return _fireRate;
+        }
+    }
+
+    [SerializeField]
+    private float _nextFire;
+
     /// <summary>
     /// Position to spawn the Rocket at
     /// </summary>
@@ -114,10 +129,15 @@ public abstract class Weapon : MonoBehaviour
     {
         if (_canShoot)
         {
-            FireProjectile();
-            if (_hasAmmo)
+            if (Time.time > _nextFire)
             {
-                _currentAmmo--;
+                _nextFire = Time.time + _fireRate;
+
+                FireProjectile();
+                if (_hasAmmo)
+                {
+                    _currentAmmo--;
+                }
             }
         }
         if (_maxAmmo <= 0 && _hasAmmo)
