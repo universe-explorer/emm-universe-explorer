@@ -68,15 +68,15 @@ public class MeteorSpawnerField : MonoBehaviour
 
     public void SpawnEnemies()
     {
-        int random = (int)Random.Range(0, 6);
-        int randomIndex = (int) Random.Range(0, scriptableObjects.Length);
-        EnemyScriptableObject enemyScriptableObject = (EnemyScriptableObject) scriptableObjects[randomIndex];
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
-        EnemyBehaviour behaviour = (EnemyBehaviour) enemyPrefab.GetComponent(typeof(EnemyBehaviour));
-        behaviour.values = enemyScriptableObject;
-
-        if (random == 1)
+        if(enemies.Length <= 1)
         {
+            int randomIndex = (int)Random.Range(0, scriptableObjects.Length);
+            EnemyScriptableObject enemyScriptableObject = (EnemyScriptableObject)scriptableObjects[randomIndex];
+
+            EnemyBehaviour behaviour = (EnemyBehaviour)enemyPrefab.GetComponent(typeof(EnemyBehaviour));
+            behaviour.values = enemyScriptableObject;
             Instantiate(enemyPrefab, RandomPointInBounds(bounds), Quaternion.identity, gameObject.transform);
         }
     }
