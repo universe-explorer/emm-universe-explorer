@@ -13,5 +13,6 @@ public class BaseMenu : MonoBehaviour
     public virtual void Exit()
     {
         Debug.Log("base method: exit");
+        Application.Quit(0); // Gets ignored in editor
     }
 }
