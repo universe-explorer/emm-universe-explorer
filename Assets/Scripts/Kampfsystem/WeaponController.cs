@@ -52,4 +52,6 @@ public class WeaponController : MonoBehaviour
 
     [SerializeField]
     public Weapon[] Weapons;
+
+    public int ActiveWeaponIndex => _activeWeaponIndex;
 }
