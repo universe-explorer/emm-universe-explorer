@@ -14,6 +14,21 @@ public class WeaponController : MonoBehaviour
         _activeWeapon = Weapons[_activeWeaponIndex];
     }
 
+    [SerializeField]
+    private float _damageMultiplier = 1f;
+
+    public float DamageMultiplier
+    {
+        get
+        {
+            return _damageMultiplier;
+        }
+        set
+        {
+            _damageMultiplier = value;
+        }
+    }
+
     private Weapon _activeWeapon;
 
     private void Update()

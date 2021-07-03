@@ -6104,6 +6104,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Planet A
       objectReference: {fileID: 0}
+    - target: {fileID: 7911438796849967822, guid: 00022314ee6883943bc6468844ee08a0, type: 3}
+      propertyPath: m_TagString
+      value: PlanetSubObject
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 00022314ee6883943bc6468844ee08a0, type: 3}
 --- !u!4 &2263822461803076068 stripped

@@ -6090,6 +6090,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Planet B
       objectReference: {fileID: 0}
+    - target: {fileID: 7911438796849967822, guid: 8c74d035009f1d844971b63bb5538b7a, type: 3}
+      propertyPath: m_TagString
+      value: PlanetSubObject
+      objectReference: {fileID: 0}
     - target: {fileID: 8575524702044439918, guid: 8c74d035009f1d844971b63bb5538b7a, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 

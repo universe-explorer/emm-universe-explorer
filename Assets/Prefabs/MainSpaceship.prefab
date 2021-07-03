@@ -180,6 +180,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _key: 113
+  _damageMultiplier: 1
   Weapons:
   - {fileID: 3179581242729374546}
   - {fileID: 1183871407}
@@ -343,7 +344,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 617a534fc48834cb9a101a8af7bcf367, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _afterBurner: {fileID: 158127453090627041}
   enableDrifting: 0
   autoDeceleration: 0
   defaultVelocity: 5
@@ -363,6 +363,7 @@ MonoBehaviour:
   _crosshairOffsetY: 7
   _crosshairMovementSpeed: 100
   velocity: 0
+  _afterBurner: {fileID: 158127453090627041}
 --- !u!114 &6346074013267755291
 MonoBehaviour:
   m_ObjectHideFlags: 0

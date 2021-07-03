@@ -94,6 +94,17 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
     [SerializeField]
     private ParticleSystem _afterBurner;
 
+    [Header("FOV")]
+    [SerializeField]
+    private float _maxFOV = 80;
+
+    [SerializeField]
+    private float _minFOV = 50;
+
+    [SerializeField]
+    [Range(0, 1)]
+    private float _amount = .1f;
+
     /// <summary>
     ///   <para>Maps value from original range to new range</para>
     ///   <param name="value"> Original value</param>
@@ -176,11 +187,13 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
         if (Input.GetKey(KeyCode.LeftShift))
         {
             _isBoosting = true;
+            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, _maxFOV, .1f);
             Boost();
         }
         else
         {
             _isBoosting = false;
+            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, _minFOV, .1f);
             _afterBurner.Stop();
 
             if (_currentBoostTime > 0)
