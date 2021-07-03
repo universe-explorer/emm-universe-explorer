@@ -26,8 +26,6 @@ public class LevelSystemController : MonoBehaviour
     private void Start()
     {
         levelSystem.OnLevelChanged += LevelSystem_OnLevelChanged;
-        Debug.Log("Get Children Component: " + weaponController);
-
     }
 
     /// <summary> 
