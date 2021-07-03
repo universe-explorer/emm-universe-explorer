@@ -52,4 +52,18 @@ public class WeaponController : MonoBehaviour
 
     [SerializeField]
     public Weapon[] Weapons;
+
+    
+    public int ActiveWeaponIndex => _activeWeaponIndex;
+
+    public bool SwitchWeapon(int newWeaponIndex)
+    {
+        if (newWeaponIndex < Weapons.Length)
+        {
+            _activeWeaponIndex = newWeaponIndex;
+            _activeWeapon = Weapons[newWeaponIndex];
+            return true;
+        }
+        return false;
+    }
 }
