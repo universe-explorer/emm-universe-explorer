@@ -70,12 +70,29 @@ public class SelectionBarManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*
         foreach(SelectionBarIconManager slot in uiSelectionBarSlots)
         {
             if (Input.GetKeyDown(slot.Key))
             {
                 uiSelectionBarSlots.ForEach(e => e.Selected=false);
                 slot.Selected = true;
+                weaponController.ActiveWeaponIndex = slot.
+            }
+        }
+        */
+
+        for (var i = 0; i < uiSelectionBarSlots.Count; i++)
+        {
+            if (Input.GetKeyDown(uiSelectionBarSlots[i].Key))
+            {
+                if (weaponController.SwitchWeapon(i))
+                {
+                    uiSelectionBarSlots.ForEach(e => e.Selected=false);
+                    uiSelectionBarSlots[i].Selected = true; 
+                }
+                
+                
             }
         }
     }

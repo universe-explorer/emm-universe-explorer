@@ -54,18 +54,16 @@ public class WeaponController : MonoBehaviour
     public Weapon[] Weapons;
 
     
-    public int ActiveWeaponIndex
+    public int ActiveWeaponIndex => _activeWeaponIndex;
+
+    public bool SwitchWeapon(int newWeaponIndex)
     {
-        get => _activeWeaponIndex;
-        set
+        if (newWeaponIndex < Weapons.Length)
         {
-            if (value < Weapons.Length)
-            {
-                _activeWeaponIndex = value;
-                _activeWeapon = Weapons[value];
-            }
-            // TODO: Else throw an exception?
-            
+            _activeWeaponIndex = newWeaponIndex;
+            _activeWeapon = Weapons[newWeaponIndex];
+            return true;
         }
+        return false;
     }
 }
