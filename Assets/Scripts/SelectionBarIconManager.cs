@@ -7,6 +7,7 @@ public class SelectionBarIconManager : MonoBehaviour
 {
 
     private KeyCode key;
+    private bool selected = false;
 
     [SerializeField] private TextMeshProUGUI keyText;
     [SerializeField] private TextMeshProUGUI nameText;
@@ -32,8 +33,21 @@ public class SelectionBarIconManager : MonoBehaviour
             key = value;
             string keyString = value.ToString();
             if (keyString.StartsWith("Alpha"))
-                keyText.text = keyString.Remove(0, 5);
-            
+                keyString = keyString.Substring(5);
+
+            keyText.text = keyString;
         }
+    }
+
+    public string Name
+    {
+        get => nameText.text;
+        set => nameText.text = value;
+    }
+
+    public bool Selected
+    {
+        get => selected;
+        set => selected = value;
     }
 }

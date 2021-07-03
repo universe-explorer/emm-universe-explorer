@@ -31,14 +31,26 @@ public class SelectionBarManager : MonoBehaviour
             // Throw exception if key code is higher than key code of the highest number
             if (key > KeyCode.Alpha9)
                 throw new Exception("Current KeyCode is higher than KeyCode of the key 9");
+
+            t.GetComponent<SelectionBarIconManager>().Key = key;
+            if (counter < weapons.Count)
+            {
+                t.GetComponent<SelectionBarIconManager>().Name = weapons[counter].WeaponType.ToString(); // TODO: Add weapon name, so we don't have to use the type
+            }
+            else
+            {
+                t.GetComponent<SelectionBarIconManager>().Name = "Empty";
+            }
             
+            
+            /*
             t.Find("key").GetComponent<TextMeshProUGUI>().text = key.ToString().Remove(0, 5); // Remove alpha part from KeyCode.ToString
             // t.gameObject.GetComponentInChildren<Image>() TODO: Implement ISelectionBarItem interface/extra method that returns an icon of the item
             
             // Temporary text field
             // TODO: Unsafe access
             t.Find("name").GetComponent<TextMeshProUGUI>().text = weapons[counter].WeaponType.ToString(); // TODO: Add weapon name, so we don't have to use the type
-            
+            */
            
             key++;
             counter++;
