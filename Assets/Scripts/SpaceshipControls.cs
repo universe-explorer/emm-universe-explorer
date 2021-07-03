@@ -90,6 +90,10 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
     private InfoCircleScript _infoCircleScript;
     private SpeedDisplay _speedDisplay;
 
+    [Header("AfterBurner")]
+    [SerializeField]
+    private ParticleSystem _afterBurner;
+
     /// <summary>
     ///   <para>Maps value from original range to new range</para>
     ///   <param name="value"> Original value</param>
@@ -177,6 +181,7 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
         else
         {
             _isBoosting = false;
+            _afterBurner.Stop();
 
             if (_currentBoostTime > 0)
             {
@@ -325,6 +330,10 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
         {
             Move(defaultVelocity * _boostMultiplier);
             _currentBoostTime++;
+            if (_afterBurner.isPlaying == false)
+            {
+                _afterBurner.Play();
+            }
         }
     }
 
