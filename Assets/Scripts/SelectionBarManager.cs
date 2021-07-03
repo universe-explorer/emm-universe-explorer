@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -39,7 +40,7 @@ public class SelectionBarManager : MonoBehaviour
             t.GetComponent<SelectionBarIconManager>().Key = key;
             if (counter < weapons.Count)
             {
-                //t.GetComponent<SelectionBarIconManager>().Name = weapons[counter].Name; // TODO: Add weapon name, so we don't have to use the type
+                t.GetComponent<SelectionBarIconManager>().Name = weapons[counter].Name.Split(' ').First();
                 if (counter == weaponController.ActiveWeaponIndex)
                 {
                     t.GetComponent<SelectionBarIconManager>().Selected = true;
