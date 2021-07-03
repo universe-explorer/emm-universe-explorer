@@ -6,6 +6,7 @@ public class CombatControllerEnemy : AbstractCombatController
 {
     public override void Die()
     {
+        Debug.Log("Enemy Died");
         //Spawns a random item on death
         Item.ItemType itemType = (Item.ItemType)Random.Range(0, System.Enum.GetNames(typeof(Item.ItemType)).Length);
         Item item = new Item();
@@ -15,6 +16,11 @@ public class CombatControllerEnemy : AbstractCombatController
         ItemWorld itemWorld = ItemWorld.SpawnItemWorld(transform.position, item);
         itemWorld.transform.SetParent(transform.parent);
 
+        Destroy(gameObject);
+    }
+
+    public void Unload()
+    {
         Destroy(gameObject);
     }
 

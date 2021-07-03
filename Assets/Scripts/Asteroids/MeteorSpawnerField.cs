@@ -68,7 +68,7 @@ public class MeteorSpawnerField : MonoBehaviour
 
     public void SpawnEnemies()
     {
-        int random = (int)Random.Range(0, 6);
+        int random = (int)Random.Range(0, 4);
         int randomIndex = (int) Random.Range(0, scriptableObjects.Length);
         EnemyScriptableObject enemyScriptableObject = (EnemyScriptableObject) scriptableObjects[randomIndex];
 
@@ -158,7 +158,7 @@ public class MeteorSpawnerField : MonoBehaviour
             CombatControllerEnemy behaviour = transform.GetChild(i).gameObject.GetComponent<CombatControllerEnemy>();
             if (behaviour != null)
             {
-                behaviour.Die();
+                behaviour.Unload();
             }
         }
 
