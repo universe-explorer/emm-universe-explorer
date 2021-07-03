@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,7 +17,7 @@ public class SelectionBarManager : MonoBehaviour
         
         KeyCode key = KeyCode.Alpha1;
 
-        Weapon[] weapons = weaponController.Weapons;
+        IList<Weapon> weapons = weaponController.Weapons.AsReadOnlyList();
         
         
         // min 5 slots, selection bar looks kinda bad with less slots; TODO: Mark other slots as unavailable
@@ -30,13 +32,14 @@ public class SelectionBarManager : MonoBehaviour
             if (key > KeyCode.Alpha9)
                 throw new Exception("Current KeyCode is higher than KeyCode of the key 9");
             
-            t.gameObject.GetComponentInChildren<TextMeshProUGUI>().text = key.ToString().Remove(0, 5); // Remove alpha part from KeyCode.ToString
+            t.Find("key").GetComponent<TextMeshProUGUI>().text = key.ToString().Remove(0, 5); // Remove alpha part from KeyCode.ToString
             // t.gameObject.GetComponentInChildren<Image>() TODO: Implement ISelectionBarItem interface/extra method that returns an icon of the item
             
             // Temporary text field
             // TODO: Unsafe access
-            t.gameObject.GetComponentInChildren<TextMeshProUGUI>().text = weapons[counter].WeaponType.ToString(); // TODO: Add weapon name, so we don't have to use the type
+            t.Find("name").GetComponent<TextMeshProUGUI>().text = weapons[counter].WeaponType.ToString(); // TODO: Add weapon name, so we don't have to use the type
             
+           
             key++;
             counter++;
         }
