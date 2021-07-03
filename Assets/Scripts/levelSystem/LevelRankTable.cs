@@ -12,11 +12,11 @@ public class LevelRankTable
     ///   Represents Player level Rank for all levels 
     /// </summary>
     private static readonly List<PlayerRankEntry> playerRankEntries = new List<PlayerRankEntry>{
-       new PlayerRankEntry { MaxVelocity = 30, BoostDuration = 120 },
-       new PlayerRankEntry { MaxVelocity = 40, BoostDuration = 140 },
-       new PlayerRankEntry { MaxVelocity = 50, BoostDuration = 160 },
-       new PlayerRankEntry { MaxVelocity = 60, BoostDuration = 180 },
-       new PlayerRankEntry { MaxVelocity = 70, BoostDuration = 200 },
+       new PlayerRankEntry { MaxVelocity = 30, BoostDuration = 120, DamageFactor = 1f},
+       new PlayerRankEntry { MaxVelocity = 40, BoostDuration = 140, DamageFactor = 2f},
+       new PlayerRankEntry { MaxVelocity = 50, BoostDuration = 160, DamageFactor = 3f},
+       new PlayerRankEntry { MaxVelocity = 60, BoostDuration = 180, DamageFactor = 4f},
+       new PlayerRankEntry { MaxVelocity = 70, BoostDuration = 200, DamageFactor = 5f},
     };
 
     /// <summary> 
