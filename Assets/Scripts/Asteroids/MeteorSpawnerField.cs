@@ -68,7 +68,7 @@ public class MeteorSpawnerField : MonoBehaviour
 
     public void SpawnEnemies()
     {
-        int random = (int)Random.Range(0, 4);
+        int random = (int)Random.Range(0, 6);
         int randomIndex = (int) Random.Range(0, scriptableObjects.Length);
         EnemyScriptableObject enemyScriptableObject = (EnemyScriptableObject) scriptableObjects[randomIndex];
 

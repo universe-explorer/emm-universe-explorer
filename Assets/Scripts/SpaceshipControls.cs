@@ -282,7 +282,15 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
     public void Rotate(Vector2 mouseInput)
     {
         mouseInput *= sensitivity;
-        _mouseInputAngles.x += mouseInput.x;
+
+        //Check if plane is upside down to reverse x Rotation direction
+        if (Vector3.Dot(transform.up, Vector3.down) > 0)
+        {
+            _mouseInputAngles.x -= mouseInput.x;
+        } else
+        {
+            _mouseInputAngles.x += mouseInput.x;
+        }
         _mouseInputAngles.y += mouseInput.y;
 
 
