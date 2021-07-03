@@ -38,7 +38,7 @@ public class MeteorSpawner : MonoBehaviour
 
     }
 
-    private void OnDrawGizmosSelected()
+    private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, _radius);

@@ -9,15 +9,28 @@ public class CombatControllerPlayer : AbstractCombatController
     public float _LaserWidth = 0.1f;
     public float _LaserMaxLength;
     // Start is called before the first frame update
+
+    [SerializeField]
+    public WeaponController WeaponController;
+
+    private HealthBarScript _healthBarScript;
+    
     void Start()
     {
-        _LaserMaxLength = _MaxShootDistance;
+        if (WeaponController == null)
+        {
+            WeaponController = gameObject.GetComponentInChildren<WeaponController>();
+        }
+
+        _healthBarScript = gameObject.GetComponentInChildren<HealthBarScript>();
+
+        /*_LaserMaxLength = _MaxShootDistance;
         _LineRenderer = GetComponent<LineRenderer>();
         _MaxHealth = _Health;
 
         Vector3[] initLaserPositions = new Vector3[2] { Vector3.zero, Vector3.zero };
         _LineRenderer.SetPositions(initLaserPositions);
-        _LineRenderer.SetWidth(_LaserWidth, _LaserWidth);
+        _LineRenderer.SetWidth(_LaserWidth, _LaserWidth);*/
     }
 
     // Update is called once per frame
@@ -27,7 +40,8 @@ public class CombatControllerPlayer : AbstractCombatController
         {
             if (Input.GetButtonDown("Fire1"))
             {
-                _Ammo--;
+                WeaponController.FireActiveWeapon();
+                /*_Ammo--;
                 RaycastHit hit;
                 _LineRenderer.enabled = true;
                 if (Physics.Raycast(transform.position, -transform.forward, out hit, _MaxShootDistance))
@@ -47,22 +61,25 @@ public class CombatControllerPlayer : AbstractCombatController
                     
 
                     Debug.Log("Hit: " + hit.collider.name);
-                }
+                }*/
+
             }
             else
             {
-                _LineRenderer.enabled = false;
+                //_LineRenderer.enabled = false;
             }
         }
     }
-
+    
     public override void Die()
     {
-        Destroy(gameObject);
+        GetComponentInChildren<DeathScreenManager>().enableDeathScreen(); // TODO: test before merging with main
+        //throw new System.NotImplementedException();
     }
 
     public override void HealthChanged()
     {
-        //Todo: change Slider in UI...
+        _healthBarScript.TakeDamageTemporary(_Health); // Test implementation -> health can also increase in this method
+        //throw new System.NotImplementedException();
     }
 }

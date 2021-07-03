@@ -4,6 +4,8 @@ using UnityEngine;
 
 public abstract class Weapon : MonoBehaviour
 {
+    [SerializeField]
+    public Target Target;
 
     public int MaxAmmo
     {
@@ -89,7 +91,7 @@ public abstract class Weapon : MonoBehaviour
                 _currentAmmo--;
             }
         }
-        if (_maxAmmo <= 0)
+        if (_maxAmmo <= 0 && _hasAmmo)
         {
             _canShoot = false;
         }
@@ -107,4 +109,9 @@ public abstract class Weapon : MonoBehaviour
         _currentAmmo = _maxAmmo;
         _canShoot = true;
     }
+}
+
+public enum Target
+{
+    Enemy, Allied
 }

@@ -1,6 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary> 
+///   Represents a Tab Group to navigate through the Inventory Item Group, not used any more.
+/// </summary>
 public class TabGroup : MonoBehaviour
 {
     private List<TabGroupButton> tabButtons;

@@ -40,7 +40,14 @@ public abstract class AbstractCombatController: MonoBehaviour
         HealthChanged();
     }
 
+    public void SetMaxHealth(float newMaxHealth)
+    {
+        _MaxHealth = newMaxHealth;
+        _Health = _MaxHealth;
+    }
+
     public abstract void Die();
 
     public abstract void HealthChanged();
+
 }

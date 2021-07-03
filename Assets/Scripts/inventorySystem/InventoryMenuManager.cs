@@ -1,17 +1,16 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary> 
+/// Inventory Menu Manager, not used any more.
+/// </summary>
 public class InventoryMenuManager : MonoBehaviour
 {
     public GameObject menu;
 
-    void Start()
-    {
-    }
-
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(KeyCode.O))
         {
             menu.gameObject.SetActive(!menu.gameObject.activeSelf);
             Time.timeScale = !menu.gameObject.activeSelf ? 1 : 0;
