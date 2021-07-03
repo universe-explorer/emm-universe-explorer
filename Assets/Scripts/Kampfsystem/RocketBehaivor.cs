@@ -165,7 +165,7 @@ public class RocketBehaivor : MonoBehaviour
             Debug.Log("WRONG STATE:::");
         }
 
-        if (collision.transform.tag != "EnemyHealthCollider" && collision.transform.tag != "Player" && collision.transform.tag != "Projectile")
+        if (collision.transform.tag != "EnemyHealthCollider" && collision.transform.tag != "Player" && collision.transform.tag != "Projectile" && collision.transform.tag != "PlayerHealthCollider")
         {
             //make shure, rockets explode even when touching another collider
             Destroy(gameObject);
