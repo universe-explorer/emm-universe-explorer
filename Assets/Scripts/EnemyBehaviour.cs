@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyBehaviour : MonoBehaviour
-{
+{ 
 
     public EnemyScriptableObject values;
 
@@ -128,6 +128,7 @@ public class EnemyBehaviour : MonoBehaviour
                 if(framesSinceMovementStart % values.shotDelay == 0)
                 {
                     weapon.Fire();
+                    //
                 }
 
                 framesSinceMovementStart++;
@@ -187,5 +188,10 @@ public class EnemyBehaviour : MonoBehaviour
         transform.LookAt(point);
         movementDirection = transform.forward;
         transform.rotation = save;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawSphere(transform.position, values.aggroRange);
     }
 }

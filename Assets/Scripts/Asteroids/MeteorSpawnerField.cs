@@ -22,6 +22,15 @@ public class MeteorSpawnerField : MonoBehaviour
 
     public AsteroidSettings AsteroidSettings;
 
+    private GameObject enemyPrefab;
+    private Object[] scriptableObjects;
+
+    public void Start()
+    {
+        enemyPrefab = (GameObject)Resources.Load("Enemy", typeof(GameObject));
+        scriptableObjects = Resources.LoadAll("ScriptableObjects", typeof(EnemyScriptableObject));
+    }
+
     public void SpawnMeteors()
     {
         float asteroidScale;
@@ -37,6 +46,38 @@ public class MeteorSpawnerField : MonoBehaviour
                 spawnedAsteroid.gameObject.AddComponent<AsteroidBehaviour>().Setup(Random.Range(AsteroidSettings.thrustMin, AsteroidSettings.thrustMax), Random.Range(AsteroidSettings.rotationSpeedMin, AsteroidSettings.rotationSpeedMax), AsteroidSettings._mass, AsteroidSettings._drag, AsteroidSettings._angularDrag);
                 spawnedAsteroid.transform.localScale *= asteroidScale;
             }
+        }
+    }
+
+    public void SpawnCollectables()
+    {
+        int numberOfCollectables = (int) Random.Range(0, 3);
+
+        for(int i = 0; i < numberOfCollectables; i++)
+        {
+            Item.ItemType itemType = (Item.ItemType)Random.Range(0, System.Enum.GetNames(typeof(Item.ItemType)).Length);
+
+            Item item = new Item();
+            item.itemType = itemType;
+            item.amount = Random.Range(1, 5);
+
+            ItemWorld itemWorld = ItemWorld.SpawnItemWorld(RandomPointInBounds(bounds), item);
+            itemWorld.transform.SetParent(transform);
+        }
+    }
+
+    public void SpawnEnemies()
+    {
+        int random = (int)Random.Range(0, 6);
+        int randomIndex = (int) Random.Range(0, scriptableObjects.Length);
+        EnemyScriptableObject enemyScriptableObject = (EnemyScriptableObject) scriptableObjects[randomIndex];
+
+        EnemyBehaviour behaviour = (EnemyBehaviour) enemyPrefab.GetComponent(typeof(EnemyBehaviour));
+        behaviour.values = enemyScriptableObject;
+
+        if (random == 1)
+        {
+            Instantiate(enemyPrefab, RandomPointInBounds(bounds), Quaternion.identity, gameObject.transform);
         }
     }
 
@@ -80,8 +121,9 @@ public class MeteorSpawnerField : MonoBehaviour
     {
         if (other.tag == "MainCamera")
         {
-            Debug.Log("entered collider...");
             SpawnMeteors();
+            SpawnCollectables();
+            SpawnEnemies();
         }
     }
 
@@ -90,8 +132,9 @@ public class MeteorSpawnerField : MonoBehaviour
     {
         if (other.tag == "MainCamera")
         {
-            Debug.Log("entered collider...");
             DestroyMeteors();
+            DestroyEnemies();
+            DestroyItems();
         }
     }
 
@@ -99,8 +142,39 @@ public class MeteorSpawnerField : MonoBehaviour
     {
         for (int i = 0; i < transform.childCount; i++)
         {
-            transform.GetChild(i).gameObject.GetComponent<AsteroidBehaviour>().Remove();
+            AsteroidBehaviour behaviour = transform.GetChild(i).gameObject.GetComponent<AsteroidBehaviour>();
+            if(behaviour != null)
+            {
+                behaviour.Remove();
+            }
         }
         
     }
+
+    private void DestroyEnemies()
+    {
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            CombatControllerEnemy behaviour = transform.GetChild(i).gameObject.GetComponent<CombatControllerEnemy>();
+            if (behaviour != null)
+            {
+                behaviour.Die();
+            }
+        }
+
+    }
+
+    private void DestroyItems()
+    {
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            ItemWorld behaviour = transform.GetChild(i).gameObject.GetComponent<ItemWorld>();
+            if (behaviour != null)
+            {
+                behaviour.DestroySelf();
+            }
+        }
+
+    }
+
 }

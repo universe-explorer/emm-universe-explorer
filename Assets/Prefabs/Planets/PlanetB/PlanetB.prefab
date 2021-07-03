@@ -1,5 +1,18 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!135 &178158848
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5638480395885883349}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.63662016
+  m_Center: {x: 0, y: 0.63662016, z: 0}
 --- !u!1 &8784963280649551810
 GameObject:
   m_ObjectHideFlags: 0
@@ -5956,7 +5969,7 @@ GameObject:
   - component: {fileID: 8784963281292265235}
   m_Layer: 0
   m_Name: PlanetB
-  m_TagString: Untagged
+  m_TagString: Planet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6006,10 +6019,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Body: 0
-  Radius: 8.86
+  Radius: 310
   SurfaceGravity: 0
   InitialVelocity: {x: 0, y: 0, z: 8.47}
-  BodyName: PlanetA
+  BodyName: PlanetB
 --- !u!1001 &6807525366544410050
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6023,23 +6036,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7386117827323504756, guid: 8c74d035009f1d844971b63bb5538b7a, type: 3}
       propertyPath: m_LocalScale.x
-      value: 8.86
+      value: 310
       objectReference: {fileID: 0}
     - target: {fileID: 7386117827323504756, guid: 8c74d035009f1d844971b63bb5538b7a, type: 3}
       propertyPath: m_LocalScale.y
-      value: 8.86
+      value: 310
       objectReference: {fileID: 0}
     - target: {fileID: 7386117827323504756, guid: 8c74d035009f1d844971b63bb5538b7a, type: 3}
       propertyPath: m_LocalScale.z
-      value: 8.86
+      value: 310
       objectReference: {fileID: 0}
     - target: {fileID: 7386117827323504756, guid: 8c74d035009f1d844971b63bb5538b7a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 5.6834106
       objectReference: {fileID: 0}
     - target: {fileID: 7386117827323504756, guid: 8c74d035009f1d844971b63bb5538b7a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 5.6832275
       objectReference: {fileID: 0}
     - target: {fileID: 7386117827323504756, guid: 8c74d035009f1d844971b63bb5538b7a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -6047,19 +6060,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7386117827323504756, guid: 8c74d035009f1d844971b63bb5538b7a, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071076
       objectReference: {fileID: 0}
     - target: {fileID: 7386117827323504756, guid: 8c74d035009f1d844971b63bb5538b7a, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7386117827323504756, guid: 8c74d035009f1d844971b63bb5538b7a, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7386117827323504756, guid: 8c74d035009f1d844971b63bb5538b7a, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: 0.70710605
       objectReference: {fileID: 0}
     - target: {fileID: 7386117827323504756, guid: 8c74d035009f1d844971b63bb5538b7a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -6071,16 +6084,29 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7386117827323504756, guid: 8c74d035009f1d844971b63bb5538b7a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 7911438796849967822, guid: 8c74d035009f1d844971b63bb5538b7a, type: 3}
       propertyPath: m_Name
       value: Planet B
       objectReference: {fileID: 0}
+    - target: {fileID: 7911438796849967822, guid: 8c74d035009f1d844971b63bb5538b7a, type: 3}
+      propertyPath: m_TagString
+      value: PlanetSubObject
+      objectReference: {fileID: 0}
+    - target: {fileID: 8575524702044439918, guid: 8c74d035009f1d844971b63bb5538b7a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 618e6a8dd34ac5b43a9e64f204de843b, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c74d035009f1d844971b63bb5538b7a, type: 3}
 --- !u!4 &4105580022106623414 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7386117827323504756, guid: 8c74d035009f1d844971b63bb5538b7a, type: 3}
+  m_PrefabInstance: {fileID: 6807525366544410050}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5638480395885883349 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1172862569705048599, guid: 8c74d035009f1d844971b63bb5538b7a, type: 3}
   m_PrefabInstance: {fileID: 6807525366544410050}
   m_PrefabAsset: {fileID: 0}

@@ -79,11 +79,7 @@ public class Ui_inventory : MonoBehaviour
         {
             Item duplicate = new Item {
                 itemType = item.itemType,
-                amount = item.amount,
-                healthPortion = item.healthPortion,
-                maxSpeed = item.maxSpeed,
-                manaPortion = item.manaPortion,
-                medkitPortion = item.medkitPortion
+                amount = item.amount
             };
             inventory.RemoveItem(item);
             ItemWorld.DropItem(player.transform.position, duplicate);
@@ -100,7 +96,7 @@ public class Ui_inventory : MonoBehaviour
 
         parent.GetComponent<MouseUIEvents>().MouseEnterHandler = () =>
         {
-            infoText.SetText(item.GetInfoText());
+            infoText.SetText(item.GetTitle());
         };
 
         parent.GetComponent<MouseUIEvents>().MouseExitHandler = () =>
@@ -119,18 +115,11 @@ public class Ui_inventory : MonoBehaviour
     }
 
     /// <summary> 
-    ///   Sets Item's amount within UI
+    ///   Sets Item's amount
     /// </summary>
     private void SetAmount(Transform parent, Item item)
     {
         TextMeshProUGUI amount = parent.Find("amount").GetComponent<TextMeshProUGUI>();
-        if (item.amount > 1)
-        {
-            amount.SetText(item.amount.ToString());
-        }
-        else
-        {
-            amount.SetText("");
-        }
+        amount.SetText(item.amount > 1 ? item.amount.ToString() : "");
     }
 }

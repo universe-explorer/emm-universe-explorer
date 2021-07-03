@@ -468,7 +468,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 208d54249e11d1b40802b067ca849dcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameSceneName: Solar System
+  gameSceneName: PlanetScene
 --- !u!1 &1247154028
 GameObject:
   m_ObjectHideFlags: 0
@@ -883,7 +883,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5924381205952948886, guid: 948239880e98bca449a0ea12f433a4df, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5924381205952948886, guid: 948239880e98bca449a0ea12f433a4df, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -895,11 +895,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5924381205952948886, guid: 948239880e98bca449a0ea12f433a4df, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ViewSettings
+      value: OpenSettings
       objectReference: {fileID: 0}
     - target: {fileID: 5924381205952948886, guid: 948239880e98bca449a0ea12f433a4df, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: MenuManagerScript, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5924381205952948886, guid: 948239880e98bca449a0ea12f433a4df, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5924381205952948886, guid: 948239880e98bca449a0ea12f433a4df, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName

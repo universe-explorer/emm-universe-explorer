@@ -15,7 +15,7 @@ public class MeteorSpawnerFieldCreator : MonoBehaviour
     public Transform MeteorSpawnerField;
 
     [SerializeField]
-    [Range(1, 20)]
+    [Range(1, 40)]
     private int _range = 10;
 
     private List<Transform> _spawnedFields = new List<Transform>();
@@ -34,11 +34,11 @@ public class MeteorSpawnerFieldCreator : MonoBehaviour
             _instance = this;
         }
         SpawnMeteorFields();
-        _FieldArray = new bool[_range, _range, _range];
+        _FieldArray = new bool[_range, _range / 2, _range];
 
         for (int i = 0; i < _range; i++)
         {
-            for (int j = 0; j < _range; j++)
+            for (int j = 0; j < _range / 2; j++)
             {
                 for (int k = 0; k < _range; k++)
                 {
@@ -74,13 +74,13 @@ public class MeteorSpawnerFieldCreator : MonoBehaviour
 
         for (int i = 0; i < _range; i++)
         {
-            for (int j = 0; j < _range; j++)
+            for (int j = 0; j < _range / 2; j++)
             {
                 for (int k = 0; k < _range; k++)
                 {
                     Vector3 position = new Vector3(
                         i * size - (_range * size / 2) + size / 2 + transform.position.x,
-                        j * size - (_range * size / 2) + size / 2 + transform.position.y,
+                        j * size - ((_range / 2) * size / 2) + size / 2 + transform.position.y,
                         k * size - (_range * size / 2) + size / 2 + transform.position.z
                         );
                     Transform created = Instantiate(MeteorSpawnerField, position, Quaternion.identity, parent);
@@ -120,13 +120,13 @@ public class MeteorSpawnerFieldCreator : MonoBehaviour
 
         for (int i = 0; i < _range; i++)
         {
-            for (int j = 0; j < _range; j++)
+            for (int j = 0; j < _range / 2; j++)
             {
                 for (int k = 0; k < _range; k++)
                 {
                     Vector3 position = new Vector3(
                         i * size - (_range * size / 2) + size / 2 + transform.position.x,
-                        j * size - (_range * size / 2) + size / 2 + transform.position.y,
+                        j * size - ((_range / 2) * size / 2) + size / 2 + transform.position.y,
                         k * size - (_range * size / 2) + size / 2 + transform.position.z
                         );
                     Gizmos.DrawWireCube(position, size * Vector3.one);

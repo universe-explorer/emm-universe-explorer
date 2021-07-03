@@ -6,65 +6,58 @@ using UnityEngine.UI;
 public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
 {
     /* move */
-    [Header("Movement Settings")]
-    public bool enableDrifting = true;
+    [Header("Movement Settings")] public bool enableDrifting = true;
     public bool autoDeceleration = false;
-    
+
     [SerializeField] //remove in production
     private float defaultVelocity = 5;
-    
+
     [SerializeField] //remove in production
     private float maxVelocity = 30;
-    
+
     [SerializeField] //remove in production
     private float _accelerationSpeed = 0.3f;
-    
+
     [SerializeField] //remove in production
     private float _deccelerationSpeed = 0.03f;
-    
 
 
     /* rotate */
-    [Header("Rotation Settings")]
-    [SerializeField]
+    [Header("Rotation Settings")] [SerializeField]
     private float sensitivity = 1;
-    
+
     [SerializeField] //remove in production
     private float maxZRotation = 35;
-    
+
     [SerializeField] //remove in production
     private float zRotationSpeed = 2.5f;
 
 
     /* boost */
-    [Header("Boost Settings")]
-    
-    [SerializeField] //remove in production
+    [Header("Boost Settings")] [SerializeField] //remove in production
     private float _boostMultiplier = 1.5f;
-    
+
     [SerializeField] //remove in production
     private int _maxBoostDuration = 120;
-    
+
     private bool _isBoosting;
     private int _currentBoostTime;
 
 
     /* rolling */
-    [Header("Rolling Settings")]
-    
-    [SerializeField] //remove in production
+    [Header("Rolling Settings")] [SerializeField] //remove in production
     private float defaultRollingForce = 30f;
-    
+
+    [SerializeField][Range(4.0f, 80.0f)] private float _rollPerFrame = 15;
+
     private const float fullRoll = 360;
-    private float rollPerFrame = 4;
-    private float _currentRoll;
+    private bool _startRoll;
     private bool _isRolling;
     private float _rollingDirection;
 
 
     /* input */
-    [Header("Input Settings")] 
-    public bool useAlternativeMouseInput = false;
+    [Header("Input Settings")] public bool useAlternativeMouseInput = false;
 
     private float _verticalInput;
     private Vector2 _mouseInput;
@@ -73,27 +66,44 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
 
 
     /* crosshair */
-    [Header("Crosshair Settings")] 
-    
-    [SerializeField] //remove in production
+    [Header("Crosshair Settings")] [SerializeField] //remove in production
     private Boolean _debugCrosshair = false;
 
     private GameObject _crosshair, _crosshairUI;
-    
+
     [SerializeField] //remove in production
     private float _crosshairOffsetX = 18f;
-    
+
     [SerializeField] //remove in production
     private float _crosshairOffsetY = 7f;
-    
+
     [SerializeField] //remove in production
     private float _crosshairMovementSpeed = 100f;
+
     private Vector3 _crosshairPosition;
 
     /* other */
     private Rigidbody _ship;
 
     [Header("Debug")] public float velocity;
+
+    private InfoCircleScript _infoCircleScript;
+    private SpeedDisplay _speedDisplay;
+
+    [Header("AfterBurner")]
+    [SerializeField]
+    private ParticleSystem _afterBurner;
+
+    [Header("FOV")]
+    [SerializeField]
+    private float _maxFOV = 80;
+
+    [SerializeField]
+    private float _minFOV = 50;
+
+    [SerializeField]
+    [Range(0, 1)]
+    private float _amount = .1f;
 
     /// <summary>
     ///   <para>Maps value from original range to new range</para>
@@ -108,12 +118,23 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
         float t = Mathf.InverseLerp(fromMin, fromMax, value);
         return Mathf.Lerp(toMin, toMax, t);
     }
-    
+
     void Start()
     {
         _ship = gameObject.GetComponent<Rigidbody>();
         _crosshair = GameObject.FindGameObjectsWithTag("Crosshair")[0];
         _crosshairUI = GameObject.FindGameObjectsWithTag("CrosshairUI")[0];
+
+        _infoCircleScript = GetComponentInChildren<InfoCircleScript>();
+        if (_infoCircleScript != null)
+            _infoCircleScript.SetMaxValue(_maxBoostDuration);
+
+        _speedDisplay = GetComponentInChildren<SpeedDisplay>();
+        if (_speedDisplay != null)
+        {
+            _speedDisplay.SetNewMaxSpeed(maxVelocity * _boostMultiplier);
+            _speedDisplay.SetNewCurrentSpeed(_ship.velocity.magnitude);
+        }
 
         transform.rotation = Quaternion.identity;
         _ship.velocity = transform.forward * defaultVelocity;
@@ -124,13 +145,15 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.A) && !_isRolling)
         {
-            Roll(-defaultRollingForce);
+            _rollingDirection = 1;
+            _startRoll = true;
         }
-        else if (Input.GetKeyDown(KeyCode.D))
+        else if (Input.GetKeyDown(KeyCode.D) && !_isRolling)
         {
-            Roll(defaultRollingForce);
+            _rollingDirection = -1;
+            _startRoll = true;
         }
     }
 
@@ -139,6 +162,13 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
         velocity = _ship.velocity.magnitude;
         _verticalInput = Input.GetAxis("Vertical");
         _isBoosting = false;
+
+        if (_startRoll)
+        {
+            Roll(defaultRollingForce);
+            _startRoll = false;
+        }
+
         if (!useAlternativeMouseInput)
         {
             _mouseInput = Input.mousePosition;
@@ -157,11 +187,14 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
         if (Input.GetKey(KeyCode.LeftShift))
         {
             _isBoosting = true;
+            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, _maxFOV, .1f);
             Boost();
         }
         else
         {
             _isBoosting = false;
+            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, _minFOV, .1f);
+            _afterBurner.Stop();
 
             if (_currentBoostTime > 0)
             {
@@ -169,12 +202,20 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
             }
         }
 
+        if (_infoCircleScript != null)
+            _infoCircleScript.SetCurrentValue(_maxBoostDuration - _currentBoostTime);
+
         //Move if not rolling
         if (!_isRolling)
         {
             Move(_verticalInput);
             Rotate(_mouseInput);
             SetCrosshairPosition(_mouseInput);
+        }
+
+        if (_speedDisplay != null)
+        {
+            _speedDisplay.SetNewCurrentSpeed(_ship.velocity.magnitude);
         }
     }
 
@@ -185,8 +226,6 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
     /// </summary>
     public void Move(Vector3 direction, float force)
     {
-        print(force);
-
         float _maxVelocity = maxVelocity;
         float speedOffset = .01f;
 
@@ -198,7 +237,7 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
                 _ship.velocity = Vector3.Lerp(_ship.velocity, -direction, _deccelerationSpeed);
             }
         }
-        
+
         if (_isBoosting && _currentBoostTime < _maxBoostDuration)
         {
             _maxVelocity *= _boostMultiplier;
@@ -267,16 +306,13 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
         if (!_isRolling && force != 0)
         {
             _isRolling = true;
-            _currentRoll = 0;
 
             if (force > 0)
             {
-                _rollingDirection = -1;
                 StartCoroutine("RollCoroutine");
             }
             else
             {
-                _rollingDirection = 1;
                 StartCoroutine("RollCoroutine");
             }
 
@@ -289,11 +325,12 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
 
     IEnumerator RollCoroutine()
     {
-        for (float i = 0; i < fullRoll; i += rollPerFrame)
+        for (float i = 0; i < fullRoll; i += _rollPerFrame)
         {
-            transform.Rotate(new Vector3(0, 0, rollPerFrame * _rollingDirection), Space.Self);
+            transform.Rotate(new Vector3(0, 0, _rollPerFrame * _rollingDirection), Space.Self);
             yield return null;
         }
+
         _isRolling = false;
     }
 
@@ -306,6 +343,10 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
         {
             Move(defaultVelocity * _boostMultiplier);
             _currentBoostTime++;
+            if (_afterBurner.isPlaying == false)
+            {
+                _afterBurner.Play();
+            }
         }
     }
 
@@ -365,6 +406,8 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
     public void setMaximumVelocity(float newMaxVelocity)
     {
         maxVelocity = newMaxVelocity;
+        if(_speedDisplay != null)
+            _speedDisplay.SetNewMaxSpeed(maxVelocity * _boostMultiplier);
     }
 
     /// <summary> 
@@ -381,14 +424,33 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
     public void setBoostMultiplier(float newBoostMultiplier)
     {
         _boostMultiplier = newBoostMultiplier;
+
+        if (_speedDisplay != null)
+            _speedDisplay.SetNewMaxSpeed(maxVelocity * _boostMultiplier);
     }
 
     /// <summary> 
-    ///   Returns the current maximum boost duration in frames
+    ///   Returns the current boost duration in frames
+    /// </summary>
+    public int getCurrentBoostDuration()
+    {
+        return _currentBoostTime;
+    }
+
+    /// <summary> 
+    ///   Returns the maximum boost duration in frames
     /// </summary>
     public int getMaxBoostDuration()
     {
         return _maxBoostDuration;
+    }
+
+    /// <summary> 
+    ///   Returns if spaceship is currently rolling
+    /// </summary>
+    public bool getIsRolling()
+    {
+        return _isRolling;
     }
 
     /// <summary> 
@@ -397,6 +459,8 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
     public void setMaxBoostDuration(int newMaxBoostDuration)
     {
         _maxBoostDuration = newMaxBoostDuration;
+        if (_infoCircleScript != null)
+            _infoCircleScript.SetMaxValue(_maxBoostDuration);
     }
 
     /// <summary> 
@@ -406,5 +470,22 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
     {
         //(to - from).normalized
         return (_crosshairPosition - _ship.transform.position).normalized; //todo: is this right?
+    }
+    
+    
+    /// <summary> 
+    ///   <param name="rollPerFrame"> Sets rolling steps per frame. I Roll = 360 degree</param>
+    /// </summary>
+    public void setRollPerFrame(float rollPerFrame)
+    {
+        _rollPerFrame = rollPerFrame;
+    }
+
+    /// <summary> 
+    ///   <param> Returns rolling steps per frame</param>
+    /// </summary>
+    public float getRollPerFrame()
+    {
+        return _rollPerFrame;
     }
 }

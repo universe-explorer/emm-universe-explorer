@@ -7,13 +7,13 @@ using System.Text;
 /// </summary>
 public class ItemRankEntry : IComparable<ItemRankEntry>
 {
-    public int MineralRequired { get; set; }
+    public int HealthRequired { get; set; }
 
     public int ManaRequired { get; set; }
 
-    public int MedkitRequired { get; set; }
+    public int MineralRequired { get; set; }
 
-    public int HealthRequired { get; set; }
+    public int MedkitRequired { get; set; }
 
     /// <summary> 
     ///   Compares RankEntry Objects
@@ -37,12 +37,12 @@ public class ItemRankEntry : IComparable<ItemRankEntry>
     public override string ToString() {
         StringBuilder entry = new StringBuilder();
 
-        entry.Append("RankEntry ");
+        entry.Append("ItemRankEntry ");
 
-        entry.Append(string.Concat("Mineral: ", MineralRequired.ToString())).Append(" ");
-        entry.Append(string.Concat("Mana: ", ManaRequired.ToString())).Append(" ");
-        entry.Append(string.Concat("Medkit: ", MedkitRequired.ToString())).Append(" ");
         entry.Append(string.Concat("Health: ", HealthRequired.ToString())).Append(" ");
+        entry.Append(string.Concat("Mana: ", ManaRequired.ToString())).Append(" ");
+        entry.Append(string.Concat("Mineral: ", MineralRequired.ToString())).Append(" ");
+        entry.Append(string.Concat("Medkit: ", MedkitRequired.ToString())).Append(" ");
 
         return entry.ToString();
     }

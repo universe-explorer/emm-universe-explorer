@@ -9,7 +9,7 @@ public class LevelRankTable
     private static Dictionary<int, ItemRankEntry> itemRankTable = null;
 
     /// <summary> 
-    ///   Represents player level Rank for all levels 
+    ///   Represents Player level Rank for all levels 
     /// </summary>
     private static readonly List<PlayerRankEntry> playerRankEntries = new List<PlayerRankEntry>{
        new PlayerRankEntry { MaxVelocity = 30, BoostDuration = 120 },
@@ -20,7 +20,7 @@ public class LevelRankTable
     };
 
     /// <summary> 
-    ///   Represents item level Rank for all levels 
+    ///   Represents Item level Rank for all levels 
     /// </summary>
     private static readonly List<ItemRankEntry> itemRankEntries = new List<ItemRankEntry>{
        new ItemRankEntry { MineralRequired = 20, ManaRequired = 20, MedkitRequired = 1, HealthRequired = 5},
@@ -31,7 +31,7 @@ public class LevelRankTable
     };
 
     /// <summary> 
-    ///   Returns the player Level Rank for all levels, starting from the Level 1
+    ///   Returns the Player Level Rank for all levels, starting from the Level 1
     /// </summary>
     public static Dictionary<int, PlayerRankEntry> GetPlayerLevelTable()
     {
@@ -47,7 +47,7 @@ public class LevelRankTable
     }
 
     /// <summary> 
-    ///   Returns the item Level Rank for all levels, starting from the Level 1
+    ///   Returns the Item Level Rank for all levels, starting from the Level 1
     /// </summary>
     public static Dictionary<int, ItemRankEntry> GetItemLevelTable()
     {
@@ -63,9 +63,9 @@ public class LevelRankTable
     }
 
     /// <summary> 
-    ///   Returns the Level Rank List for all levels
+    ///   Returns the Item Level Rank List for all levels
     /// </summary>
-    public static List<ItemRankEntry> GetLevelRankList()
+    public static List<ItemRankEntry> GetItemLevelRankList()
     {
         return itemRankEntries;
     }

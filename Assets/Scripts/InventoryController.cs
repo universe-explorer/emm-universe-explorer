@@ -3,14 +3,14 @@ using UnityEngine;
 public class InventoryController : MonoBehaviour
 {
     [SerializeField] private Ui_inventory uiInventory;
-    private Inventory inventory;
+    private Inventory inventory = new Inventory();
 
     /// <summary> 
     ///   Detects Collision and add items to the Inventory System
     /// </summary>
     private void OnTriggerEnter(Collider other)
     {
-        if (gameObject.tag == "MainSpaceShip")
+        if (gameObject.tag == "Player")
         {
             ItemWorld itemWorld = other.gameObject.GetComponent<ItemWorld>();
             if (itemWorld != null)
@@ -22,12 +22,11 @@ public class InventoryController : MonoBehaviour
     }
 
     /// <summary> 
-    ///   Sets inventory for this controller, ensure that this happens
-    ///   before UI access the inventory system which would result in NullReferenceException 
+    ///   Sets inventory and associated Game Object, ensure that this happens
+    ///   before UI access the inventory which would result in NullReferenceException
     /// </summary>
     void Awake()
     {
-        inventory = new Inventory();
         uiInventory.SetInventory(inventory);
         uiInventory.SetGameObject(gameObject);
     }
