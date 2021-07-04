@@ -45,8 +45,9 @@ public class InfoCircleScript : MonoBehaviour
         //if (value < delayedValue)
         //{
             progress += Time.deltaTime;
-            imgCircle.fillAmount = Mathf.Lerp(imgCircle.fillAmount, value / maxValue, progress * speed); // Takes some time to reach 1
-            delayedValue = imgCircle.fillAmount * maxValue;
+            //imgCircle.fillAmount = Mathf.Lerp(imgCircle.fillAmount, value / maxValue, progress * speed); // Takes some time to reach 1
+            imgCircle.fillAmount = value / maxValue;
+            //delayedValue = imgCircle.fillAmount * maxValue;
 
             txtCircle.text = String.Format("{0}%", (int)(imgCircle.fillAmount*100));
         //}
