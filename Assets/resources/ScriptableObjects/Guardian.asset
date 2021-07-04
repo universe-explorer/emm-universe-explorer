@@ -15,7 +15,7 @@ MonoBehaviour:
   shotDelay: 50
   maxHealth: 300
   damage: 15
-  scale: 5
+  scale: 3
   speedIdle: 0
   speedChasing: 0.2
   rotationSpeed: 0.01

@@ -187,7 +187,6 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
         if (Input.GetKey(KeyCode.LeftShift))
         {
             _isBoosting = true;
-            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, _maxFOV, .1f);
             Boost();
         }
         else
@@ -351,10 +350,16 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
         {
             Move(defaultVelocity * _boostMultiplier);
             _currentBoostTime++;
+
+            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, _maxFOV, .1f);
             if (_afterBurner.isPlaying == false)
             {
                 _afterBurner.Play();
             }
+        } else
+        {
+            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, _minFOV, .1f);
+            _afterBurner.Stop();
         }
     }
 
