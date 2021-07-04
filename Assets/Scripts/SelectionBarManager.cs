@@ -40,7 +40,8 @@ public class SelectionBarManager : MonoBehaviour
             t.GetComponent<SelectionBarIconManager>().Key = key;
             if (counter < weapons.Count)
             {
-                t.GetComponent<SelectionBarIconManager>().Name = weapons[counter].Name.Split(' ').First();
+                //t.GetComponent<SelectionBarIconManager>().Name = weapons[counter].Name.Split(' ').First();
+                t.GetComponent<SelectionBarIconManager>().SetWeapon(weapons[counter]);
                 if (counter == weaponController.ActiveWeaponIndex)
                 {
                     t.GetComponent<SelectionBarIconManager>().Selected = true;

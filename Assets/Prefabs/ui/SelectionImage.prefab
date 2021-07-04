@@ -304,6 +304,7 @@ MonoBehaviour:
   keyText: {fileID: 3555348412770073187}
   nameText: {fileID: 5556574928236456298}
   frameImage: {fileID: 1527817003540396077}
+  cooldownImage: {fileID: 7549029059647319877}
 --- !u!1 &3555348412770073197
 GameObject:
   m_ObjectHideFlags: 0
