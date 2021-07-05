@@ -17,6 +17,8 @@ public class EnemyBehaviour : MonoBehaviour
     Weapon weapon;
     CombatControllerEnemy combatController;
 
+    [SerializeField] private Transform Icon;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -54,6 +56,8 @@ public class EnemyBehaviour : MonoBehaviour
         {
             randomMove();
         }
+
+        Icon.rotation = Quaternion.Euler(Vector3.zero);
     }
 
     public bool checkPlayerVicinity()

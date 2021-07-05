@@ -70,7 +70,7 @@ public class MeteorSpawnerField : MonoBehaviour
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
-        if(enemies.Length <= 1)
+        if(enemies.Length <= 3)
         {
             int randomIndex = (int)Random.Range(0, scriptableObjects.Length);
             EnemyScriptableObject enemyScriptableObject = (EnemyScriptableObject)scriptableObjects[randomIndex];
