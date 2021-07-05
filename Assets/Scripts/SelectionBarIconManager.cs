@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 public class SelectionBarIconManager : MonoBehaviour
 {
-
     private KeyCode key;
     private bool selected = false;
 
@@ -16,12 +15,11 @@ public class SelectionBarIconManager : MonoBehaviour
     [SerializeField] private Image frameImage;
     [SerializeField] private Image cooldownImage;
     private Weapon _weapon;
-    
-    
+
+
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
@@ -29,11 +27,12 @@ public class SelectionBarIconManager : MonoBehaviour
     {
         if (_weapon)
         {
-            float currentTime = Time.time;
-            cooldownImage.fillAmount = Mathf.Lerp(1, 0, 1-(_weapon.NextFire - currentTime)/_weapon.FireRate); 
-            
+            if (_weapon.FireRate > 0)
+            {
+                float currentTime = Time.time;
+                cooldownImage.fillAmount = Mathf.Lerp(1, 0, 1 - (_weapon.NextFire - currentTime) / _weapon.FireRate);
+            }
         }
-        
     }
 
     public KeyCode Key
