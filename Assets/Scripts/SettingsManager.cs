@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,7 +30,11 @@ public class SettingsManager : MonoBehaviour
         
     }
 
-    
+    private void OnEnable()
+    {
+        Load();
+    }
+
     public void Save()
     {
         
