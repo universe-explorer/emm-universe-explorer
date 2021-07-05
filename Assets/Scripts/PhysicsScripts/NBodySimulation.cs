@@ -8,14 +8,12 @@ public class NBodySimulation : MonoBehaviour
     CelestialBody[] _Bodies;
     static NBodySimulation _Instance;
 
-    [Range(0, 1)]
+    [Range(0f, 0.25f)]
     public float SpeedReduction;
 
     private void Awake()
     {
         _Bodies = GameObject.FindObjectsOfType<CelestialBody>();
-        Time.fixedDeltaTime = Universe.PhysicsTimeStep;
-        Debug.Log("Setting fixed delta time to: " + Time.fixedDeltaTime);
     }
 
     void FixedUpdate()
@@ -23,11 +21,11 @@ public class NBodySimulation : MonoBehaviour
         for (int i = 0; i < _Bodies.Length; i++)
         {
             Vector3 acceleration = CalculateAcceleration(_Bodies[i].Position, _Bodies[i]);
-            _Bodies[i].UpdateVelocity(acceleration, Universe.PhysicsTimeStep);
+            _Bodies[i].UpdateVelocity(acceleration);
         }
         for (int i = 0; i < _Bodies.Length; i++)
         {
-            _Bodies[i].UpdatePosition(Universe.PhysicsTimeStep * (SpeedReduction / 5));
+            _Bodies[i].UpdatePosition((SpeedReduction / 50));
         }
     }
 

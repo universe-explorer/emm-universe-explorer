@@ -4,6 +4,8 @@ using UnityEngine;
 
 public abstract class Weapon : MonoBehaviour
 {
+    [SerializeField]
+    public Target Target;
 
     public int MaxAmmo
     {
@@ -40,6 +42,21 @@ public abstract class Weapon : MonoBehaviour
             _weaponType = value;
         }
     }
+
+    public string Name
+    {
+        get
+        {
+            if (_weaponType == WeaponType.LASER)
+            {
+                return "Laser Blaster";
+            }
+            else
+            {
+                return "Rocket Launcher";
+            }
+        }
+    }
     
     [SerializeField]
     protected int _maxAmmo;
@@ -48,14 +65,43 @@ public abstract class Weapon : MonoBehaviour
 
     protected bool _canShoot;
 
-    [SerializeField]
     protected WeaponType _weaponType;
 
     private int _currentAmmo;
 
     [SerializeField]
     private float _maxShootingDistance;
-    
+
+    [SerializeField]
+    protected float _projectileSpeed;
+
+    [SerializeField]
+    protected Transform _projectile;
+
+    [SerializeField]
+    protected float _damage;
+
+    [Header("Fire-Rate")]
+    [SerializeField]
+    private float _fireRate = 1f;
+
+    public float FireRate
+    {
+        get
+        {
+            return _fireRate;
+        }
+    }
+
+    [SerializeField]
+    private float _nextFire;
+
+    /// <summary>
+    /// Position to spawn the Rocket at
+    /// </summary>
+    public Transform SocketLeft;
+    public Transform SocketRight;
+
     public void Start()
     {
         if (_maxAmmo < 0)
@@ -83,17 +129,24 @@ public abstract class Weapon : MonoBehaviour
     {
         if (_canShoot)
         {
-            FireProjectile();
-            if (_hasAmmo)
+            if (Time.time > _nextFire)
             {
-                _currentAmmo--;
+                _nextFire = Time.time + _fireRate;
+
+                FireProjectile();
+                if (_hasAmmo)
+                {
+                    _currentAmmo--;
+                }
             }
         }
-        if (_maxAmmo <= 0)
+        if (_maxAmmo <= 0 && _hasAmmo)
         {
             _canShoot = false;
         }
     }
+
+    public float NextFire => _nextFire;
 
     protected abstract void FireProjectile();
 
@@ -107,4 +160,9 @@ public abstract class Weapon : MonoBehaviour
         _currentAmmo = _maxAmmo;
         _canShoot = true;
     }
+}
+
+public enum Target
+{
+    Enemy, Allied
 }

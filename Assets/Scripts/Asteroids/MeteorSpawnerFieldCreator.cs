@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MeteorSpawnerFieldCreator : MonoBehaviour
 {
+    [Header("FieldCreatorSettings Settings")]
     public Transform parent;
 
     [SerializeField]
@@ -14,10 +15,13 @@ public class MeteorSpawnerFieldCreator : MonoBehaviour
     public Transform MeteorSpawnerField;
 
     [SerializeField]
-    [Range(1, 20)]
+    [Range(1, 40)]
     private int _range = 10;
 
-    private List<Transform> _spawnedMeteors = new List<Transform>();
+    private List<Transform> _spawnedFields = new List<Transform>();
+
+    private bool[,,] _FieldArray;
+
 
     public void Awake()
     {
@@ -29,32 +33,59 @@ public class MeteorSpawnerFieldCreator : MonoBehaviour
         {
             _instance = this;
         }
-    }
-    private void Start()
-    {
         SpawnMeteorFields();
+        _FieldArray = new bool[_range, _range / 2, _range];
+
+        for (int i = 0; i < _range; i++)
+        {
+            for (int j = 0; j < _range / 2; j++)
+            {
+                for (int k = 0; k < _range; k++)
+                {
+                    _FieldArray[i, j, k] = false;
+                }
+            }
+        }
     }
 
     private void SpawnMeteorFields()
     {
         ClearMeteorFields();
         int size = (int)MeteorSpawnerField.GetComponent<MeteorSpawnerField>().ColliderSize;
-        int[] arr = new int[_range];
+        bool[,] arr = new bool[_range,_range];
 
-
-        for (int i = 0; i < _range; i++)
+        /*for (int i = 0; i < _range; i++)
         {
             for (int j = 0; j < _range; j++)
             {
                 for (int k = 0; k < _range; k++)
                 {
                     Vector3 position = new Vector3(
-                        (i * ((float)size)) - (((float)size * _range) / 2),
-                        (j * ((float)size)) - (((float)size * _range) / 2),
-                        (k * ((float)size)) - (((float)size * _range) / 2)
+                        (i * ((float)size)) - (((float)size * _range) / 2) + transform.position.x,
+                        (j * ((float)size)) - (((float)size * _range) / 2) + transform.position.y,
+                        (k * ((float)size)) - (((float)size * _range) / 2) + transform.position.z
                         );
-                    _spawnedMeteors.Add(Instantiate(MeteorSpawnerField, position, Quaternion.identity, parent));
+                    Transform created = Instantiate(MeteorSpawnerField, position, Quaternion.identity, parent);
+                    created.GetComponent<MeteorSpawnerField>().CreateCollider();
+                    _spawnedFields.Add(created);
+                }
+            }
+        }*/
 
+        for (int i = 0; i < _range; i++)
+        {
+            for (int j = 0; j < _range / 2; j++)
+            {
+                for (int k = 0; k < _range; k++)
+                {
+                    Vector3 position = new Vector3(
+                        i * size - (_range * size / 2) + size / 2 + transform.position.x,
+                        j * size - ((_range / 2) * size / 2) + size / 2 + transform.position.y,
+                        k * size - (_range * size / 2) + size / 2 + transform.position.z
+                        );
+                    Transform created = Instantiate(MeteorSpawnerField, position, Quaternion.identity, parent);
+                    created.GetComponent<MeteorSpawnerField>().CreateCollider();
+                    _spawnedFields.Add(created);
                 }
             }
         }
@@ -82,26 +113,42 @@ public class MeteorSpawnerFieldCreator : MonoBehaviour
 
     }
 
+
     private void OnDrawGizmosSelected()
     {
         int size = (int)MeteorSpawnerField.GetComponent<MeteorSpawnerField>().ColliderSize;
-        int[] arr = new int[_range];
-       
+
         for (int i = 0; i < _range; i++)
+        {
+            for (int j = 0; j < _range / 2; j++)
+            {
+                for (int k = 0; k < _range; k++)
+                {
+                    Vector3 position = new Vector3(
+                        i * size - (_range * size / 2) + size / 2 + transform.position.x,
+                        j * size - ((_range / 2) * size / 2) + size / 2 + transform.position.y,
+                        k * size - (_range * size / 2) + size / 2 + transform.position.z
+                        );
+                    Gizmos.DrawWireCube(position, size * Vector3.one);
+                }
+            }
+        }
+
+        /*for (int i = 0; i < _range; i++)
         {
             for (int j = 0; j < _range; j++)
             {
                 for (int k = 0; k < _range; k++)
                 {
                     Vector3 position = new Vector3(
-                        (i * ((float)size)) - (((float)size * _range) / 2),
-                        (j * ((float)size)) - (((float)size * _range) / 2),
-                        (k * ((float)size)) - (((float)size * _range) / 2)
+                        (i * ((float)size)) - (((float)size * _range) / 2) + transform.position.x,
+                        (j * ((float)size)) - (((float)size * _range) / 2) + transform.position.y,
+                        (k * ((float)size)) - (((float)size * _range) / 2) + transform.position.z
                         );
                     Gizmos.DrawWireCube(position, size * Vector3.one );
 
                 }
             }
-        }
+        }*/
     }
 }
