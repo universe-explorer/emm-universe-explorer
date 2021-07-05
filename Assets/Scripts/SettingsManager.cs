@@ -13,7 +13,8 @@ public class SettingsManager : MonoBehaviour
 
     [SerializeField] private Toggle toggleMinimap, togglePostprocessing, toggleMicrocontroller;
     [SerializeField] private Slider sliderMinimapView;
-
+    [SerializeField] private BaseMenu _baseMenu;
+    
     // private bool microcontroller, minimap, postprocessing;
 
     // Start is called before the first frame update
@@ -58,6 +59,10 @@ public class SettingsManager : MonoBehaviour
         PlayerPrefs.SetFloat(sliderMinimapView.name, sliderMinimapView.value);
         
         PlayerPrefs.Save();
+        
+        _baseMenu.RestoreMenu();
+        gameObject.SetActive(false);
+        
     }
 
     public void Load()
@@ -70,7 +75,8 @@ public class SettingsManager : MonoBehaviour
 
     public void Discard()
     {
-        
+        _baseMenu.RestoreMenu();
+        gameObject.SetActive(false);
     }
     
     /*
