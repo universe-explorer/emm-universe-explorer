@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+// TODO: Rename menu classes
 public class GameStateManager : BaseMenu
 {
 
@@ -22,7 +23,7 @@ public class GameStateManager : BaseMenu
             OpenMenu(!pauseMenu.activeSelf);
         
     }
-    
+
     public void OpenMenu(bool active)
     {
         pauseMenu.SetActive(active);

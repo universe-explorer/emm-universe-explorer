@@ -9,6 +9,7 @@ public class BaseMenu : MonoBehaviour
     [SerializeField] private GameObject settings;
     private List<GameObject> _activeGameObjects = new List<GameObject>();
     
+    // TODO: Remove parameter
     public virtual void OpenSettings(bool active)
     {
         Debug.Log("base method: settings");
