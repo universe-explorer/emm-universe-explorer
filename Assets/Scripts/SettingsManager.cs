@@ -10,11 +10,16 @@ public class SettingsManager : MonoBehaviour
 
 
     [SerializeField] private GameObject options;
-    
+
+    [SerializeField] private Toggle toggleMinimap, togglePostprocessing, toggleMicrocontroller;
+    [SerializeField] private Slider sliderMinimapView;
+
+    // private bool microcontroller, minimap, postprocessing;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        Load();
     }
 
     // Update is called once per frame
@@ -29,6 +34,7 @@ public class SettingsManager : MonoBehaviour
         
         // PlayerPrefs saves data in registry
         
+        /*
         foreach (var t in options.GetComponentsInChildren<Toggle>())
         {
             string name = t.gameObject.name;
@@ -44,12 +50,34 @@ public class SettingsManager : MonoBehaviour
             Debug.Log(name + ": " + value);
             PlayerPrefs.SetFloat(name, value);
         }
+        */
+        
+        PlayerPrefs.SetInt(toggleMinimap.name, toggleMinimap.isOn ? 1 : 0);
+        PlayerPrefs.SetInt(togglePostprocessing.name, togglePostprocessing.isOn ? 1 : 0);
+        PlayerPrefs.SetInt(toggleMicrocontroller.name, toggleMicrocontroller.isOn ? 1 : 0);
+        PlayerPrefs.SetFloat(sliderMinimapView.name, sliderMinimapView.value);
         
         PlayerPrefs.Save();
+    }
+
+    public void Load()
+    {
+        toggleMinimap.isOn = PlayerPrefs.GetInt(toggleMinimap.name, 1) != 0;
+        togglePostprocessing.isOn = PlayerPrefs.GetInt(togglePostprocessing.name, 1) != 0;
+        toggleMicrocontroller.isOn = PlayerPrefs.GetInt(toggleMicrocontroller.name, 1) != 0;
+        sliderMinimapView.value = PlayerPrefs.GetFloat(sliderMinimapView.name, 1);
     }
 
     public void Discard()
     {
         
     }
+    
+    /*
+    public bool Microcontroller => microcontroller;
+
+    public bool Minimap => minimap;
+
+    public bool Postprocessing => postprocessing;
+    */
 }
