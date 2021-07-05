@@ -47,6 +47,7 @@ namespace SerialCommunication
                 try
                 {
                     sp = new SerialPort(portName, baudRate);
+                    sp.DtrEnable = false;
                     // TODO: Maybe add an isOpen check?
                     sp.Open();
 
