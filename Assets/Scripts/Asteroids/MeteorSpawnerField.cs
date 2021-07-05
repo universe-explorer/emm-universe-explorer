@@ -1,6 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.VFX;
+using Object = UnityEngine.Object;
+using Random = UnityEngine.Random;
 
 [ExecuteInEditMode]
 public class MeteorSpawnerField : MonoBehaviour
@@ -22,6 +27,9 @@ public class MeteorSpawnerField : MonoBehaviour
 
     public AsteroidSettings AsteroidSettings;
 
+    [SerializeField] private VisualEffectAsset itemVfxAsset;
+    [SerializeField] private Gradient _gradientHealth, _gradientMana, _gradientMineral, _gradientMedikit;
+    
     private GameObject enemyPrefab;
     private Object[] scriptableObjects;
 
@@ -60,9 +68,42 @@ public class MeteorSpawnerField : MonoBehaviour
             Item item = new Item();
             item.itemType = itemType;
             item.amount = Random.Range(1, 5);
-
+            
             ItemWorld itemWorld = ItemWorld.SpawnItemWorld(RandomPointInBounds(bounds), item);
             itemWorld.transform.SetParent(transform);
+            
+
+            VisualEffect vfx = itemWorld.AddComponent<VisualEffect>();
+            List<VFXExposedProperty> exposedProperties = new List<VFXExposedProperty>();
+            itemVfxAsset.GetExposedProperties(exposedProperties);
+            //exposedProperties.ForEach(p => Debug.Log(p.name));
+            //VFXExposedProperty glowColorProperty = exposedProperties.Find(new Predicate<VFXExposedProperty>(p => p.name == "GlowColor"));
+            
+            
+            vfx.visualEffectAsset = itemVfxAsset;
+            Gradient g;
+            switch (item.itemType)
+            {
+                case Item.ItemType.Health:
+                    g = _gradientHealth;
+                    break;
+                case Item.ItemType.Mana:
+                    g = _gradientMana;
+                    break;
+                case Item.ItemType.Mineral:
+                    g = _gradientMineral;
+                    break;
+                case Item.ItemType.Medkit:
+                    g = _gradientMedikit;
+                    break;
+                default:
+                    g = new Gradient();
+                    break;
+                    
+            }
+            vfx.SetGradient("GlowColor", g);
+            
+
         }
     }
 
