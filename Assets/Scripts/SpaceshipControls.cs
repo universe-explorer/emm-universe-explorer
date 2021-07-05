@@ -386,7 +386,7 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
         //convert world coordinates to 2d position
         Vector2 screenPoint = Camera.main.WorldToScreenPoint(_crosshairPosition);
         _crosshairUI.transform.position =
-            Vector3.Lerp(_crosshairUI.transform.position, screenPoint, Time.deltaTime * 10f);
+            Vector3.Lerp(_crosshairUI.transform.position, screenPoint, Time.deltaTime * 25);
 
         //debug options
         if (_debugCrosshair)

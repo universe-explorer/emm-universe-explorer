@@ -146,6 +146,8 @@ public abstract class Weapon : MonoBehaviour
         }
     }
 
+    public float NextFire => _nextFire;
+
     protected abstract void FireProjectile();
 
     public void Reload()

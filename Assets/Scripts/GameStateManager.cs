@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+// TODO: Rename menu classes
 public class GameStateManager : BaseMenu
 {
 
@@ -18,11 +19,11 @@ public class GameStateManager : BaseMenu
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(pauseMenuKey))
+        if (Input.GetKeyDown(pauseMenuKey) && RegisterInput)
             OpenMenu(!pauseMenu.activeSelf);
         
     }
-    
+
     public void OpenMenu(bool active)
     {
         pauseMenu.SetActive(active);
