@@ -1187,6 +1187,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1271269451}
     m_Modifications:
+    - target: {fileID: 5583699908253074162, guid: 43d1be0846140f943b950a1fcdd42b56, type: 3}
+      propertyPath: _baseMenu
+      value: 
+      objectReference: {fileID: 1271269452}
     - target: {fileID: 7542158978517893672, guid: 43d1be0846140f943b950a1fcdd42b56, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
