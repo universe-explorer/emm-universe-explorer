@@ -8,7 +8,14 @@ public class BaseMenu : MonoBehaviour
 
     [SerializeField] private GameObject settings;
     private List<GameObject> _activeGameObjects = new List<GameObject>();
-    
+    private bool registerInput = true;
+
+    public bool RegisterInput
+    {
+        get => registerInput;
+        set => registerInput = value;
+    }
+
     // TODO: Remove parameter
     public virtual void OpenSettings(bool active)
     {

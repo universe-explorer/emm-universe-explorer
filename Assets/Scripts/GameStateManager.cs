@@ -19,7 +19,7 @@ public class GameStateManager : BaseMenu
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(pauseMenuKey))
+        if (Input.GetKeyDown(pauseMenuKey) && RegisterInput)
             OpenMenu(!pauseMenu.activeSelf);
         
     }

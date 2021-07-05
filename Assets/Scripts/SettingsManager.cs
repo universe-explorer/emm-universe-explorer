@@ -33,7 +33,13 @@ public class SettingsManager : MonoBehaviour
 
     private void OnEnable()
     {
+        _baseMenu.RegisterInput = false;
         LoadUI();
+    }
+
+    private void OnDisable()
+    {
+        _baseMenu.RegisterInput = true;
     }
 
     public void Save()
