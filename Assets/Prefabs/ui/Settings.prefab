@@ -170,6 +170,18 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 530803667850408712, guid: b55a28f3bdffbcb4b9a2097fa7ffd2af, type: 3}
+      propertyPath: m_Value
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 530803667850408712, guid: b55a28f3bdffbcb4b9a2097fa7ffd2af, type: 3}
+      propertyPath: m_MaxValue
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 530803667850408712, guid: b55a28f3bdffbcb4b9a2097fa7ffd2af, type: 3}
+      propertyPath: m_MinValue
+      value: 250
+      objectReference: {fileID: 0}
     - target: {fileID: 530803667850408713, guid: b55a28f3bdffbcb4b9a2097fa7ffd2af, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -215,7 +227,15 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 530803668295866689, guid: b55a28f3bdffbcb4b9a2097fa7ffd2af, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 530803668295866689, guid: b55a28f3bdffbcb4b9a2097fa7ffd2af, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 530803668295866689, guid: b55a28f3bdffbcb4b9a2097fa7ffd2af, type: 3}
+      propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 530803668324373185, guid: b55a28f3bdffbcb4b9a2097fa7ffd2af, type: 3}
@@ -352,6 +372,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 530803668428342798, guid: b55a28f3bdffbcb4b9a2097fa7ffd2af, type: 3}
       propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 530803668499224711, guid: b55a28f3bdffbcb4b9a2097fa7ffd2af, type: 3}
+      propertyPath: m_AnchorMax.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 530803668499224711, guid: b55a28f3bdffbcb4b9a2097fa7ffd2af, type: 3}

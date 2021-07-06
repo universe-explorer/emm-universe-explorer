@@ -27,7 +27,7 @@ public class MinimapBehaviour : MonoBehaviour
     {
         Debug.Log("RELOADED!");
         float minimapView = PlayerPrefs.GetFloat("SliderMinimapView");
-        cameraHeight = 100 + minimapView;
+        GetComponent<Camera>().orthographicSize = minimapView;
         Debug.Log(cameraHeight);
     }
     void Start()
