@@ -5967,7 +5967,6 @@ GameObject:
   - component: {fileID: 8784963281292265237}
   - component: {fileID: 8784963281292265236}
   - component: {fileID: 8784963281292265235}
-  - component: {fileID: 1812308191}
   m_Layer: 0
   m_Name: PlanetA
   m_TagString: Planet
@@ -6024,19 +6023,6 @@ MonoBehaviour:
   SurfaceGravity: 0
   InitialVelocity: {x: 0, y: 0, z: 5.72}
   BodyName: PlanetA
---- !u!114 &1812308191
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8784963281292265234}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e24f1c632ef34c49beccf53d0d0fe3e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _amount: {x: 0, y: 0.005, z: 0}
 --- !u!1001 &8784963280996053392
 PrefabInstance:
   m_ObjectHideFlags: 0
