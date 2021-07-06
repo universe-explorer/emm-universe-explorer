@@ -9,50 +9,30 @@ using UnityEngine.UI;
 public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
 {
     /* move */
-    [Header("Movement Settings")] public bool enableDrifting = true;
+    [Header("Movement Settings")] public bool enableDrifting = false;
     public bool autoDeceleration = false;
-
-    [SerializeField] //remove in production
     private float defaultVelocity = 5;
-
-    [SerializeField] //remove in production
     private float maxVelocity = 30;
-
-    [SerializeField] //remove in production
     private float _accelerationSpeed = 0.3f;
-
-    [SerializeField] //remove in production
     private float _deccelerationSpeed = 0.03f;
-
 
     /* rotate */
     [Header("Rotation Settings")] [SerializeField]
     private float sensitivity = 1;
 
-    [SerializeField] //remove in production
     private float maxZRotation = 35;
-
-    [SerializeField] //remove in production
     private float zRotationSpeed = 2.5f;
 
-
     /* boost */
-    [Header("Boost Settings")] [SerializeField] //remove in production
-    private float _boostMultiplier = 1.5f;
-
-    [SerializeField] //remove in production
+    [Header("Boost Settings")] private float _boostMultiplier = 1.5f;
     private int _maxBoostDuration = 120;
-
     private bool _isBoosting;
     private int _currentBoostTime;
 
-
     /* rolling */
-    [Header("Rolling Settings")] [SerializeField] //remove in production
-    private float defaultRollingForce = 30f;
+    [Header("Rolling Settings")] private float defaultRollingForce = 30f;
 
-    [SerializeField] [Range(4.0f, 80.0f)] private float _rollPerFrame = 15;
-
+    private float _rollPerFrame = 14;
     private const float fullRoll = 360;
     private bool _startRoll;
     private bool _isRolling;
@@ -70,9 +50,7 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
 
 
     /* crosshair */
-    [Header("Crosshair Settings")] [SerializeField] //remove in production
-    public Texture2D cursorTexture;
-
+    [Header("Crosshair Settings")] public Texture2D cursorTexture;
     private Vector2 _cursorOffset;
 
     /* other */
@@ -233,6 +211,7 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
         }
 
         Vector3 newVelocity = Vector3.zero;
+        
         //accelerate
         if (enableDrifting)
         {
@@ -284,21 +263,10 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
         _mouseInputAnglesClamped.x += mouseInput.x;
         _mouseInputAnglesClamped.x = Mathf.Clamp(_mouseInputAnglesClamped.x, -maxZRotation, maxZRotation);
 
-        // float horizontalInput = Input.GetAxis("Mouse X");
-        // float verticalInput = Input.GetAxis("Mouse Y");
-        // float movementInput = Input.GetAxis("Vertical");
-/*
-        float horizontalInput = (float) _joystickReader.pitch;
-        float verticalInput = (float) _joystickReader.roll;
-        float movementInput = Input.GetAxis("Vertical");
-*/
-
         //loop back to zero, used for spaceShip-wing rotation
         _mouseInputAnglesClamped.x = Mathf.Lerp(_mouseInputAnglesClamped.x, 0, Time.deltaTime * zRotationSpeed);
 
-
         _ship.rotation = Quaternion.Euler(_mouseInputAngles.y, _mouseInputAngles.x, -_mouseInputAnglesClamped.x);
-        // transform.rotation = Quaternion.Euler(_mouseInput.y, _mouseInput.x, _currentRoll); //todo rotating isn't possible while rolling: possible solution
     }
 
     /// <summary> 
