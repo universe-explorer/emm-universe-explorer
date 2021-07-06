@@ -5,6 +5,9 @@ using SerialCommunication;
 using Unity.VisualScripting;
 using UnityEngine;
 
+/// <summary>
+/// Manage serial parser
+/// </summary>
 public class SerialCommunicationTestScript : MonoBehaviour
 {
     private ISerialParser sp;
@@ -15,7 +18,7 @@ public class SerialCommunicationTestScript : MonoBehaviour
         try
         {
             ISerialParser sp = SerialParser.Instance;
-            sp.addReader(0x00, new SpeedReader());
+            sp.addReader(0x00, new VelocityReader());
             sp.addReader(0x01, JoystickReader.Instance);
         }
         catch (PortNotFoundException e)
@@ -26,11 +29,7 @@ public class SerialCommunicationTestScript : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 
     private void OnDestroy()
     {

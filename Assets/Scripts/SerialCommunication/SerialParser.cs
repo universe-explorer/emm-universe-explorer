@@ -10,12 +10,13 @@ using UnityEngine;
 
 namespace SerialCommunication
 {
-    // In development
-    // TODO: Add listeners, properties and/or queue?  
+
     // TODO: What happens when user disconnects device form port -> handle errors
-    /**
-     * Parses incoming bytes and updates data accordingly
-     */
+    
+    /// <summary>
+    /// Parses incoming bytes and calls added readers accordingly.
+    /// Singleton.
+    /// </summary>
     public sealed class SerialParser : ISerialParser
     {
         private const int baudRate = 9600;
@@ -29,12 +30,11 @@ namespace SerialCommunication
 
         private Dictionary<byte, IReader> dataReaderDictionary = new Dictionary<byte, IReader>();
 
-        /**
-         * SerialParser constructor gets only called by the class itself -> singleton
-         * Finds and opens correct serial port of our connected device (Arduino in our case)
-         * 
-         * <exception cref="PortNotFoundException">Thrown when port of the device hasn't been found</exception>
-         */
+        /// <summary>
+        /// SerialParser constructor gets only called by the class itself -> singleton
+        /// Finds and opens correct serial port of our connected device (Arduino in our case)
+        /// </summary>
+        /// <exception cref="PortNotFoundException">Thrown when port of the device hasn't been found</exception>
         private SerialParser()
         {
             foreach (var portName in SerialPort.GetPortNames())
@@ -82,19 +82,15 @@ namespace SerialCommunication
         private static readonly Lazy<ISerialParser> serialParser =
             new Lazy<ISerialParser>(() => new SerialParser());
 
-        /**
-         * Returns a SerialParser instance
-         * 
-         * <exception cref="PortNotFoundException">Thrown when port of the device hasn't been found</exception>
-         */
+        /// <summary>
+        /// Returns a SerialParser instance.
+        /// </summary>
         public static ISerialParser Instance => serialParser.Value;
 
 
-        /**
-         * Reads incoming bytes and calls methods accordingly
-         *
-         * TODO: Handle read timeout
-         */
+        /// <summary>
+        /// Reader loop which gets usually executed by an extra thread
+        /// </summary>
         private void ReaderLoop()
         {
             int invalidChecksumCounter = 0;
@@ -136,13 +132,13 @@ namespace SerialCommunication
             Debug.Log("Exiting ReaderLoop...");
         }
 
-        /**
-         * Verifies that incoming bytes represent a valid dataBuffer that can be parsed
-         * 
-         * <returns>Valid dataBuffer</returns>
-         * <exception cref="InvalidDataException">Thrown when incoming data doesn't match our protocol</exception>
-         * <exception cref="InvalidChecksumException">Thrown when checksum of dataBuffer is invalid</exception>
-         */
+        /// <summary>
+        /// Verifies that incoming bytes represent a valid dataBuffer that can be parsed
+        /// </summary>
+        /// <returns>Verified data buffer</returns>
+        /// <exception cref="InvalidDataException">Thrown when incoming data doesn't match our protocol</exception>
+        /// <exception cref="InvalidCastException">Thrown when length is less than 1</exception>
+        /// <exception cref="InvalidChecksumException">Thrown when checksum of dataBuffer is invalid</exception>
         private byte[] VerifyIncomingData()
         {
             // Check if first byte matches startByte
@@ -153,7 +149,7 @@ namespace SerialCommunication
             int length = sp.ReadByte(); // TODO: One byte might not be large enough in the future
             Debug.Log("Length: " + length);
             if (length <= 0)
-                throw new InvalidCastException("Length can't be less or equal than zero");
+                throw new InvalidCastException("Length must be greater than 0");
             
             // Save actual data in buffer and verify it with crc before using it
             byte[] dataBuffer = new byte[length+1];  // Increase length by one to append the crc8 byte at the end
@@ -177,11 +173,11 @@ namespace SerialCommunication
             return returnBuffer;
         }
 
-        /**
-         * Only parses and sets verified data
-         * 
-         * <exception cref="InvalidDataException">Thrown when an invalid data type has been read</exception>
-         */
+        /// <summary>
+        /// Only parses and sets verified data
+        /// </summary>
+        /// <param name="dataBuffer">data</param>
+        /// <exception cref="InvalidDataException">Thrown when an invalid data type has been read</exception>
         private void ParseData(byte[] dataBuffer)
         {
 
@@ -203,9 +199,11 @@ namespace SerialCommunication
             }
         }
         
-        /**
-         * Calculates crc8
-         */
+        /// <summary>
+        /// Calculates crc8
+        /// </summary>
+        /// <param name="bytes">data</param>
+        /// <returns>crc8 byte</returns>
         private byte crc8(byte[] bytes)
         {
             byte crc = 0;
@@ -222,13 +220,13 @@ namespace SerialCommunication
             }
             return crc;
         }
-
-        /**
-         * Adds a reader
-         *
-         * TODO: Check for race condition
-         * <exception cref="ArgumentException">type already has a reader</exception>
-         */
+        
+        /// <summary>
+        /// Add reader to serial parser
+        /// </summary>
+        /// <param name="type">Byte header for the following data</param>
+        /// <param name="reader">Reader implementation</param>
+        /// <returns>False when byte header already exists</returns>
         public bool addReader(byte type, IReader reader)
         {
             try
@@ -243,6 +241,9 @@ namespace SerialCommunication
             
         }
 
+        /// <summary>
+        /// Exit reader loop thread
+        /// </summary>
         public void exit()
         {
             continueReaderLoop = false;

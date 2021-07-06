@@ -6,15 +6,14 @@ namespace SerialCommunication
     
     
     // Find a better name
+    /// <summary>
+    /// Main thread object to call methods in main thread and get values from other threads
+    /// </summary>
     public class MainThreadObj : MonoBehaviour
     {
         private float velocity = float.MinValue;
         [SerializeField] private SpaceshipControls sc;
         
-        private void Start()
-        {
-            
-        }
 
         private void Update()
         {
@@ -24,6 +23,9 @@ namespace SerialCommunication
             }
         }
 
+        /// <summary>
+        /// Get/Set velocity
+        /// </summary>
         public float Velocity
         {
             get => velocity;
