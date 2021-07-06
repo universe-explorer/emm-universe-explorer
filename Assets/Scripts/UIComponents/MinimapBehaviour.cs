@@ -20,13 +20,24 @@ public class MinimapBehaviour : MonoBehaviour
     private string planetTag = "Planet";
     public Sprite playerMapMarker;
     [SerializeField] private float playerIconScale = 28f;
-    
+    [SerializeField] private SettingsManager _settingsManager;
 
+
+    void ReloadSettings()
+    {
+        Debug.Log("RELOADED!");
+        float minimapView = PlayerPrefs.GetFloat("SliderMinimapView");
+        cameraHeight = 100 + minimapView;
+        Debug.Log(cameraHeight);
+    }
     void Start()
     {
+        ReloadSettings();
+        _settingsManager.addSettingsEventListener(ReloadSettings);
         referenceHeight = spaceShip.position.y;
         AddPlanetIcons();
         createSpaceShipIcon();
+        
     }
 
     void FixedUpdate()

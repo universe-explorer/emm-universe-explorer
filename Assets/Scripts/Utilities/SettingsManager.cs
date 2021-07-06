@@ -13,7 +13,7 @@ public class SettingsManager : MonoBehaviour
 
     [SerializeField] private GameObject options;
 
-    [SerializeField] private Toggle toggleMinimap, togglePostprocessing, toggleMicrocontroller;
+    [SerializeField] private Toggle toggleAudio, togglePostprocessing, toggleMicrocontroller;
     [SerializeField] private Slider sliderMinimapView;
     [SerializeField] private BaseMenu _baseMenu;
 
@@ -64,7 +64,7 @@ public class SettingsManager : MonoBehaviour
         }
         */
 
-        PlayerPrefs.SetInt(toggleMinimap.name, toggleMinimap.isOn ? 1 : 0);
+        PlayerPrefs.SetInt(toggleAudio.name, toggleAudio.isOn ? 1 : 0);
         PlayerPrefs.SetInt(togglePostprocessing.name, togglePostprocessing.isOn ? 1 : 0);
         PlayerPrefs.SetInt(toggleMicrocontroller.name, toggleMicrocontroller.isOn ? 1 : 0);
         PlayerPrefs.SetFloat(sliderMinimapView.name, sliderMinimapView.value);
@@ -78,7 +78,7 @@ public class SettingsManager : MonoBehaviour
 
     public void LoadUI()
     {
-        toggleMinimap.isOn = PlayerPrefs.GetInt(toggleMinimap.name, 1) != 0;
+        toggleAudio.isOn = PlayerPrefs.GetInt(toggleAudio.name, 1) != 0;
         togglePostprocessing.isOn = PlayerPrefs.GetInt(togglePostprocessing.name, 1) != 0;
         toggleMicrocontroller.isOn = PlayerPrefs.GetInt(toggleMicrocontroller.name, 1) != 0;
         sliderMinimapView.value = PlayerPrefs.GetFloat(sliderMinimapView.name, 1);
