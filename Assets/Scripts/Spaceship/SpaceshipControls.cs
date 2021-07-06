@@ -70,9 +70,7 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
 
     /* crosshair */
     [Header("Crosshair Settings")] [SerializeField] //remove in production
-    private Boolean _debugCrosshair = false;
-
-
+    
     //private JoystickReader _joystickReader;
     public Texture2D cursorTexture;
     private Vector2 _cursorOffset;
@@ -108,7 +106,7 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
 
     void OnMouseEnter()
     {
-        Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
+        Cursor.SetCursor(cursorTexture, _cursorOffset, CursorMode.Auto);
     }
     
 
@@ -132,11 +130,7 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
         transform.rotation = Quaternion.identity;
         _ship.velocity = transform.forward * defaultVelocity;
 
-        // Cursor.visible = false;
-
         //_joystickReader = JoystickReader.Instance;
-
-        // Cursor.lockState = CursorLockMode.Confined;
     }
 
     private void Update()
