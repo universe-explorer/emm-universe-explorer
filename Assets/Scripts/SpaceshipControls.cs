@@ -1,4 +1,8 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using SerialCommunication;
+using UnityEditor;
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
@@ -68,6 +72,9 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
     /* crosshair */
     [Header("Crosshair Settings")] [SerializeField] //remove in production
     private Boolean _debugCrosshair = false;
+
+
+    //private JoystickReader _joystickReader;
 
     private GameObject _crosshair, _crosshairUI;
 
@@ -140,6 +147,9 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
         _ship.velocity = transform.forward * defaultVelocity;
 
         Cursor.visible = false;
+
+        //_joystickReader = JoystickReader.Instance;
+
         Cursor.lockState = CursorLockMode.Confined;
     }
 
@@ -296,9 +306,19 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
         //limit rotation to certain degree
         _mouseInputAnglesClamped.x += mouseInput.x;
         _mouseInputAnglesClamped.x = Mathf.Clamp(_mouseInputAnglesClamped.x, -maxZRotation, maxZRotation);
+        
+        // float horizontalInput = Input.GetAxis("Mouse X");
+        // float verticalInput = Input.GetAxis("Mouse Y");
+        // float movementInput = Input.GetAxis("Vertical");
+/*
+        float horizontalInput = (float) _joystickReader.pitch;
+        float verticalInput = (float) _joystickReader.roll;
+        float movementInput = Input.GetAxis("Vertical");
+*/
 
         //loop back to zero, used for spaceShip-wing rotation
         _mouseInputAnglesClamped.x = Mathf.Lerp(_mouseInputAnglesClamped.x, 0, Time.deltaTime * zRotationSpeed);
+
 
 
         _ship.rotation = Quaternion.Euler(_mouseInputAngles.y, _mouseInputAngles.x, -_mouseInputAnglesClamped.x);
