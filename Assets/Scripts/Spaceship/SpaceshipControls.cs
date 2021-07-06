@@ -142,7 +142,7 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
         else
         {
             Cursor.visible = true;
-            _mouseInput = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+            _mouseInput = new Vector2(Input.GetAxis("Mouse X"), -Input.GetAxis("Mouse Y"));
         }
 
         if (Input.GetKey(KeyCode.LeftShift))
@@ -181,9 +181,9 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
 
     /// <summary> 
     ///     Applies force to the spaceship in the specified direction
-    ///   <param name="direction"> Movement direction</param>
-    ///   <param name="force"> Speed at which the spaceship should accelerate</param>
     /// </summary>
+    /// <param name="direction"> Movement direction</param>
+    /// <param name="force"> Speed at which the spaceship should accelerate</param>
     public void Move(Vector3 direction, float force)
     {
         float _maxVelocity = maxVelocity;
@@ -231,8 +231,8 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
 
     /// <summary> 
     ///     Applies force to move the spaceship forward
-    ///   <param name="force"> Speed at which the spaceship should accelerate</param>
     /// </summary>
+    /// <param name="force"> Speed at which the spaceship should accelerate</param>
     public void Move(float force)
     {
         Move(transform.forward, force);
@@ -240,8 +240,8 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
 
     /// <summary> 
     ///     Rotates the Spaceship according to the location of the mouse
-    ///   <param name="mouseInput"> Location of the mouse on scren</param>
     /// </summary>
+    /// <param name="mouseInput"> Location of the mouse on scren</param>
     public void Rotate(Vector2 mouseInput)
     {
         mouseInput *= sensitivity;
@@ -271,8 +271,8 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
 
     /// <summary> 
     ///     Starts a roll with the specified force if a roll is not already in progress
-    ///   <param name="force"> Negative amount for left roll, positive amount for right roll</param>
     /// </summary>
+    /// <param name="force"> Negative amount for left roll, positive amount for right roll</param>
     public void Roll(float force)
     {
         if (!_isRolling && force != 0)
@@ -351,8 +351,9 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
 
 
     /// <summary> 
-    ///   <param name="newMaxVelocity"> New maximum velocity for the spaceship in Unity units</param>
+    ///   Sets a new maximum velocity
     /// </summary>
+    /// <param name="newMaxVelocity"> New maximum velocity for the spaceship in Unity units</param>
     public void setMaximumVelocity(float newMaxVelocity)
     {
         maxVelocity = newMaxVelocity;
@@ -369,8 +370,9 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
     }
 
     /// <summary> 
-    ///   <param name="newBoostMultiplier"> New boost multiplier for the spaceship</param>
+    ///   Sets a new boost multiplier
     /// </summary>
+    /// <param name="newBoostMultiplier"> New boost multiplier for the spaceship</param>
     public void setBoostMultiplier(float newBoostMultiplier)
     {
         _boostMultiplier = newBoostMultiplier;
@@ -396,7 +398,7 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
     }
 
     /// <summary> 
-    ///   Returns if spaceship is currently rolling
+    ///   Returns whether spaceship is currently rolling
     /// </summary>
     public bool getIsRolling()
     {
@@ -404,8 +406,9 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
     }
 
     /// <summary> 
-    ///   <param name="newBoostMultiplier"> New maximum boost duration for the spaceship in frames</param>
+    ///   Sets new maximum boost duration
     /// </summary>
+    /// <param name="newBoostMultiplier"> New maximum boost duration for the spaceship in frames</param>
     public void setMaxBoostDuration(int newMaxBoostDuration)
     {
         _maxBoostDuration = newMaxBoostDuration;
@@ -415,15 +418,16 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
 
 
     /// <summary> 
-    ///   <param name="rollPerFrame"> Sets rolling steps per frame. I Roll = 360 degree</param>
+    ///   Returns degrees of rotation per frame of rolling
     /// </summary>
+    /// <param name="rollPerFrame"> Sets rolling steps per frame. I Roll = 360 degree</param>
     public void setRollPerFrame(float rollPerFrame)
     {
         _rollPerFrame = rollPerFrame;
     }
 
     /// <summary> 
-    ///   <param> Returns rolling steps per frame</param>
+    ///   Returns rolling steps per frame
     /// </summary>
     public float getRollPerFrame()
     {
