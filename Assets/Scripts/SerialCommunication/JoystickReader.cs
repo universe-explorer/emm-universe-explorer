@@ -8,7 +8,7 @@ namespace SerialCommunication
         public double roll;
         public double pitch;
         public double yaw;
-        public double btn_state;
+        public bool btn_state;
 
         private JoystickReader()
         {
@@ -27,16 +27,17 @@ namespace SerialCommunication
 
         public int read(byte[] data)
         {
-            int roll_val = data[0] - 100;
-            roll = roll_val * 0.01f;
+            int rollVal = data[0] - 100;
+            roll = rollVal * 0.01f;
 
-            int pitch_val = data[1] - 100;
-            pitch = pitch_val * 0.01f;
+            int pitchVal = data[1] - 100;
+            pitch = pitchVal * 0.01f;
 
-            int yaw_val = data[2] - 100;
-            yaw = yaw_val * 0.01f;
+            int yawVal = data[2] - 100;
+            yaw = yawVal * 0.01f;
 
-            btn_state = data[3];
+            btn_state = data[3] == 1.0;
+            
 
             Debug.Log("JoystickReader: roll=" + roll + ", pitch =" + pitch + ", yaw =" + yaw + ", btn_state =" +
                       btn_state);

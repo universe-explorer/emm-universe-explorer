@@ -16,6 +16,7 @@ public class SerialCommunicationTestScript : MonoBehaviour
         {
             ISerialParser sp = SerialParser.Instance;
             sp.addReader(0x00, new SpeedReader());
+            sp.addReader(0x01, JoystickReader.Instance);
         }
         catch (PortNotFoundException e)
         {

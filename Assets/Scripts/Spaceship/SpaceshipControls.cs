@@ -60,25 +60,23 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
 
 
     /* input */
-    [Header("Input Settings")] public bool useAlternativeMouseInput = false;
-
-    private float _verticalInput;
+    [Header("Input Settings")] private float _verticalInput;
     private Vector2 _mouseInput;
     private Vector2 _mouseInputAngles;
     private Vector2 _mouseInputAnglesClamped;
 
+    private JoystickReader _joystickReader;
+    public bool useJoystick = false;
+
 
     /* crosshair */
     [Header("Crosshair Settings")] [SerializeField] //remove in production
-    
-    //private JoystickReader _joystickReader;
     public Texture2D cursorTexture;
+
     private Vector2 _cursorOffset;
 
     /* other */
     private Rigidbody _ship;
-
-    [Header("Debug")] public float velocity;
 
     private InfoCircleScript _infoCircleScript;
     private SpeedDisplay _speedDisplay;
@@ -108,7 +106,7 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
     {
         Cursor.SetCursor(cursorTexture, _cursorOffset, CursorMode.Auto);
     }
-    
+
 
     void Start()
     {
@@ -130,7 +128,7 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
         transform.rotation = Quaternion.identity;
         _ship.velocity = transform.forward * defaultVelocity;
 
-        //_joystickReader = JoystickReader.Instance;
+        _joystickReader = JoystickReader.Instance;
     }
 
     private void Update()
@@ -149,7 +147,6 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
 
     void FixedUpdate()
     {
-        velocity = _ship.velocity.magnitude;
         _verticalInput = Input.GetAxis("Vertical");
         _isBoosting = false;
 
@@ -159,18 +156,14 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
             _startRoll = false;
         }
 
-        if (!useAlternativeMouseInput)
+        if (useJoystick)
         {
-            _mouseInput = Input.mousePosition;
-
-            float width = Screen.width * 0.5f;
-            float height = Screen.height * 0.5f;
-
-            _mouseInput.x = MapFloat(_mouseInput.x - width, -width, width, -1.0f, 1.0f);
-            _mouseInput.y = -MapFloat(_mouseInput.y - height, -height, height, -1.0f, 1.0f);
+            Cursor.visible = false;
+            _mouseInput = new Vector2((float) _joystickReader.pitch, (float) _joystickReader.roll);
         }
         else
         {
+            Cursor.visible = true;
             _mouseInput = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
         }
 
@@ -367,7 +360,7 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
             _afterBurner.Stop();
         }
     }
-    
+
     /*
      * Getters and setters
      */

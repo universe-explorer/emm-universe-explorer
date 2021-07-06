@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using SerialCommunication;
 using UnityEngine;
 
 public class CombatControllerPlayer : AbstractCombatController
@@ -14,6 +15,7 @@ public class CombatControllerPlayer : AbstractCombatController
     public WeaponController WeaponController;
 
     private HealthBarScript _healthBarScript;
+    private JoystickReader _joystickReader;
     
     void Start()
     {
@@ -23,7 +25,9 @@ public class CombatControllerPlayer : AbstractCombatController
         }
 
         _healthBarScript = gameObject.GetComponentInChildren<HealthBarScript>();
-
+        
+        _joystickReader = JoystickReader.Instance;
+        
         /*_LaserMaxLength = _MaxShootDistance;
         _LineRenderer = GetComponent<LineRenderer>();
         _MaxHealth = _Health;
@@ -38,7 +42,7 @@ public class CombatControllerPlayer : AbstractCombatController
     {
         if (_CannShoot == true)
         {
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("Fire1") || _joystickReader.btn_state)
             {
                 WeaponController.FireActiveWeapon();
                 /*_Ammo--;
