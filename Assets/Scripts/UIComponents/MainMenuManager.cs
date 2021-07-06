@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MenuManagerScript : BaseMenu
+public class MainMenuManager : BaseMenu
 {
 
 

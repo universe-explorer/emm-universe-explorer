@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 // TODO: Rename menu classes
-public class GameStateManager : BaseMenu
+public class PauseMenuManager : BaseMenu
 {
 
     [SerializeField] private GameObject pauseMenu;
