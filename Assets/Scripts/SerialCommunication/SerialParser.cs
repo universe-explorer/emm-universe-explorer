@@ -22,13 +22,10 @@ namespace SerialCommunication
         private SerialPort sp;
 
         private const byte startByte = 0xBE; // byte sequence in the future?
-        private const byte endByte = 0xED;
         private Thread readerThread; // TODO: Abort thread on close
-        private const int maxBytes = 50;
+        private const int maxBytes = 200;
         private const int maxInvalidChecksums = 10;
-
-        private const byte speedByte = 0x00;
-        private const byte rotationByte = 0x01;
+        
 
         private Dictionary<byte, IReader> dataReaderDictionary = new Dictionary<byte, IReader>();
 
@@ -52,7 +49,7 @@ namespace SerialCommunication
                     sp.Open();
 
                     // Timeout if we don't receive data within 10 milliseconds. Might be too low, but it never failed so far.
-                    sp.ReadTimeout = 8000;
+                    sp.ReadTimeout = 10; // TODO: Change value for gyroscope 
 
                     // Read amount of bytes and check if we find startByte within these bytes. Need to implement more complex check in the future, e.g. verify one packet.
                     for (var i = 0; i < maxBytes; i++)
@@ -193,26 +190,6 @@ namespace SerialCommunication
                 }
                 
             }
-            /*
-            for (var i = 0; i < dataBuffer.Length; i++)
-            {
-                // Get data type (speed, rotation, etc.) to conclude which value we have to update and how many bytes we need to read
-                
-                switch (dataBuffer[i])
-                {
-                    case speedByte:
-                        // TODO: read one byte and set speed
-                        i++;
-                        Debug.Log("Speed: " + dataBuffer[i].ToString("X"));
-                        break;
-                    case rotationByte:
-                        // Read multiple bytes?
-                        break;
-                    default:
-                        throw new InvalidDataException("Invalid data type"); // TODO: Maybe use another exception
-                }
-            }
-            */
         }
         
         /**
