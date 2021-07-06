@@ -18,6 +18,8 @@ public class DeathScreenManager : MonoBehaviour
     [SerializeField] private float backgroundAlphaFadeDuration = 5f; // In seconds
     [SerializeField] private float minTimeScale = 0.1f;
 
+    [SerializeField] private BaseMenu _baseMenu;
+    
     private float oldTimeScale;
     
     //[SerializeField] private Scene _scene;
@@ -48,6 +50,12 @@ public class DeathScreenManager : MonoBehaviour
 
     public void enableDeathScreen()
     {
+
+        if (_baseMenu)
+        {
+            Destroy(_baseMenu); // I don't think we can die if the menu has already been opened, because the game should be paused, so there's no need to set the time scale back I guess
+        }
+        
         active = true;
         background.SetActive(true);
         infoText.SetActive(true);

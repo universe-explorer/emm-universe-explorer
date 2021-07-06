@@ -369,7 +369,6 @@ MonoBehaviour:
   _afterBurner: {fileID: 158127453090627041}
   _maxFOV: 80
   _minFOV: 50
-  _amount: 0.1
 --- !u!114 &6346074013267755291
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4964,6 +4963,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DeathScreen
       objectReference: {fileID: 0}
+    - target: {fileID: 2111465594339249451, guid: 404db82d903f6bf4680dac7327731eae, type: 3}
+      propertyPath: _baseMenu
+      value: 
+      objectReference: {fileID: 3439275029184742823}
     - target: {fileID: 2111465594339249451, guid: 404db82d903f6bf4680dac7327731eae, type: 3}
       propertyPath: minTimeScale
       value: 0.5
