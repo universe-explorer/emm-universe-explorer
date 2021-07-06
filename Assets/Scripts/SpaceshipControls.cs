@@ -148,7 +148,7 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
 
         Cursor.visible = false;
 
-        _//joystickReader = JoystickReader.Instance;
+        //_joystickReader = JoystickReader.Instance;
 
         Cursor.lockState = CursorLockMode.Confined;
     }
