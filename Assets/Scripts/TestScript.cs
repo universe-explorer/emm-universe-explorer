@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using SerialCommunication;
@@ -18,5 +19,10 @@ public class TestScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+    }
+
+    private void OnDestroy()
+    {
+        SerialParser.Instance.exit();
     }
 }

@@ -25,7 +25,7 @@ namespace SerialCommunication
         private Thread readerThread; // TODO: Abort thread on close
         private const int maxBytes = 200;
         private const int maxInvalidChecksums = 10;
-        
+        private bool continueReaderLoop = true;
 
         private Dictionary<byte, IReader> dataReaderDictionary = new Dictionary<byte, IReader>();
 
@@ -100,7 +100,8 @@ namespace SerialCommunication
             int invalidChecksumCounter = 0;
 
             // TODO: Change condition
-            while (true)
+            
+            while (continueReaderLoop)
             {
                 try
                 {
@@ -123,6 +124,8 @@ namespace SerialCommunication
                     // TODO: Maybe count these attempts too
                 }
             }
+            
+            Debug.Log("Exiting ReaderLoop...");
         }
 
         /**
@@ -230,6 +233,11 @@ namespace SerialCommunication
                 return false;
             }
             
+        }
+
+        public void exit()
+        {
+            continueReaderLoop = false;
         }
     }
 }
