@@ -68,12 +68,10 @@ public class MinimapBehaviour : MonoBehaviour
     private void AddPlanetIcons()
     {
         GameObject[] planets = GameObject.FindGameObjectsWithTag(planetTag);
-        Debug.Log("Amount of planets: " + planets.Length);
         
         foreach (var planet in planets)
         {
             MeshRenderer planetMeshRenderer = planet.GetComponentInChildren<MeshRenderer>();
-            Debug.Log("Material name: " + planetMeshRenderer.material.name);
             
             /*
             // temporary test texture
