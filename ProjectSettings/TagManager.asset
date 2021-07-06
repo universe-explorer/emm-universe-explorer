@@ -6,6 +6,20 @@ TagManager:
   tags:
   - Planet
   - Schiff
+  - Crosshair
+  - CrosshairUI
+  - Asteroid
+  - MainSpaceShip
+  - MeteorSpawnerField
+  - Enemy
+  - Collectible
+  - EnemyTrackPoint
+  - EnemyHealthCollider
+  - PlayerHealthCollider
+  - Fire
+  - Projectile
+  - PlanetSubObject
+  - EnemyIcon
   layers:
   - Default
   - TransparentFX
@@ -13,7 +27,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Minimap
   - 
   - 
   - 
