@@ -24,7 +24,11 @@ namespace SerialCommunication
          */
         public static JoystickReader Instance => joystickReader.Value;
 
-
+        /// <summary>
+        /// Parses Values from serial port. Sets class variables roll, pitch, yaw & button state.
+        /// </summary>
+        /// <param name="data">received bytes</param>
+        /// <returns></returns>
         public int read(byte[] data)
         {
             int rollVal = data[0] - 100;
