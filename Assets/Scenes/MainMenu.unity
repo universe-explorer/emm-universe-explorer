@@ -285,7 +285,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91015bf47666518449a3cfd32c395fad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationVector: {x: 0, y: 1, z: 1}
 --- !u!1 &455628932
 GameObject:
   m_ObjectHideFlags: 0
@@ -910,7 +909,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5924381205952948886, guid: 948239880e98bca449a0ea12f433a4df, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 6
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5924381205952948886, guid: 948239880e98bca449a0ea12f433a4df, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target

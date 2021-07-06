@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Base menu class which offers basic methods for menus
+/// </summary>
 public class BaseMenu : MonoBehaviour
 {
 
@@ -10,6 +13,9 @@ public class BaseMenu : MonoBehaviour
     private List<GameObject> _activeGameObjects = new List<GameObject>();
     private bool registerInput = true;
 
+    /// <summary>
+    /// Enable or disable hotkey to open/close menu
+    /// </summary>
     public bool RegisterInput
     {
         get => registerInput;
@@ -17,10 +23,11 @@ public class BaseMenu : MonoBehaviour
     }
 
     // TODO: Remove parameter
-    public virtual void OpenSettings(bool active)
+    /// <summary>
+    /// Open settings and save active menu ui objects in a list and deactivate them temporarily
+    /// </summary>
+    public virtual void OpenSettings()
     {
-        Debug.Log("base method: settings");
-        
         foreach (Transform t in gameObject.transform)
         {
             if(t.gameObject.activeSelf)
@@ -32,14 +39,19 @@ public class BaseMenu : MonoBehaviour
         settings.SetActive(true);
     }
     
+    /// <summary>
+    /// Restore deactivated menu ui objects
+    /// </summary>
     public virtual void RestoreMenu()
     {
         _activeGameObjects.ForEach(g => g.SetActive(true));
     }
 
+    /// <summary>
+    /// Exit game
+    /// </summary>
     public virtual void Exit()
     {
-        Debug.Log("base method: exit");
         Application.Quit(0); // Gets ignored in editor
     }
 }
