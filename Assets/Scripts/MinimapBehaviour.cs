@@ -12,7 +12,6 @@ public class MinimapBehaviour : MonoBehaviour
     public Transform spaceShip;
     [SerializeField] private Shader emissionShader;
     [SerializeField] private float emissionValue = 0.005f;
-    [SerializeField] private float iconSize = 20; // Not relative to planet size
     [SerializeField] private float iconScale = 1; // 1 equals original size
     [SerializeField] private float outlineSize = 16f;
     [SerializeField] private Color planetOutlineColor = new Color(90f/255, 0, 5f/255);
