@@ -51,7 +51,7 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
     [Header("Rolling Settings")] [SerializeField] //remove in production
     private float defaultRollingForce = 30f;
 
-    [SerializeField][Range(4.0f, 80.0f)] private float _rollPerFrame = 15;
+    [SerializeField] [Range(4.0f, 80.0f)] private float _rollPerFrame = 15;
 
     private const float fullRoll = 360;
     private bool _startRoll;
@@ -70,23 +70,10 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
 
     /* crosshair */
     [Header("Crosshair Settings")] [SerializeField] //remove in production
-    private Boolean _debugCrosshair = false;
-
-
+    
     //private JoystickReader _joystickReader;
-
-    private GameObject _crosshair, _crosshairUI;
-
-    [SerializeField] //remove in production
-    private float _crosshairOffsetX = 18f;
-
-    [SerializeField] //remove in production
-    private float _crosshairOffsetY = 7f;
-
-    [SerializeField] //remove in production
-    private float _crosshairMovementSpeed = 100f;
-
-    private Vector3 _crosshairPosition;
+    public Texture2D cursorTexture;
+    private Vector2 _cursorOffset;
 
     /* other */
     private Rigidbody _ship;
@@ -96,16 +83,12 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
     private InfoCircleScript _infoCircleScript;
     private SpeedDisplay _speedDisplay;
 
-    [Header("AfterBurner")]
-    [SerializeField]
+    [Header("AfterBurner")] [SerializeField]
     private ParticleSystem _afterBurner;
 
-    [Header("FOV")]
-    [SerializeField]
-    private float _maxFOV = 80;
+    [Header("FOV")] [SerializeField] private float _maxFOV = 80;
 
-    [SerializeField]
-    private float _minFOV = 50;
+    [SerializeField] private float _minFOV = 50;
 
     /// <summary>
     ///   <para>Maps value from original range to new range</para>
@@ -121,11 +104,17 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
         return Mathf.Lerp(toMin, toMax, t);
     }
 
+    void OnMouseEnter()
+    {
+        Cursor.SetCursor(cursorTexture, _cursorOffset, CursorMode.Auto);
+    }
+    
+
     void Start()
     {
+        _cursorOffset = new Vector2(cursorTexture.width / 2, cursorTexture.height / 2);
+
         _ship = gameObject.GetComponent<Rigidbody>();
-        _crosshair = GameObject.FindGameObjectsWithTag("Crosshair")[0];
-        _crosshairUI = GameObject.FindGameObjectsWithTag("CrosshairUI")[0];
 
         _infoCircleScript = GetComponentInChildren<InfoCircleScript>();
         if (_infoCircleScript != null)
@@ -141,11 +130,7 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
         transform.rotation = Quaternion.identity;
         _ship.velocity = transform.forward * defaultVelocity;
 
-        Cursor.visible = false;
-
         //_joystickReader = JoystickReader.Instance;
-
-        Cursor.lockState = CursorLockMode.Confined;
     }
 
     private void Update()
@@ -214,7 +199,6 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
         {
             Move(_verticalInput);
             Rotate(_mouseInput);
-            SetCrosshairPosition(_mouseInput);
         }
 
         if (_speedDisplay != null)
@@ -294,17 +278,19 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
         if (Vector3.Dot(transform.up, Vector3.down) > 0)
         {
             _mouseInputAngles.x -= mouseInput.x;
-        } else
+        }
+        else
         {
             _mouseInputAngles.x += mouseInput.x;
         }
+
         _mouseInputAngles.y += mouseInput.y;
 
 
         //limit rotation to certain degree
         _mouseInputAnglesClamped.x += mouseInput.x;
         _mouseInputAnglesClamped.x = Mathf.Clamp(_mouseInputAnglesClamped.x, -maxZRotation, maxZRotation);
-        
+
         // float horizontalInput = Input.GetAxis("Mouse X");
         // float verticalInput = Input.GetAxis("Mouse Y");
         // float movementInput = Input.GetAxis("Vertical");
@@ -316,7 +302,6 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
 
         //loop back to zero, used for spaceShip-wing rotation
         _mouseInputAnglesClamped.x = Mathf.Lerp(_mouseInputAnglesClamped.x, 0, Time.deltaTime * zRotationSpeed);
-
 
 
         _ship.rotation = Quaternion.Euler(_mouseInputAngles.y, _mouseInputAngles.x, -_mouseInputAnglesClamped.x);
@@ -375,46 +360,17 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
             {
                 _afterBurner.Play();
             }
-        } else
+        }
+        else
         {
             Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, _minFOV, .1f);
             _afterBurner.Stop();
         }
     }
-
-    /// <summary> 
-    ///     Places the crosshair relative to mouse position
-    ///   <param name="mouseInput"> Mouse position to move the crosshair to</param>
-    /// </summary>
-    public void SetCrosshairPosition(Vector2 mouseInput)
-    {
-        Vector3 pos = _crosshair.transform.localPosition;
-
-        float x = mouseInput.x * _crosshairOffsetX;
-        float y = mouseInput.y * _crosshairOffsetY * (-1);
-
-        x = Mathf.Lerp(pos.x, x, Time.deltaTime * _crosshairMovementSpeed);
-        y = Mathf.Lerp(pos.y, y, Time.deltaTime * _crosshairMovementSpeed);
-
-        _crosshairPosition = _ship.transform.position
-                             + _ship.transform.forward * 10
-                             + _ship.transform.right * x
-                             + _ship.transform.up * y;
-
-        _crosshair.transform.position = _crosshairPosition;
-
-        //convert world coordinates to 2d position
-        Vector2 screenPoint = Camera.main.WorldToScreenPoint(_crosshairPosition);
-        _crosshairUI.transform.position =
-            Vector3.Lerp(_crosshairUI.transform.position, screenPoint, Time.deltaTime * 25);
-
-        //debug options
-        if (_debugCrosshair)
-        {
-            _crosshair.GetComponent<MeshRenderer>().enabled = true;
-        }
-    }
-    //Getters and setters
+    
+    /*
+     * Getters and setters
+     */
 
     /// <summary> 
     ///   Returns current movement as a vector.
@@ -439,7 +395,7 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
     public void setMaximumVelocity(float newMaxVelocity)
     {
         maxVelocity = newMaxVelocity;
-        if(_speedDisplay != null)
+        if (_speedDisplay != null)
             _speedDisplay.SetNewMaxSpeed(maxVelocity * _boostMultiplier);
     }
 
@@ -496,16 +452,7 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
             _infoCircleScript.SetMaxValue(_maxBoostDuration);
     }
 
-    /// <summary> 
-    ///   <param> Returns crosshair aiming direction</param>
-    /// </summary>
-    public Vector3 getShootingDirection()
-    {
-        //(to - from).normalized
-        return (_crosshairPosition - _ship.transform.position).normalized; //todo: is this right?
-    }
-    
-    
+
     /// <summary> 
     ///   <param name="rollPerFrame"> Sets rolling steps per frame. I Roll = 360 degree</param>
     /// </summary>
