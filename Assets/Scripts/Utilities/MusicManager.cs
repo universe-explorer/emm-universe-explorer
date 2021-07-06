@@ -14,9 +14,28 @@ public class MusicManager : MonoBehaviour
 
     private List<int> _alreadyPlayed = new List<int>();
 
+    private float audioVolume = 0.075f;
+    
+    [SerializeField] private SettingsManager _settingsManager;
+
+    void ReloadSetings()
+    {
+        if (PlayerPrefs.GetInt("ToggleAudio") != 0)
+        {
+            AudioSource.volume = audioVolume;
+        }
+        else
+        {
+            AudioSource.volume = 0;
+        }
+    }
+    
     // Start is called before the first frame update
     void Start()
     {
+        ReloadSetings();
+        _settingsManager.addSettingsEventListener(ReloadSetings);
+        
         int r;
 
         if (PickRandom == false && AudioClips.Length > 0)
