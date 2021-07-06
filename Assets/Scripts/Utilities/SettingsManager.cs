@@ -1,12 +1,10 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
+/// <summary>
+/// Manages settings and notifies other classes
+/// </summary>
 public class SettingsManager : MonoBehaviour
 {
     private UnityEvent settingsEvent = new UnityEvent();
@@ -26,10 +24,7 @@ public class SettingsManager : MonoBehaviour
         LoadUI();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
+
 
     private void OnEnable()
     {
@@ -42,6 +37,9 @@ public class SettingsManager : MonoBehaviour
         _baseMenu.RegisterInput = true;
     }
 
+    /// <summary>
+    /// Save settings and return
+    /// </summary>
     public void Save()
     {
         // PlayerPrefs saves data in registry
@@ -76,6 +74,9 @@ public class SettingsManager : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    /// <summary>
+    /// Update settings ui
+    /// </summary>
     public void LoadUI()
     {
         toggleAudio.isOn = PlayerPrefs.GetInt(toggleAudio.name, 1) != 0;
@@ -84,6 +85,9 @@ public class SettingsManager : MonoBehaviour
         sliderMinimapView.value = PlayerPrefs.GetFloat(sliderMinimapView.name, 1);
     }
 
+    /// <summary>
+    /// Discard changes and return
+    /// </summary>
     public void Discard()
     {
         _baseMenu.RestoreMenu();
@@ -99,10 +103,11 @@ public class SettingsManager : MonoBehaviour
     */
 
 
-    /*
-     * Add listener settingsEvent
-     * Notifies all listeners when settings have been changed
-     */
+    /// <summary>
+    /// Add listener settingsEvent.
+    /// Notifies all listeners when settings have been changed.
+    /// </summary>
+    /// <param name="unityAction">Unity action</param>
     public void addSettingsEventListener(UnityAction unityAction)
     {
         settingsEvent.AddListener(unityAction);
