@@ -122,12 +122,10 @@ public class MeteorSpawnerField : MonoBehaviour
         }
     }
 
-    /*private void Awake()
-    {
-        CreateCollider();
-    }*/
-
-    private void CreateCollider()
+    /// <summary> 
+    ///     Adds BoxCollider component if it doesn't already exist
+    /// </summary>
+    public void CreateCollider()
     {
         if (gameObject.GetComponent<BoxCollider>() == null)
         {

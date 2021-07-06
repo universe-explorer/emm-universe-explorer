@@ -26,7 +26,7 @@ public class MinimapBehaviour : MonoBehaviour
     void Start()
     {
         referenceHeight = spaceShip.position.y;
-        AddMinimapIcons();
+        AddPlanetIcons();
         createSpaceShipIcon();
     }
 
@@ -45,18 +45,28 @@ public class MinimapBehaviour : MonoBehaviour
         transform.rotation = Quaternion.Lerp(transform.rotation, newRotation, 0.5f);
 	}
 
+    /// <summary> 
+    ///     Returns the current Y coordinates of the camera
+    /// </summary>
     public float getCameraHeight()
     {
         return cameraHeight;
     }
 
-
+    /// <summary> 
+    ///     Sets camera height to the specified value
+    ///   <param name="newCameraHeight"> New Y coordinates of the camera</param>
+    /// </summary>
     public void setCameraHeight(float newCameraHeight)
     {
         cameraHeight = newCameraHeight;
     }
 
-    private void AddMinimapIcons()
+
+    /// <summary> 
+    ///     Adds minimap icons to each planet in the scene
+    /// </summary>
+    private void AddPlanetIcons()
     {
         GameObject[] planets = GameObject.FindGameObjectsWithTag(planetTag);
         Debug.Log("Amount of planets: " + planets.Length);
@@ -129,6 +139,11 @@ public class MinimapBehaviour : MonoBehaviour
         
     }
 
+    /// <summary> 
+    ///     Adds minimap outline to the specified planet
+    ///   <param name="planet"> Gameobject to draw the outline around</param>
+    ///   <param name="offsetVector"> Offset vector in case the outline should not be drawn in the exact center</param>
+    /// </summary>
     private void addPlanetOutline(GameObject planet, Vector3 offsetVector)
     {
         GameObject planetOutline = GameObject.CreatePrimitive(PrimitiveType.Sphere);
@@ -148,6 +163,9 @@ public class MinimapBehaviour : MonoBehaviour
 
     }
 
+    /// <summary> 
+    ///     Creates the spaceship icon for the minimap
+    /// </summary>
     private void createSpaceShipIcon()
     {
         GameObject go = new GameObject("playerMapMarker");
@@ -162,17 +180,5 @@ public class MinimapBehaviour : MonoBehaviour
 
         go.layer = 6;
     }
-
-    /*
-    private Sprite GenerateIconSprite(Material material)
-    {
-        Texture2D iconTexture = (Texture2D) material.mainTexture;
-        iconTexture.Resize(100, 100);
-        
-        return Sprite.Create(iconTexture, new Rect(0, 0, 100, 100),
-            new Vector2(0.5f, 0.5f));
-    }
-    */
-    
-     
+         
 }
