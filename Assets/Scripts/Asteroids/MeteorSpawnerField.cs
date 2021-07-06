@@ -39,7 +39,7 @@ public class MeteorSpawnerField : MonoBehaviour
         scriptableObjects = Resources.LoadAll("ScriptableObjects", typeof(EnemyScriptableObject));
     }
 
-    public void SpawnMeteors()
+    private void SpawnMeteors()
     {
         float asteroidScale;
         for (int i = 0; i < MeteorSpawnerFieldCreator.Instance.Meteors.Length; i++)
@@ -57,7 +57,7 @@ public class MeteorSpawnerField : MonoBehaviour
         }
     }
 
-    public void SpawnCollectables()
+    private void SpawnCollectables()
     {
         int numberOfCollectables = (int) Random.Range(0, 3);
 
@@ -107,7 +107,7 @@ public class MeteorSpawnerField : MonoBehaviour
         }
     }
 
-    public void SpawnEnemies()
+    private void SpawnEnemies()
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
@@ -127,7 +127,7 @@ public class MeteorSpawnerField : MonoBehaviour
         CreateCollider();
     }*/
 
-    public void CreateCollider()
+    private void CreateCollider()
     {
         if (gameObject.GetComponent<BoxCollider>() == null)
         {
@@ -144,6 +144,10 @@ public class MeteorSpawnerField : MonoBehaviour
         bounds = _boxCollider.bounds;
     }
 
+    /// <summary> 
+    ///     Generates a random coordinate within given bounds
+    ///   <param name="bounds"> The bounds to generate a coordinate in</param>
+    /// </summary>
     public static Vector3 RandomPointInBounds(Bounds bounds)
     {
         return new Vector3(
