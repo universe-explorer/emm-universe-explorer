@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using SerialCommunication;
 using UnityEditor;
 using UnityEngine;
-using System.Collections;
 using UnityEngine.UI;
 
 public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
@@ -107,10 +106,6 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
 
     [SerializeField]
     private float _minFOV = 50;
-
-    [SerializeField]
-    [Range(0, 1)]
-    private float _amount = .1f;
 
     /// <summary>
     ///   <para>Maps value from original range to new range</para>
@@ -230,6 +225,7 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
 
 
     /// <summary> 
+    ///     Applies force to the spaceship in the specified direction
     ///   <param name="direction"> Movement direction</param>
     ///   <param name="force"> Speed at which the spaceship should accelerate</param>
     /// </summary>
@@ -278,6 +274,7 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
     }
 
     /// <summary> 
+    ///     Applies force to move the spaceship forward
     ///   <param name="force"> Speed at which the spaceship should accelerate</param>
     /// </summary>
     public void Move(float force)
@@ -286,6 +283,7 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
     }
 
     /// <summary> 
+    ///     Rotates the Spaceship according to the location of the mouse
     ///   <param name="mouseInput"> Location of the mouse on scren</param>
     /// </summary>
     public void Rotate(Vector2 mouseInput)
@@ -326,6 +324,7 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
     }
 
     /// <summary> 
+    ///     Starts a roll with the specified force if a roll is not already in progress
     ///   <param name="force"> Negative amount for left roll, positive amount for right roll</param>
     /// </summary>
     public void Roll(float force)
@@ -362,7 +361,7 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
     }
 
     /// <summary> 
-    ///   Boosts spaceship for a defined amount of time.
+    ///   Boosts spaceship as long as this method is called.
     /// </summary>
     public void Boost()
     {
@@ -384,7 +383,8 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
     }
 
     /// <summary> 
-    ///   <para>Places the crosshair relative to mouse position</para>
+    ///     Places the crosshair relative to mouse position
+    ///   <param name="mouseInput"> Mouse position to move the crosshair to</param>
     /// </summary>
     public void SetCrosshairPosition(Vector2 mouseInput)
     {
