@@ -60,7 +60,10 @@ public class EnemyBehaviour : MonoBehaviour
         Icon.rotation = Quaternion.Euler(Vector3.zero);
     }
 
-    public bool checkPlayerVicinity()
+    /// <summary> 
+    ///     Checks if the player is within the aggroRange and returns a boolean according to the result
+    /// </summary>
+    private bool checkPlayerVicinity()
     {
 
         if(player.Length >= 1  && Vector3.Distance(transform.position, player[0].transform.position) < values.aggroRange)
@@ -72,6 +75,9 @@ public class EnemyBehaviour : MonoBehaviour
         }   
     }
 
+    /// <summary> 
+    ///     Handles behaviour when enemy is not engaged in combat
+    /// </summary>
     private void randomMove()
     {
         shooting = false;
@@ -97,6 +103,9 @@ public class EnemyBehaviour : MonoBehaviour
         }
     }
 
+    /// <summary> 
+    ///     Handles behaviour when enemy is engaged in combat
+    /// </summary>
     private void chase()
     {
         home = player[0].transform.position;
@@ -140,6 +149,9 @@ public class EnemyBehaviour : MonoBehaviour
         }
     }
 
+    /// <summary> 
+    ///     Generates a random point for the enemy to move towards
+    /// </summary>
     private void generateNewDestinationPoint()
     {
         do
@@ -149,6 +161,10 @@ public class EnemyBehaviour : MonoBehaviour
         framesSinceMovementStart = 0;
     }
 
+    /// <summary> 
+    ///    Continues enemy movement to the target point
+    ///    <param name="speed"> Moevment Speed of the enemy</param>
+    /// </summary>
     private void continueMovement(float speed)
     {
 
@@ -186,6 +202,10 @@ public class EnemyBehaviour : MonoBehaviour
         }
     }
 
+    /// <summary> 
+    ///    Sets the current movement direction to face the given point
+    ///    <param name="point"> Point to set movement direction towards</param>
+    /// </summary>
     private void setMovementDirectionTowardsPoint(Vector3 point)
     {
         Quaternion save = transform.rotation;
