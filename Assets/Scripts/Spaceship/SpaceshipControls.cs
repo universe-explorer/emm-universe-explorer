@@ -142,7 +142,13 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
         else
         {
             Cursor.visible = true;
-            _mouseInput = new Vector2(Input.GetAxis("Mouse X"), -Input.GetAxis("Mouse Y"));
+            _mouseInput = Input.mousePosition;
+
+            float width = Screen.width * 0.5f;
+            float height = Screen.height * 0.5f;
+
+            _mouseInput.x = MapFloat(_mouseInput.x - width, -width, width, -1.0f, 1.0f);
+            _mouseInput.y = -MapFloat(_mouseInput.y - height, -height, height, -1.0f, 1.0f);
         }
 
         if (Input.GetKey(KeyCode.LeftShift))
@@ -211,7 +217,7 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
         }
 
         Vector3 newVelocity = Vector3.zero;
-        
+
         //accelerate
         if (enableDrifting)
         {
