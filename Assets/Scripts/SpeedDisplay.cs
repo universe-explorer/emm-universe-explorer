@@ -43,11 +43,19 @@ public class SpeedDisplay : MonoBehaviour
 
     }
 
+    /// <summary> 
+    ///     Sets new maximum speed this component compares the current speed against
+    ///   <param name="newMaxSpeed"> New maximum speed value</param>
+    /// </summary>
     public void SetNewMaxSpeed(float newMaxSpeed)
     {
         _maxSpeed = newMaxSpeed;
     }
 
+    /// <summary> 
+    ///     Sets new current speed value this component compares the maximum speed against
+    ///   <param name="newCurrentSpeed"> New current speed value</param>
+    /// </summary>
     public void SetNewCurrentSpeed(float newCurrentSpeed)
     {
         _currentSpeed = newCurrentSpeed;
