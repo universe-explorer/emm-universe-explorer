@@ -6,6 +6,9 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Modifies selection bar
+/// </summary>
 public class SelectionBarManager : MonoBehaviour
 {
 
@@ -23,7 +26,7 @@ public class SelectionBarManager : MonoBehaviour
         IList<Weapon> weapons = weaponController.Weapons.AsReadOnlyList();
         
         
-        // min 5 slots, selection bar looks kinda bad with less slots; TODO: Mark other slots as unavailable
+        // min 5 slots, selection bar looks kinda bad with less slots;
 
         var counter = 0;
         
@@ -53,14 +56,9 @@ public class SelectionBarManager : MonoBehaviour
             }
             
             
-            /*
-            t.Find("key").GetComponent<TextMeshProUGUI>().text = key.ToString().Remove(0, 5); // Remove alpha part from KeyCode.ToString
+            //t.Find("key").GetComponent<TextMeshProUGUI>().text = key.ToString().Remove(0, 5); // Remove alpha part from KeyCode.ToString
             // t.gameObject.GetComponentInChildren<Image>() TODO: Implement ISelectionBarItem interface/extra method that returns an icon of the item
             
-            // Temporary text field
-            // TODO: Unsafe access
-            t.Find("name").GetComponent<TextMeshProUGUI>().text = weapons[counter].WeaponType.ToString(); // TODO: Add weapon name, so we don't have to use the type
-            */
            
             key++;
             counter++;

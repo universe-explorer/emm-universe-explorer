@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+/// <summary>
+/// Death screen which appears when the player has died
+/// </summary>
 public class DeathScreenManager : MonoBehaviour
 {
     [SerializeField] private GameObject background;
@@ -22,7 +25,6 @@ public class DeathScreenManager : MonoBehaviour
     
     private float oldTimeScale;
     
-    //[SerializeField] private Scene _scene;
     [SerializeField] private string _mainMenuSceneName;
 
     // Start is called before the first frame update
@@ -48,6 +50,9 @@ public class DeathScreenManager : MonoBehaviour
         */
     }
 
+    /// <summary>
+    /// Enables the death screen and stops the player from interacting with the game
+    /// </summary>
     public void enableDeathScreen()
     {
 
@@ -65,7 +70,6 @@ public class DeathScreenManager : MonoBehaviour
 
         
         
-        // TODO: Disable controls and pause menu
         Destroy(GetComponentInParent<SpaceshipControls>());
         Destroy(GetComponentInParent<CombatControllerPlayer>());
         
@@ -73,6 +77,9 @@ public class DeathScreenManager : MonoBehaviour
         Cursor.visible = true;
     }
 
+    /// <summary>
+    /// Loads the main menu scene and sets the time scale back to 1
+    /// </summary>
     public void LoadMainMenuScene()
     {
         active = false;

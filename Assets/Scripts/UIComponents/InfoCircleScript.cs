@@ -5,10 +5,11 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-// TODO: Create abstract class to avoid redundancy
+/// <summary>
+/// Modifies info circle
+/// </summary>
 public class InfoCircleScript : MonoBehaviour
 {
-
     [SerializeField] private GameObject circle;
     [SerializeField] private GameObject circleText;
     private Image imgCircle;
@@ -18,7 +19,7 @@ public class InfoCircleScript : MonoBehaviour
     private float value = 100;
     private float progress = 0;
     [SerializeField] private float speed = 0.2f;
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,27 +30,10 @@ public class InfoCircleScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            Reduce(10);
-        }
-
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            Increase(10);
-        }
-        */
+        progress += Time.deltaTime;
+        imgCircle.fillAmount = value / maxValue;
         
-        //if (value < delayedValue)
-        //{
-            progress += Time.deltaTime;
-            //imgCircle.fillAmount = Mathf.Lerp(imgCircle.fillAmount, value / maxValue, progress * speed); // Takes some time to reach 1
-            imgCircle.fillAmount = value / maxValue;
-            //delayedValue = imgCircle.fillAmount * maxValue;
-
-            txtCircle.text = String.Format("{0}%", (int)(imgCircle.fillAmount*100));
-        //}
+        txtCircle.text = String.Format("{0}%", (int) (imgCircle.fillAmount * 100));
     }
 
     /// <summary> 
@@ -62,7 +46,7 @@ public class InfoCircleScript : MonoBehaviour
             this.value -= value;
         else
             this.value = 0;
-        
+
         progress = 0;
     }
 
@@ -77,7 +61,7 @@ public class InfoCircleScript : MonoBehaviour
             this.value += value;
         else
             this.value = maxValue;
-        
+
         progress = 0;
     }
 

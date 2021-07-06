@@ -5,6 +5,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Modifies a selection bar icon
+/// </summary>
 public class SelectionBarIconManager : MonoBehaviour
 {
     private KeyCode key;
@@ -16,11 +19,7 @@ public class SelectionBarIconManager : MonoBehaviour
     [SerializeField] private Image cooldownImage;
     private Weapon _weapon;
 
-
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
+    
 
     // Update is called once per frame
     void Update()
@@ -35,6 +34,10 @@ public class SelectionBarIconManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Gets key code of the icon
+    /// Sets the key code to select the icon and shortens long names
+    /// </summary>
     public KeyCode Key
     {
         get => key;
@@ -49,12 +52,20 @@ public class SelectionBarIconManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Gets display name of the icon
+    /// Sets display name of the icon
+    /// </summary>
     public string Name
     {
         get => nameText.text;
         set => nameText.text = value;
     }
 
+    /// <summary>
+    /// Gets selection bool
+    /// Sets selection bool
+    /// </summary>
     public bool Selected
     {
         get => selected;
@@ -65,6 +76,10 @@ public class SelectionBarIconManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Sets weapon of the icon
+    /// </summary>
+    /// <param name="w">Weapon</param>
     public void SetWeapon(Weapon w)
     {
         _weapon = w;

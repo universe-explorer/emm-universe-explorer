@@ -5,7 +5,9 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
-
+/// <summary>
+/// Modifies value of the health bar
+/// </summary>
 public class HealthBarScript : MonoBehaviour
 {
     [SerializeField] private GameObject currentHealthBar;
@@ -49,6 +51,10 @@ public class HealthBarScript : MonoBehaviour
         */
     }
 
+    /// <summary>
+    /// Take damage
+    /// </summary>
+    /// <param name="damage">Value that gets subtracted from the current health</param>
     public void TakeDamage(float damage)
     {
         if (currentHealth - damage >= 0)
@@ -58,6 +64,10 @@ public class HealthBarScript : MonoBehaviour
         }
     }
     
+    /// <summary>
+    /// Take damage
+    /// </summary>
+    /// <param name="newHealthValue"> New health value</param>
     public void TakeDamageTemporary(float newHealthValue)
     {
         if (newHealthValue >= 0)
