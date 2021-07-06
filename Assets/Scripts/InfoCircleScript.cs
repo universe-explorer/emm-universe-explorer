@@ -16,7 +16,6 @@ public class InfoCircleScript : MonoBehaviour
 
     private float maxValue = 100;
     private float value = 100;
-    private float delayedValue = 100;
     private float progress = 0;
     [SerializeField] private float speed = 0.2f;
     
@@ -53,6 +52,10 @@ public class InfoCircleScript : MonoBehaviour
         //}
     }
 
+    /// <summary> 
+    ///     Reduces the current value by the specified amount
+    ///   <param name="valuee"> Value to decrease by</param>
+    /// </summary>
     public void Reduce(float value)
     {
         if (this.value - value >= 0)
@@ -63,6 +66,10 @@ public class InfoCircleScript : MonoBehaviour
         progress = 0;
     }
 
+    /// <summary> 
+    ///     Increases the current value by the specified amount
+    ///   <param name="valuee"> Value to increase by</param>
+    /// </summary>
     public void Increase(float value)
     {
         // TODO
@@ -74,12 +81,20 @@ public class InfoCircleScript : MonoBehaviour
         progress = 0;
     }
 
+    /// <summary> 
+    ///     Sets new maximum value this component compares the current value against
+    ///   <param name="maxValue"> New maximum value</param>
+    /// </summary>
     public void SetMaxValue(float maxValue)
     {
         progress = 0;
         this.maxValue = maxValue;
     }
 
+    /// <summary> 
+    ///     Sets new current value this component compares the maximum value against
+    ///   <param name="currentValue"> New current value</param>
+    /// </summary>
     public void SetCurrentValue(float currentValue)
     {
         progress = 0;
