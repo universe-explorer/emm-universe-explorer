@@ -25,9 +25,4 @@ public class AtmosphereController : MonoBehaviour
         transform.LookAt(_target);
 
     }
-
-    private void OnDestroy()
-    {
-        SerialParser.Instance.exit();
-    }
 }
