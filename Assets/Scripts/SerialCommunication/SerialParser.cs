@@ -123,6 +123,14 @@ namespace SerialCommunication
                     Debug.Log(e.Message);
                     // TODO: Maybe count these attempts too
                 }
+                catch (KeyNotFoundException e)
+                {
+                    Debug.Log("Key not found atm");
+                }
+                catch (InvalidCastException e) // TODO: Maybe change exception
+                {
+                    
+                }
             }
             
             Debug.Log("Exiting ReaderLoop...");
