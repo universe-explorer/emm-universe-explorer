@@ -1,13 +1,17 @@
 using UnityEngine;
 
+/// <summary>
+///   Inventory Controller
+/// </summary>
 public class InventoryController : MonoBehaviour
 {
     [SerializeField] private Ui_inventory uiInventory;
     private Inventory inventory = new Inventory();
 
-    /// <summary> 
+    /// <summary>
     ///   Detects Collision and add items to the Inventory System
     /// </summary>
+    /// <param name="other">The other Game Object this Game Object is collidered with</param>
     private void OnTriggerEnter(Collider other)
     {
         if (gameObject.tag == "Player")
@@ -31,6 +35,9 @@ public class InventoryController : MonoBehaviour
         uiInventory.SetGameObject(gameObject);
     }
 
+    /// <summary>
+    ///   Toggle Inventory Window on Keyboard Input
+    /// </summary>
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.I))

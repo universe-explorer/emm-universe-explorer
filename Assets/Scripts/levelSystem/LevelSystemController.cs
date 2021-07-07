@@ -1,6 +1,9 @@
 using System;
 using UnityEngine;
 
+/// <summary>
+///   Level System Controller
+/// </summary>
 public class LevelSystemController : MonoBehaviour
 {
     [SerializeField] private Ui_level uiLevel;
@@ -28,9 +31,11 @@ public class LevelSystemController : MonoBehaviour
         levelSystem.OnLevelChanged += LevelSystem_OnLevelChanged;
     }
 
-    /// <summary> 
+    /// <summary>
     ///   Updates Player's Properties based on the current level
     /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void LevelSystem_OnLevelChanged(object sender, EventArgs e)
     {
         PlayerRankEntry entry = levelSystem.GetCurrentPlayerLevelRank();
@@ -39,6 +44,9 @@ public class LevelSystemController : MonoBehaviour
         weaponController.DamageMultiplier = entry.DamageFactor;
     }
 
+    /// <summary>
+    ///   Toggle Level Window on keyboard Input
+    /// </summary>
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.L))

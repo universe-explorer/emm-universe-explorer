@@ -2,6 +2,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+/// <summary>
+///   Represents Inventory window that gets notified each time when player colliders with
+///   other Game Objects
+/// </summary>
 public class Ui_inventory : MonoBehaviour
 {
     private Inventory inventory;
@@ -15,9 +19,10 @@ public class Ui_inventory : MonoBehaviour
         itemSlotTemplate = itemSlotContainer.Find("itemSlotTemplate");
     }
 
-    /// <summary> 
+    /// <summary>
     ///   Sets the associated Inventory System which provides Events utilities and data accessibilities
     /// </summary>
+    /// <param name="inventory">The Inventory on which UI operates on</param>
     public void SetInventory(Inventory inventory)
     {
         this.inventory = inventory;
@@ -26,19 +31,30 @@ public class Ui_inventory : MonoBehaviour
         RefreshInventoryItems();
     }
 
+    /// <summary>
+    ///   Refreshes Inventory Window on Items added
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void Inventory_OnItemAddeded(object sender, System.EventArgs e)
     {
         RefreshInventoryItems();
     }
 
+    /// <summary>
+    ///  Refreshes Inventory Window on Items removed
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void Inventory_OnItemRemoved(object sender, System.EventArgs e)
     {
         RefreshInventoryItems();
     }
 
-    /// <summary> 
+    /// <summary>
     ///   Sets the associated Game Object (Space ship) which provides location and other data 
     /// </summary>
+    /// <param name="gameObject">Game Object on which UI operates on</param>
     public void SetGameObject(GameObject gameObject)
     {
         player = gameObject;
@@ -70,9 +86,11 @@ public class Ui_inventory : MonoBehaviour
         }
     }
 
-    /// <summary> 
+    /// <summary>
     ///   Handles mouse right click Events on the Inentory Item
     /// </summary>
+    /// <param name="parent"></param>
+    /// <param name="item"></param>
     private void HandleRightClick(Transform parent, Item item)
     {
         parent.GetComponent<MouseUIEvents>().RightClickHandler = () =>
@@ -86,9 +104,11 @@ public class Ui_inventory : MonoBehaviour
         };
     }
 
-    /// <summary> 
+    /// <summary>
     ///   Handles mouse hover Events on the Inentory Item
     /// </summary>
+    /// <param name="parent"></param>
+    /// <param name="item"></param>
     private void HandleMouseHover(Transform parent, Item item)
     {
         TextMeshProUGUI infoText = parent.Find("info").GetComponent<TextMeshProUGUI>();
@@ -105,18 +125,22 @@ public class Ui_inventory : MonoBehaviour
         };
     }
 
-    /// <summary> 
+    /// <summary>
     ///   Sets Item Slot template image
     /// </summary>
+    /// <param name="parent"></param>
+    /// <param name="item"></param>
     private void SetImage(Transform parent, Item item)
     {
         Image image = parent.Find("image").GetComponent<Image>();
         image.sprite = item.GetSprite();
     }
 
-    /// <summary> 
+    /// <summary>
     ///   Sets Item's amount
     /// </summary>
+    /// <param name="parent"></param>
+    /// <param name="item"></param>
     private void SetAmount(Transform parent, Item item)
     {
         TextMeshProUGUI amount = parent.Find("amount").GetComponent<TextMeshProUGUI>();
