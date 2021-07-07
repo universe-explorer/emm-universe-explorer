@@ -129,7 +129,7 @@ MonoBehaviour:
   Target: 0
   _maxAmmo: 0
   _maxShootingDistance: 0
-  _projectileSpeed: 30
+  _projectileSpeed: 0.1
   _projectile: {fileID: 7780717535766068066, guid: 117ae24a2e533774eb6c602f88dac4f9, type: 3}
   _damage: 40
   _fireRate: 1
