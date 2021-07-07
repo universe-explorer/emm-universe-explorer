@@ -11,24 +11,37 @@ using UnityEngine;
 public class SerialCommunicationTestScript : MonoBehaviour
 {
     private ISerialParser sp;
+    [SerializeField] private SettingsManager _settingsManager;
+
+    void ReloadSettings()
+    {
+        if (PlayerPrefs.GetInt("ToggleMicrocontroller", 1) == 0)
+        {
+            SerialParser.Instance.exit();
+        }
+    }
     
     // Start is called before the first frame update
     void Start()
     {
-        try
+        if (PlayerPrefs.GetInt("ToggleMicrocontroller", 1) != 0)
         {
-            ISerialParser sp = SerialParser.Instance;
-            sp.addReader(0x00, new VelocityReader());
-            sp.addReader(0x01, JoystickReader.Instance);
+            try
+            {
+                ISerialParser sp = SerialParser.Instance;
+                
+                sp.addReader(0x00, new VelocityReader());
+                sp.addReader(0x01, JoystickReader.Instance);
+                
+                _settingsManager.addSettingsEventListener(ReloadSettings);
+            }
+            catch (PortNotFoundException e)
+            {
+                Debug.Log("Port not found");
+                Destroy(this);
+            }
         }
-        catch (PortNotFoundException e)
-        {
-            Debug.Log("Port not found");
-            Destroy(this);
-        }
-        
     }
-
 
 
     private void OnDestroy()
@@ -41,18 +54,13 @@ public class SerialCommunicationTestScript : MonoBehaviour
         if(sp != null)
             sp.exit();
         */
-        
+
         try
         {
             SerialParser.Instance.exit();
-
         }
         catch (PortNotFoundException e)
         {
-            
         }
-        
     }
-
-   
 }

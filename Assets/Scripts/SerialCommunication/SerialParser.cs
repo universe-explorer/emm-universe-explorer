@@ -229,6 +229,7 @@ namespace SerialCommunication
         /// <returns>False when byte header already exists</returns>
         public bool addReader(byte type, IReader reader)
         {
+            Debug.Log("added reader");
             try
             {
                 dataReaderDictionary.Add(type, reader);

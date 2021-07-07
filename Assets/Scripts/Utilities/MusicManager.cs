@@ -20,7 +20,7 @@ public class MusicManager : MonoBehaviour
 
     void ReloadSetings()
     {
-        if (PlayerPrefs.GetInt("ToggleAudio") != 0)
+        if (PlayerPrefs.GetInt("ToggleAudio", 1) != 0)
         {
             AudioSource.volume = audioVolume;
         }
