@@ -144,8 +144,8 @@ public class MeteorSpawnerField : MonoBehaviour
 
     /// <summary> 
     ///     Generates a random coordinate within given bounds
-    ///   <param name="bounds"> The bounds to generate a coordinate in</param>
     /// </summary>
+    /// <param name="bounds"> The bounds to generate a coordinate in</param>
     public static Vector3 RandomPointInBounds(Bounds bounds)
     {
         return new Vector3(

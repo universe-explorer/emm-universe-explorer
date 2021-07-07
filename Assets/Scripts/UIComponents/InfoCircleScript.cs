@@ -38,8 +38,8 @@ public class InfoCircleScript : MonoBehaviour
 
     /// <summary> 
     ///     Reduces the current value by the specified amount
-    ///   <param name="valuee"> Value to decrease by</param>
     /// </summary>
+    /// <param name="valuee"> Value to decrease by</param>
     public void Reduce(float value)
     {
         if (this.value - value >= 0)
@@ -52,8 +52,8 @@ public class InfoCircleScript : MonoBehaviour
 
     /// <summary> 
     ///     Increases the current value by the specified amount
-    ///   <param name="valuee"> Value to increase by</param>
     /// </summary>
+    /// <param name="valuee"> Value to increase by</param>
     public void Increase(float value)
     {
         // TODO
@@ -67,8 +67,8 @@ public class InfoCircleScript : MonoBehaviour
 
     /// <summary> 
     ///     Sets new maximum value this component compares the current value against
-    ///   <param name="maxValue"> New maximum value</param>
     /// </summary>
+    /// <param name="maxValue"> New maximum value</param>
     public void SetMaxValue(float maxValue)
     {
         progress = 0;
@@ -77,8 +77,8 @@ public class InfoCircleScript : MonoBehaviour
 
     /// <summary> 
     ///     Sets new current value this component compares the maximum value against
-    ///   <param name="currentValue"> New current value</param>
     /// </summary>
+    /// <param name="currentValue"> New current value</param>
     public void SetCurrentValue(float currentValue)
     {
         progress = 0;

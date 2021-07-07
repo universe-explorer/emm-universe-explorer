@@ -65,8 +65,8 @@ public class MinimapBehaviour : MonoBehaviour
 
     /// <summary> 
     ///     Sets camera height to the specified value
-    ///   <param name="newCameraHeight"> New Y coordinates of the camera</param>
     /// </summary>
+    /// <param name="newCameraHeight"> New Y coordinates of the camera</param>
     public void setCameraHeight(float newCameraHeight)
     {
         cameraHeight = newCameraHeight;
@@ -149,9 +149,9 @@ public class MinimapBehaviour : MonoBehaviour
 
     /// <summary> 
     ///     Adds minimap outline to the specified planet
-    ///   <param name="planet"> Gameobject to draw the outline around</param>
-    ///   <param name="offsetVector"> Offset vector in case the outline should not be drawn in the exact center</param>
     /// </summary>
+    /// <param name="planet"> Gameobject to draw the outline around</param>
+    /// <param name="offsetVector"> Offset vector in case the outline should not be drawn in the exact center</param>
     private void addPlanetOutline(GameObject planet, Vector3 offsetVector)
     {
         GameObject planetOutline = GameObject.CreatePrimitive(PrimitiveType.Sphere);

@@ -141,7 +141,6 @@ public class EnemyBehaviour : MonoBehaviour
                 if(framesSinceMovementStart % values.shotDelay == 0)
                 {
                     weapon.Fire();
-                    //
                 }
 
                 framesSinceMovementStart++;

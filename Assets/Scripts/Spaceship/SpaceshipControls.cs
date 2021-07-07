@@ -67,13 +67,13 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
     [SerializeField] private float _minFOV = 50;
 
     /// <summary>
-    ///   <para>Maps value from original range to new range</para>
+    ///     Maps value from original range to new range
+    /// </summary>
     ///   <param name="value"> Original value</param>
     ///   <param name="fromMin"></param>
     ///   <param name="fromMax"></param>
     ///   <param name="toMin"></param>
     ///   <param name="toMax"></param>
-    /// </summary>
     float MapFloat(float value, float fromMin, float fromMax, float toMin, float toMax)
     {
         float t = Mathf.InverseLerp(fromMin, fromMax, value);
