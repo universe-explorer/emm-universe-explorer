@@ -1,11 +1,18 @@
 using TMPro;
 using UnityEngine; 
 
+/// <summary>
+///   Utility to spawn Item with the given position, also provides the ability
+///   to respawn Items inside Game World after being removeed from the Inventory
+/// </summary>
 public class ItemWorld : MonoBehaviour
 {
-    /// <summary> 
+    /// <summary>
     ///   Spawns a Item World and sets its Item
     /// </summary>
+    /// <param name="position">Position where the Item is to be spawned</param>
+    /// <param name="item">Item</param>
+    /// <returns>ItemWorld</returns>
     public static ItemWorld SpawnItemWorld(Vector3 position, Item item)
     {
         Transform transform = Instantiate(ItemAssets.Instance.pfItemWorld, position, Quaternion.identity);
@@ -16,9 +23,12 @@ public class ItemWorld : MonoBehaviour
         return itemWorld;
     }
 
-    /// <summary> 
+    /// <summary>
     ///   Detaches the associated Item of the Item World and respawns the Item in the game world
     /// </summary>
+    /// <param name="dropPosition">Position where the Item is to be respawned</param>
+    /// <param name="item">Item</param>
+    /// <returns>ItemWorld</returns>
     public static ItemWorld DropItem(Vector3 dropPosition, Item item)
     {
         Vector3 randomDir = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
@@ -38,9 +48,10 @@ public class ItemWorld : MonoBehaviour
         amount = transform.Find("text").GetComponent<TextMeshPro>();
     }
 
-    /// <summary> 
-    ///    Sets the Item of this Item World
+    /// <summary>
+    ///   Sets the Item of this Item World
     /// </summary>
+    /// <param name="item">Item</param>
     public void SetItem(Item item)
     {
         this.item = item;

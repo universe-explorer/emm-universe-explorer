@@ -19,6 +19,7 @@ TagManager:
   - Fire
   - Projectile
   - PlanetSubObject
+  - EnemyIcon
   layers:
   - Default
   - TransparentFX

@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// An Abstract Class that Represents a Weapon. Including Ammo, Weapon Type and FireRate
+/// </summary>
 public abstract class Weapon : MonoBehaviour
 {
     [SerializeField]
@@ -81,6 +84,21 @@ public abstract class Weapon : MonoBehaviour
     [SerializeField]
     protected float _damage;
 
+    [Header("Fire-Rate")]
+    [SerializeField]
+    private float _fireRate = 1f;
+
+    public float FireRate
+    {
+        get
+        {
+            return _fireRate;
+        }
+    }
+
+    [SerializeField]
+    private float _nextFire;
+
     /// <summary>
     /// Position to spawn the Rocket at
     /// </summary>
@@ -110,14 +128,22 @@ public abstract class Weapon : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Calls FireProjectile is the Weapon is active
+    /// </summary>
     public void Fire()
     {
         if (_canShoot)
         {
-            FireProjectile();
-            if (_hasAmmo)
+            if (Time.time > _nextFire)
             {
-                _currentAmmo--;
+                _nextFire = Time.time + _fireRate;
+
+                FireProjectile();
+                if (_hasAmmo)
+                {
+                    _currentAmmo--;
+                }
             }
         }
         if (_maxAmmo <= 0 && _hasAmmo)
@@ -125,6 +151,8 @@ public abstract class Weapon : MonoBehaviour
             _canShoot = false;
         }
     }
+
+    public float NextFire => _nextFire;
 
     protected abstract void FireProjectile();
 
@@ -140,6 +168,9 @@ public abstract class Weapon : MonoBehaviour
     }
 }
 
+/// <summary>
+/// Enum that stores the Information wether the Projectile should only tagret Enemies or Allies
+/// </summary>
 public enum Target
 {
     Enemy, Allied

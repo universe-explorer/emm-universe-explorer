@@ -16,15 +16,19 @@ public class LevelSystem
     private Inventory inventory;
     private List<ItemRankEntry> itemRankEntries;
 
+    /// <summary>
+    ///   Sets the default level and the current item rank entities  
+    /// </summary>
     public LevelSystem()
     {
         currentLevel = 1;
         itemRankEntries = LevelRankTable.GetItemLevelRankList();
     }
 
-    /// <summary> 
+    /// <summary>
     ///   Sets Inventory which acts as a Item Repository for this level system
     /// </summary>
+    /// <param name="inventory">The Inventory on which this Level System relies on</param>
     public void SetInventory(Inventory inventory)
     {
         this.inventory = inventory;
@@ -32,6 +36,11 @@ public class LevelSystem
         inventory.OnItemRemoved += Inventory_OnItemRemoved;
     }
 
+    /// <summary>
+    ///   Upgrades level on Item Added and triggers OnExperienceChanged Event
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void Inventory_OnItemAdded(object sender, EventArgs e)
     {
         // Level Window UI reacts to the Item Added Events which in turn also update Bar's Value
@@ -40,6 +49,11 @@ public class LevelSystem
         Upgrade(GetChangedLevelRank());
     }
 
+    /// <summary>
+    ///   Downgrades Level on Item Removed and triggers OnExperienceChanged Event
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void Inventory_OnItemRemoved(object sender, EventArgs e)
     {
         // Level Window UI reacts to the Item Removed Events which in turn also update Bar's Value
@@ -78,9 +92,10 @@ public class LevelSystem
         };
     }
 
-    /// <summary> 
-    ///   Upgrades level according to the item's properties
+    /// <summary>
+    ///   Upgrades level according to the item's properties and triggers OnLevelChanged Event
     /// </summary>
+    /// <param name="changedRank">The incoming changed ItemRankEntity</param>
     private void Upgrade(ItemRankEntry changedRank)
     {
         bool levelChanged = false;
@@ -88,7 +103,8 @@ public class LevelSystem
         {
             ItemRankEntry levelRank = itemRankEntries[levelIter];
             int level = levelIter + 1;
-            if (changedRank.CompareTo(levelRank) >= 0 && level > currentLevel - 1)
+            // do not upgrade above the maximal Level 5 (itemRankEntries.Count)
+            if (changedRank.CompareTo(levelRank) >= 0 && level > currentLevel - 1 && currentLevel < itemRankEntries.Count)
             {
                 currentLevel += 1;
                 levelChanged = true;
@@ -97,9 +113,10 @@ public class LevelSystem
         if (levelChanged && OnLevelChanged != null) OnLevelChanged(this, EventArgs.Empty);
     }
 
-    /// <summary> 
-    ///   Downgrades level according to the item's properties
+    /// <summary>
+    ///   Downgrades level according to the item's properties and triggers OnLevelChanged Event
     /// </summary>
+    /// <param name="changedRank">The incoming changed ItemRankEntity</param>
     private void Downgrade(ItemRankEntry changedRank)
     {
         bool levelChanged = false;

@@ -2,6 +2,9 @@ using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+/// <summary>
+///   Encapsultes IPointerClickHandler, IPointerEnterHander, IPointerExitHandler interfaces
+/// </summary>
 public class MouseUIEvents : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     private static LTDescr delay;
@@ -9,18 +12,20 @@ public class MouseUIEvents : MonoBehaviour, IPointerClickHandler, IPointerEnterH
     public Action MouseEnterHandler = null;
     public Action MouseExitHandler = null;
 
-    /// <summary> 
+    /// <summary>
     ///   Detects Mouse Click Events
     /// </summary>
+    /// <param name="eventData">EventData</param>
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Right)
             if (RightClickHandler != null) RightClickHandler();
     }
 
-    /// <summary> 
+    /// <summary>
     ///   Detects Mouse Enter Events
     /// </summary>
+    /// <param name="eventData">EventData</param>
     public void OnPointerEnter(PointerEventData eventData)
     {
         delay = LeanTween.delayedCall(0.5f, () =>
@@ -29,9 +34,10 @@ public class MouseUIEvents : MonoBehaviour, IPointerClickHandler, IPointerEnterH
         });
     }
 
-    /// <summary> 
+    /// <summary>
     ///   Detects Mouse Exit Events
     /// </summary>
+    /// <param name="eventData">EventData</param>
     public void OnPointerExit(PointerEventData eventData)
     {
         LeanTween.cancel(delay.uniqueId);

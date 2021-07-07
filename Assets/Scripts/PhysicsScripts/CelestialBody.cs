@@ -3,6 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This Class is based on a Script by Sebastian Lague
+/// His GitHub Page: https://github.com/SebLague/Solar-System/tree/Episode-03/Assets/Scripts/Celestial
+/// </summary>
 [ExecuteInEditMode]
 [RequireComponent(typeof(Rigidbody))]
 public class CelestialBody : MonoBehaviour
@@ -18,6 +22,9 @@ public class CelestialBody : MonoBehaviour
 
     private Vector3 _Velocity;
 
+    /// <summary>
+    /// The Velocity of the rb
+    /// </summary>
     public Vector3 Velocity 
     {
         get

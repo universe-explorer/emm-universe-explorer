@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// A Laser Weapon
+/// </summary>
 public class LaserWeapon : Weapon
 {
     private void Awake()

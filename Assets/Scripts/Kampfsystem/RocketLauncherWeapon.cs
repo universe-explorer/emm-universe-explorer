@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 /// <summary>
-/// 
+/// A Rocket Launcher Weapon
 /// </summary>
 public class RocketLauncherWeapon : Weapon
 {

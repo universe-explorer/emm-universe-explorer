@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 /// <summary> 
-/// Inventory Menu Manager, not used any more.
+/// Inventory Menu Manager, NOT used any more.
 /// </summary>
 public class InventoryMenuManager : MonoBehaviour
 {

@@ -2,6 +2,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+/// <summary>
+///   Represents Level window that gets notified each time when level is updated
+/// </summary>
 public class Ui_level : MonoBehaviour
 {
     private LevelSystem levelSystem;
@@ -33,6 +36,9 @@ public class Ui_level : MonoBehaviour
         levelSystem.OnLevelChanged += LevelSystem_OnLevelChanged;
     }
 
+    /// <summary>
+    ///   Initialise
+    /// </summary>
     private void Start()
     {
         level = transform.Find("level").GetComponent<TextMeshProUGUI>();
@@ -70,11 +76,21 @@ public class Ui_level : MonoBehaviour
         healthMaxValue.SetText(entry.HealthRequired.ToString());
     }
 
+    /// <summary>
+    ///   Refreshes Level Window on Item list changed
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void LevelSystem_OnExperienceChanged(object sender, System.EventArgs e)
     {
         RefreshExperience();
     }
 
+    /// <summary>
+    ///   Refreshes Level Window on Level changed
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void LevelSystem_OnLevelChanged(object sender, System.EventArgs e)
     {
         UpdateLevelWindow();
@@ -113,14 +129,10 @@ public class Ui_level : MonoBehaviour
         ResetHealthBar(entry.HealthRequired);
     }
 
-    /// <summary> 
-    ///   Resets corresponding Bar's Max Value and the current value
-    /// </summary>
-
-
-    /// <summary> 
+    /// <summary>
     ///   Resets Mineral Bar
     /// </summary>
+    /// <param name="maxValue">Max Value</param>
     private void ResetMineralBar(int maxValue)
     {
         mineralBar.maxValue = maxValue;
@@ -128,9 +140,10 @@ public class Ui_level : MonoBehaviour
         mineralMaxValue.SetText(maxValue.ToString());
     }
 
-    /// <summary> 
+    /// <summary>
     ///   Resets Mana Bar
     /// </summary>
+    /// <param name="maxValue">maxValue</param>
     private void ResetManaBar(int maxValue)
     {
         manaBar.maxValue = maxValue;
@@ -138,9 +151,10 @@ public class Ui_level : MonoBehaviour
         manaMaxValue.SetText(maxValue.ToString());
     }
 
-    /// <summary> 
+    /// <summary>
     ///   Resets Medkit Bar
     /// </summary>
+    /// <param name="maxValue">maxValue</param>
     private void ResetMedkitBar(int maxValue)
     {
         medkitBar.maxValue = maxValue;
@@ -148,9 +162,10 @@ public class Ui_level : MonoBehaviour
         medkitMaxValue.SetText(maxValue.ToString());
     }
 
-    /// <summary> 
+    /// <summary>
     ///   Resets Health Bar
     /// </summary>
+    /// <param name="maxValue">maxValue</param>
     private void ResetHealthBar(int maxValue)
     {
         healthBar.maxValue = maxValue;
@@ -158,40 +173,40 @@ public class Ui_level : MonoBehaviour
         healthMaxValue.SetText(maxValue.ToString());
     }
 
-    /// <summary> 
-    ///   Updates corresponding bar's Value and do not touch the Max Valus of Bar
-    /// </summary>
-
-    /// <summary> 
+    /// <summary>
     ///   Updates Mineral Bar's value and cache it
     /// </summary>
+    /// <param name="value">maxValue</param>
     private void UpdateMineralValue(int value)
     {
         mineralBar.value = value;
         mineralValue = value;
     }
 
-    /// <summary> 
+    /// <summary>
     ///   Updates Mana Bar's value and cache it
     /// </summary>
+    /// <param name="value">Value</param>
     private void UpdateManaValue(int value)
     {
         manaBar.value = value;
         manaValue = value;
     }
 
-    /// <summary> 
+    /// <summary>
     ///   Updates Medkit Bar's value and cache it
     /// </summary>
+    /// <param name="value">Value</param>
     private void UpdateMedkitValue(int value)
     {
         medkitBar.value = value;
         medkitValue = value;
     }
 
-    /// <summary> 
+    /// <summary>
     ///   Updates Health Bar's value and cache it
     /// </summary>
+    /// <param name="value">Value</param>
     private void UpdateHealthValue(int value)
     {
         healthBar.value = value;

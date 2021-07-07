@@ -3,7 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//Inspiriert von: https://www.theappguruz.com/blog/create-homing-missiles-in-game-unity-tutorial
+/// <summary>
+/// The Rocket Behavior is attached to the Rocket Projectile
+/// Inspiriert von: https://www.theappguruz.com/blog/create-homing-missiles-in-game-unity-tutorial
+/// </summary>
 [RequireComponent(typeof(Rigidbody))]
 public class RocketBehaivor : MonoBehaviour
 {
@@ -57,8 +60,7 @@ public class RocketBehaivor : MonoBehaviour
 
         StartCoroutine(RocketDestroyer());
 
-        rb.velocity = transform.forward * _speed * 200;
-        rb.velocity = transform.forward * _speed * 200;
+        rb.velocity = transform.forward * _speed ;
     }
 
     [SerializeField]
@@ -104,20 +106,18 @@ public class RocketBehaivor : MonoBehaviour
         _engaged = true;
     }
 
-
     private void OnTriggerEnter(Collider other)
     {
         if (_projectileTarget == Target.Enemy)
         {
-            if (other.tag == "Enemy")
+            if (other.CompareTag("Enemy"))
             {
                 _target = other.transform;
             }
-
         }
         else
         {
-            if (other.tag == "Player")
+            if (other.CompareTag("Player"))
             {
                 _target = other.transform;
             }
@@ -157,7 +157,6 @@ public class RocketBehaivor : MonoBehaviour
                 {
                     collision.transform.GetComponentInParent<CombatControllerPlayer>().TakeDamage(_damage);
                 }
-                //other.gameObject.gameObject.GetComponent<CombatControllerEnemy>().TakeDamage(_damage);
                 Destroy(gameObject);
                 Destroy(Instantiate(_expolsionVFX, collision.GetContact(0).point, Quaternion.identity).gameObject, 4f);
                 return;
@@ -168,7 +167,7 @@ public class RocketBehaivor : MonoBehaviour
             Debug.Log("WRONG STATE:::");
         }
 
-        if (collision.transform.tag != "EnemyHealthCollider" && collision.transform.tag != "Player" && collision.transform.tag != "Projectile" && collision.transform.tag != "PlayerHealthCollider")
+        if (collision.transform.tag != "EnemyHealthCollider" && collision.transform.tag != "Player" && collision.transform.tag != "Projectile" && collision.transform.tag != "PlayerHealthCollider" && collision.transform.tag != "Enemy")
         {
             //make shure, rockets explode even when touching another collider
             Destroy(gameObject);

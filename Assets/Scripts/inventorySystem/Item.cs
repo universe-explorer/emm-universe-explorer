@@ -1,10 +1,15 @@
 ﻿using System;
-using System.Text;
 using UnityEngine;
 
+/// <summary>
+///   Represents an Item which could be added or removed to/from Inventory
+/// </summary>
 [Serializable]
 public class Item
 {
+    /// <summary>
+    ///   Represents all four Item Types: Health, Mana, Mineral, Medkit
+    /// </summary>
     public enum ItemType
     {
         Health,
@@ -28,23 +33,6 @@ public class Item
             case ItemType.Mana:         return ItemAssets.Instance.manaPotionSprite;
             case ItemType.Mineral:      return ItemAssets.Instance.mineralSprite;
             case ItemType.Medkit:       return ItemAssets.Instance.medkitSprite;
-        }
-    }
-
-    /// <summary> 
-    ///   Checks whether this Item is stackable
-    /// </summary>
-    public bool IsStackable()
-    {
-        switch (itemType)
-        {
-            default:
-            case ItemType.Health:
-            case ItemType.Mana:
-            case ItemType.Mineral:
-                return true;
-            case ItemType.Medkit:
-                return false;
         }
     }
 

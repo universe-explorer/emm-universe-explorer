@@ -1,7 +1,15 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.VFX;
+using Object = UnityEngine.Object;
+using Random = UnityEngine.Random;
 
+/// <summary>
+/// The MeteorSPawnerField is Isntanciated at runtime and Spawnes Collectables or Enemys when the Trigger is entered.
+/// </summary>
 [ExecuteInEditMode]
 public class MeteorSpawnerField : MonoBehaviour
 {
@@ -22,16 +30,21 @@ public class MeteorSpawnerField : MonoBehaviour
 
     public AsteroidSettings AsteroidSettings;
 
+    [SerializeField] private VisualEffectAsset itemVfxAsset;
+    [SerializeField] private Gradient _gradientHealth, _gradientMana, _gradientMineral, _gradientMedikit;
+    
     private GameObject enemyPrefab;
+    private GameObject enemyPrefabRare;
     private Object[] scriptableObjects;
 
     public void Start()
     {
         enemyPrefab = (GameObject)Resources.Load("Enemy", typeof(GameObject));
+        enemyPrefabRare = (GameObject)Resources.Load("Rare Enemy", typeof(GameObject));
         scriptableObjects = Resources.LoadAll("ScriptableObjects", typeof(EnemyScriptableObject));
     }
 
-    public void SpawnMeteors()
+    private void SpawnMeteors()
     {
         float asteroidScale;
         for (int i = 0; i < MeteorSpawnerFieldCreator.Instance.Meteors.Length; i++)
@@ -49,7 +62,7 @@ public class MeteorSpawnerField : MonoBehaviour
         }
     }
 
-    public void SpawnCollectables()
+    private void SpawnCollectables()
     {
         int numberOfCollectables = (int) Random.Range(0, 3);
 
@@ -60,32 +73,72 @@ public class MeteorSpawnerField : MonoBehaviour
             Item item = new Item();
             item.itemType = itemType;
             item.amount = Random.Range(1, 5);
-
+            
             ItemWorld itemWorld = ItemWorld.SpawnItemWorld(RandomPointInBounds(bounds), item);
             itemWorld.transform.SetParent(transform);
+            
+
+            VisualEffect vfx = itemWorld.AddComponent<VisualEffect>();
+            List<VFXExposedProperty> exposedProperties = new List<VFXExposedProperty>();
+            itemVfxAsset.GetExposedProperties(exposedProperties);
+            //exposedProperties.ForEach(p => Debug.Log(p.name));
+            //VFXExposedProperty glowColorProperty = exposedProperties.Find(new Predicate<VFXExposedProperty>(p => p.name == "GlowColor"));
+            
+            
+            vfx.visualEffectAsset = itemVfxAsset;
+            Gradient g;
+            switch (item.itemType)
+            {
+                case Item.ItemType.Health:
+                    g = _gradientHealth;
+                    break;
+                case Item.ItemType.Mana:
+                    g = _gradientMana;
+                    break;
+                case Item.ItemType.Mineral:
+                    g = _gradientMineral;
+                    break;
+                case Item.ItemType.Medkit:
+                    g = _gradientMedikit;
+                    break;
+                default:
+                    g = new Gradient();
+                    break;
+                    
+            }
+            vfx.SetGradient("GlowColor", g);
+            
+
         }
     }
 
-    public void SpawnEnemies()
+    private void SpawnEnemies()
     {
-        int random = (int)Random.Range(0, 6);
-        int randomIndex = (int) Random.Range(0, scriptableObjects.Length);
-        EnemyScriptableObject enemyScriptableObject = (EnemyScriptableObject) scriptableObjects[randomIndex];
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
-        EnemyBehaviour behaviour = (EnemyBehaviour) enemyPrefab.GetComponent(typeof(EnemyBehaviour));
-        behaviour.values = enemyScriptableObject;
-
-        if (random == 1)
+        if(enemies.Length <= 3)
         {
-            Instantiate(enemyPrefab, RandomPointInBounds(bounds), Quaternion.identity, gameObject.transform);
+            int randomIndex = (int)Random.Range(0, scriptableObjects.Length);
+            EnemyScriptableObject enemyScriptableObject = (EnemyScriptableObject)scriptableObjects[randomIndex];
+
+            EnemyBehaviour behaviour = (EnemyBehaviour)enemyPrefab.GetComponent(typeof(EnemyBehaviour));
+            behaviour.values = enemyScriptableObject;
+            //int r = Random.Range(1, 6);
+            //if (r == 1)
+            //{
+              //  Instantiate(enemyPrefabRare, RandomPointInBounds(bounds), Quaternion.identity, gameObject.transform);
+
+            //}
+            //else
+            //{
+                Instantiate(enemyPrefab, RandomPointInBounds(bounds), Quaternion.identity, gameObject.transform);
+            //}
         }
     }
 
-    /*private void Awake()
-    {
-        CreateCollider();
-    }*/
-
+    /// <summary> 
+    ///     Adds BoxCollider component if it doesn't already exist
+    /// </summary>
     public void CreateCollider()
     {
         if (gameObject.GetComponent<BoxCollider>() == null)
@@ -103,6 +156,10 @@ public class MeteorSpawnerField : MonoBehaviour
         bounds = _boxCollider.bounds;
     }
 
+    /// <summary> 
+    ///     Generates a random coordinate within given bounds
+    /// </summary>
+    /// <param name="bounds"> The bounds to generate a coordinate in</param>
     public static Vector3 RandomPointInBounds(Bounds bounds)
     {
         return new Vector3(
@@ -158,7 +215,7 @@ public class MeteorSpawnerField : MonoBehaviour
             CombatControllerEnemy behaviour = transform.GetChild(i).gameObject.GetComponent<CombatControllerEnemy>();
             if (behaviour != null)
             {
-                behaviour.Die();
+                behaviour.Unload();
             }
         }
 
