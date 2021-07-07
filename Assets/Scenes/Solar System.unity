@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.007242857, g: 0.0093981, b: 0.016784104, a: 1}
+  m_IndirectSpecularColor: {r: 0.3139383, g: 0.30260918, b: 0.21066329, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -327,25 +327,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: rakete
       objectReference: {fileID: 0}
-    - target: {fileID: 3581636488670245244, guid: 7c7e5c7dd2e3e2d46814c106abf916b5, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4251213074321910726, guid: 7c7e5c7dd2e3e2d46814c106abf916b5, type: 3}
       propertyPath: m_RootOrder
       value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 4251213074321910726, guid: 7c7e5c7dd2e3e2d46814c106abf916b5, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 2.8461
-      objectReference: {fileID: 0}
-    - target: {fileID: 4251213074321910726, guid: 7c7e5c7dd2e3e2d46814c106abf916b5, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 2.8461
-      objectReference: {fileID: 0}
-    - target: {fileID: 4251213074321910726, guid: 7c7e5c7dd2e3e2d46814c106abf916b5, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 2.8461
       objectReference: {fileID: 0}
     - target: {fileID: 4251213074321910726, guid: 7c7e5c7dd2e3e2d46814c106abf916b5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -411,11 +395,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 617a534fc48834cb9a101a8af7bcf367, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 50
-  movementSpeed: 250
-  horizontalMovementInverted: 0
-  verticalMovementInverted: 0
-  uiInventory: {fileID: 0}
+  enableDrifting: 0
+  autoDeceleration: 0
+  sensitivity: 1
+  useJoystick: 0
+  cursorTexture: {fileID: 0}
+  _afterBurner: {fileID: 0}
+  _maxFOV: 80
+  _minFOV: 50
 --- !u!64 &379727059
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -772,11 +759,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 617a534fc48834cb9a101a8af7bcf367, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 3
-  movementSpeed: 350
-  horizontalMovementInverted: 0
-  verticalMovementInverted: 0
-  uiInventory: {fileID: 0}
+  enableDrifting: 0
+  autoDeceleration: 0
+  sensitivity: 1
+  useJoystick: 0
+  cursorTexture: {fileID: 0}
+  _afterBurner: {fileID: 0}
+  _maxFOV: 80
+  _minFOV: 50
 --- !u!4 &707234708 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c3077fbe17a8e544590cfcd46c9fa5b9, type: 3}
@@ -802,6 +792,7 @@ MonoBehaviour:
   _LineRenderer: {fileID: 0}
   _LaserWidth: 0.1
   _LaserMaxLength: 0
+  WeaponController: {fileID: 0}
 --- !u!120 &707234710
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -1170,8 +1161,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spaceShip: {fileID: 707234708}
-  cameraOffset: 10
-  cameraOffsetHeight: 2.5
+  offsetX: 10
+  offsetZ: 2.5
+  rotationOffsetX: -8
 --- !u!114 &963194230
 MonoBehaviour:
   m_ObjectHideFlags: 0
