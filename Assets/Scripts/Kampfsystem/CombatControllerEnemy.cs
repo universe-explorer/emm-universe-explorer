@@ -2,8 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Combat Controller that belongs to an Enemy
+/// </summary>
 public class CombatControllerEnemy : AbstractCombatController
 {
+    /// <summary>
+    /// Destroys the Enemy and drops Collectables
+    /// </summary>
     public override void Die()
     {
         Debug.Log("Enemy Died");
@@ -24,8 +30,11 @@ public class CombatControllerEnemy : AbstractCombatController
         Destroy(gameObject);
     }
 
+    /// <summary>
+    /// Called when Health of the CombatController has changed
+    /// </summary>
     public override void HealthChanged()
     {
-        Debug.Log("Enemy HP: " + _Health);
+        //Debug.Log("Enemy HP: " + _Health);
     }
 }

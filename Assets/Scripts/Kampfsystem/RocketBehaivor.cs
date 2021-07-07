@@ -3,7 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//Inspiriert von: https://www.theappguruz.com/blog/create-homing-missiles-in-game-unity-tutorial
+/// <summary>
+/// The Rocket Behavior is attached to the Rocket Projectile
+/// Inspiriert von: https://www.theappguruz.com/blog/create-homing-missiles-in-game-unity-tutorial
+/// </summary>
 [RequireComponent(typeof(Rigidbody))]
 public class RocketBehaivor : MonoBehaviour
 {
@@ -57,8 +60,7 @@ public class RocketBehaivor : MonoBehaviour
 
         StartCoroutine(RocketDestroyer());
 
-        rb.velocity = transform.forward * _speed * 200;
-        rb.velocity = transform.forward * _speed * 200;
+        rb.velocity += transform.forward;
     }
 
     [SerializeField]
@@ -71,7 +73,7 @@ public class RocketBehaivor : MonoBehaviour
             if (_target == null)
             {
                 //rb.AddForce(transform.forward * _speed, ForceMode.Acceleration);
-                rb.velocity = transform.forward * _speed;
+                rb.velocity += transform.forward * _speed;
                 return;
             }
             else
@@ -81,7 +83,7 @@ public class RocketBehaivor : MonoBehaviour
                 Vector3 rateAmount = Vector3.Cross(transform.forward, direction);
 
                 rb.angularVelocity = _angleChangingSpeed * rateAmount;
-                rb.velocity = transform.forward * _speed;
+                rb.velocity += transform.forward * _speed;
             }
         }
     }
@@ -157,7 +159,6 @@ public class RocketBehaivor : MonoBehaviour
                 {
                     collision.transform.GetComponentInParent<CombatControllerPlayer>().TakeDamage(_damage);
                 }
-                //other.gameObject.gameObject.GetComponent<CombatControllerEnemy>().TakeDamage(_damage);
                 Destroy(gameObject);
                 Destroy(Instantiate(_expolsionVFX, collision.GetContact(0).point, Quaternion.identity).gameObject, 4f);
                 return;
@@ -168,7 +169,7 @@ public class RocketBehaivor : MonoBehaviour
             Debug.Log("WRONG STATE:::");
         }
 
-        if (collision.transform.tag != "EnemyHealthCollider" && collision.transform.tag != "Player" && collision.transform.tag != "Projectile" && collision.transform.tag != "PlayerHealthCollider")
+        if (collision.transform.tag != "EnemyHealthCollider" && collision.transform.tag != "Player" && collision.transform.tag != "Projectile" && collision.transform.tag != "PlayerHealthCollider" && collision.transform.tag != "Enemy")
         {
             //make shure, rockets explode even when touching another collider
             Destroy(gameObject);

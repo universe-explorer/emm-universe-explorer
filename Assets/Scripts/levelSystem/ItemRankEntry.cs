@@ -15,9 +15,11 @@ public class ItemRankEntry : IComparable<ItemRankEntry>
 
     public int MedkitRequired { get; set; }
 
-    /// <summary> 
+    /// <summary>
     ///   Compares RankEntry Objects
     /// </summary>
+    /// <param name="other">Other ItemRankEntry to be compared with</param>
+    /// <returns></returns>
     public int CompareTo(ItemRankEntry other)
     {
         if (this == other)
@@ -34,6 +36,10 @@ public class ItemRankEntry : IComparable<ItemRankEntry>
         return -1;
     }
 
+    /// <summary>
+    ///   String representation of a ItemRankEntry
+    /// </summary>
+    /// <returns></returns>
     public override string ToString() {
         StringBuilder entry = new StringBuilder();
 

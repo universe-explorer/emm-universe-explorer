@@ -7,6 +7,9 @@ using UnityEngine.VFX;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
+/// <summary>
+/// The MeteorSPawnerField is Isntanciated at runtime and Spawnes Collectables or Enemys when the Trigger is entered.
+/// </summary>
 [ExecuteInEditMode]
 public class MeteorSpawnerField : MonoBehaviour
 {
@@ -31,11 +34,13 @@ public class MeteorSpawnerField : MonoBehaviour
     [SerializeField] private Gradient _gradientHealth, _gradientMana, _gradientMineral, _gradientMedikit;
     
     private GameObject enemyPrefab;
+    private GameObject enemyPrefabRare;
     private Object[] scriptableObjects;
 
     public void Start()
     {
         enemyPrefab = (GameObject)Resources.Load("Enemy", typeof(GameObject));
+        enemyPrefabRare = (GameObject)Resources.Load("Rare Enemy", typeof(GameObject));
         scriptableObjects = Resources.LoadAll("ScriptableObjects", typeof(EnemyScriptableObject));
     }
 
@@ -118,7 +123,16 @@ public class MeteorSpawnerField : MonoBehaviour
 
             EnemyBehaviour behaviour = (EnemyBehaviour)enemyPrefab.GetComponent(typeof(EnemyBehaviour));
             behaviour.values = enemyScriptableObject;
-            Instantiate(enemyPrefab, RandomPointInBounds(bounds), Quaternion.identity, gameObject.transform);
+            int r = Random.Range(1, 6);
+            if (r == 1)
+            {
+                Instantiate(enemyPrefabRare, RandomPointInBounds(bounds), Quaternion.identity, gameObject.transform);
+
+            }
+            else
+            {
+                Instantiate(enemyPrefab, RandomPointInBounds(bounds), Quaternion.identity, gameObject.transform);
+            }
         }
     }
 

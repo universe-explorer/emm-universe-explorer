@@ -27,17 +27,6 @@ public class MeteorSpawner : MonoBehaviour
         CreateCollider();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        //TODO: Meteors: if OnTriggerLeave: Destroy...
-        //(or blend away with size decreasing over short time)
-
-
-        //Spawn Meteors based on _density
-
-    }
-
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;

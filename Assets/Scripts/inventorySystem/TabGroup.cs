@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary> 
-///   Represents a Tab Group to navigate through the Inventory Item Group, not used any more.
+///   Represents a Tab Group to navigate through the Inventory Item Group, NOT used any more.
 /// </summary>
 public class TabGroup : MonoBehaviour
 {

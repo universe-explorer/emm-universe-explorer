@@ -1,9 +1,15 @@
 ﻿using System;
 using UnityEngine;
 
+/// <summary>
+///   Represents an Item which could be added or removed to/from Inventory
+/// </summary>
 [Serializable]
 public class Item
 {
+    /// <summary>
+    ///   Represents all four Item Types: Health, Mana, Mineral, Medkit
+    /// </summary>
     public enum ItemType
     {
         Health,

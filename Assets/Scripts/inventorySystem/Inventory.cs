@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
+/// <summary>
+///   Represents an Inventory
+/// </summary>
 public class Inventory
 {
     public event EventHandler OnItemAdded;
@@ -8,14 +11,18 @@ public class Inventory
 
     private List<Item> itemList;
 
+    /// <summary>
+    ///   Initialise the Item List
+    /// </summary>
     public Inventory()
     {
         itemList = new List<Item>();
     }
 
-    /// <summary> 
-    ///   Adds item to the item list
+    /// <summary>
+    ///   Adds item to the Inventory and triggers OnItemAdded Event
     /// </summary>
+    /// <param name="item">The Item which is to be added</param>
     public void AddItem(Item item)
     {
         bool itemPresents = false;
@@ -34,9 +41,10 @@ public class Inventory
         OnItemAdded?.Invoke(this, EventArgs.Empty);
     }
 
-    /// <summary> 
-    ///   Removes item from the item list
+    /// <summary>
+    ///   Removes item from the Inventory and triggers OnItemRemoved Event
     /// </summary>
+    /// <param name="item">The Item which is to be removed</param>
     public void RemoveItem(Item item)
     {
         Item found = null;
@@ -56,7 +64,7 @@ public class Inventory
     }
 
     /// <summary> 
-    ///   Returns the item list
+    ///   Returns the item list of this Inventory
     /// </summary>
     public List<Item> GetItemList()
     {
