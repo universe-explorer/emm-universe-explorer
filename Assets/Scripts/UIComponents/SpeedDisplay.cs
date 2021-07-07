@@ -5,6 +5,10 @@ using UnityEngine;
 public class SpeedDisplay : MonoBehaviour
 {
 
+    /// <summary>
+    /// Displays the current speed of the spaceship
+    /// </summary>
+
     [SerializeField]
     private float _currentSpeed = 0f;
 

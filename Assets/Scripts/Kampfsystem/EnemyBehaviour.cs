@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyBehaviour : MonoBehaviour
-{ 
+{
+
+    /// <summary>
+    /// Handles the enemy AI (Pathfinding and attacking)
+    /// </summary>
 
     public EnemyScriptableObject values;
 

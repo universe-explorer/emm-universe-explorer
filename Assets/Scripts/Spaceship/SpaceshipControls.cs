@@ -8,6 +8,11 @@ using UnityEngine.UI;
 
 public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
 {
+
+    /// <summary>
+    /// Handles everything related to moving the spaceship
+    /// </summary>
+
     /* move */
     [Header("Movement Settings")] public bool enableDrifting = false;
     public bool autoDeceleration = false;

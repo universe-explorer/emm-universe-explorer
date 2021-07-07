@@ -9,6 +9,10 @@ using Vector3 = UnityEngine.Vector3;
 public class MinimapBehaviour : MonoBehaviour
 {
 
+    /// <summary>
+    /// Handles the movement of the Minimap Camera as well as spawning minimap icons
+    /// </summary>
+
     public Transform spaceShip;
     [SerializeField] private Shader emissionShader;
     [SerializeField] private float emissionValue = 0.005f;
