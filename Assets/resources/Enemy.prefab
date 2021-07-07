@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 6817489231285477713}
   - component: {fileID: 2859468092000431876}
   - component: {fileID: 1858189123972611074}
-  - component: {fileID: 1636481009351346756}
+  - component: {fileID: 7590621638949705838}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -114,7 +114,7 @@ MonoBehaviour:
   _MaxShootDistance: 200
   _Ammo: 0
   _Damage: 10
---- !u!114 &1636481009351346756
+--- !u!114 &7590621638949705838
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -123,15 +123,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 4868197230431655024}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe47669429716d94abb0299eb2e11b32, type: 3}
+  m_Script: {fileID: 11500000, guid: 1edd27633df712f44be68e08a919337e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Target: 1
   _maxAmmo: 0
   _maxShootingDistance: 0
-  _projectileSpeed: 80
-  _projectile: {fileID: 8324117823337860757, guid: 3d86bf55206fe3a4488cf2417398dd01, type: 3}
-  _damage: 20
+  _projectileSpeed: 5
+  _projectile: {fileID: 7780717535766068066, guid: d76c67aebc08ef645a7ae089df1e948c, type: 3}
+  _damage: 10
   _fireRate: 1
   _nextFire: 0
   SocketLeft: {fileID: 5218466256822283061}
@@ -160,7 +160,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5641108493444090100}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.11, y: -0.82, z: 6.38}
+  m_LocalPosition: {x: 0.77, y: -0.82, z: 3.69}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3178758357648668048}
@@ -190,7 +190,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6822060215926816659}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.31, y: -0.82, z: 6.38}
+  m_LocalPosition: {x: -1.14, y: -0.82, z: 3.75}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3178758357648668048}

@@ -68,7 +68,7 @@ public class BlasterBehavior : MonoBehaviour
     private void RocketDestroyAnimator()
     {
         Destroy(gameObject);
-        Destroy(Instantiate(_expolsionVFX, rb.position, Quaternion.identity).gameObject, 4f);
+        //Destroy(Instantiate(_expolsionVFX, rb.position, Quaternion.identity).gameObject, 4f);
     }
 
     private void OnCollisionEnter(Collision collision)
