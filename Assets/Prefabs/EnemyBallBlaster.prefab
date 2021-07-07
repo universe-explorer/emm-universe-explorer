@@ -162,7 +162,7 @@ MonoBehaviour:
   _launchDirection: {x: 0, y: 0, z: 0}
   _timeToLive: 10
   _DetectionRadius: 36.23
-  _angleChangingSpeed: 100
+  _angleChangingSpeed: 5
 --- !u!135 &8115839937192759792
 SphereCollider:
   m_ObjectHideFlags: 0
