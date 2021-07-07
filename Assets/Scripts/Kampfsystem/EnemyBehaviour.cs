@@ -215,6 +215,6 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawSphere(transform.position, values.aggroRange);
+        Gizmos.DrawWireSphere(transform.position, values.aggroRange);
     }
 }
