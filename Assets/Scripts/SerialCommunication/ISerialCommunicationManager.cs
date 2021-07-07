@@ -3,7 +3,7 @@
     /// <summary>
     /// Serial parser interface
     /// </summary>
-    public interface ISerialParser
+    public interface ISerialCommunicationManager
     {
         /// <summary>
         /// Add reader to serial parser

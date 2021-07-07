@@ -10,12 +10,12 @@ using UnityEngine;
 /// </summary>
 public class SerialCommunicationTestScript : MonoBehaviour
 {
-    private ISerialParser sp;
+    private ISerialCommunicationManager sp;
     [SerializeField] private SettingsManager _settingsManager;
 
     void ReloadSettings()
     {
-        SerialParser.Instance.ReadData = (PlayerPrefs.GetInt("ToggleMicrocontroller", 1) != 0);
+        SerialCommunicationManager.Instance.ReadData = (PlayerPrefs.GetInt("ToggleMicrocontroller", 1) != 0);
     }
 
     // Start is called before the first frame update
@@ -23,7 +23,7 @@ public class SerialCommunicationTestScript : MonoBehaviour
     {
         try
         {
-            ISerialParser sp = SerialParser.Instance;
+            ISerialCommunicationManager sp = SerialCommunicationManager.Instance;
 
             sp.addReader(0x00, new VelocityReader());
             sp.addReader(0x01, JoystickReader.Instance);
@@ -51,7 +51,7 @@ public class SerialCommunicationTestScript : MonoBehaviour
 
         try
         {
-            SerialParser.Instance.exit();
+            SerialCommunicationManager.Instance.exit();
         }
         catch (PortNotFoundException e)
         {
