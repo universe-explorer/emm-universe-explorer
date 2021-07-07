@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// An Abstract Class that Represents a Weapon. Including Ammo, Weapon Type and FireRate
+/// </summary>
 public abstract class Weapon : MonoBehaviour
 {
     [SerializeField]
@@ -125,6 +128,9 @@ public abstract class Weapon : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Calls FireProjectile is the Weapon is active
+    /// </summary>
     public void Fire()
     {
         if (_canShoot)
@@ -162,6 +168,9 @@ public abstract class Weapon : MonoBehaviour
     }
 }
 
+/// <summary>
+/// Enum that stores the Information wether the Projectile should only tagret Enemies or Allies
+/// </summary>
 public enum Target
 {
     Enemy, Allied

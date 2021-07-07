@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Laser Blaster Behavior is attached to the Laser Blaster Projectile
+/// </summary>
 [RequireComponent(typeof(Rigidbody))]
 public class BlasterBehavior : MonoBehaviour
 {

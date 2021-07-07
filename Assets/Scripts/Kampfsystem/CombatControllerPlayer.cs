@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using SerialCommunication;
 using UnityEngine;
 
+/// <summary>
+/// Combat Controller that belongs to an Allie
+/// </summary>
 public class CombatControllerPlayer : AbstractCombatController
 {
     public LineRenderer _LineRenderer;
 
     public float _LaserWidth = 0.1f;
     public float _LaserMaxLength;
-    // Start is called before the first frame update
 
     [SerializeField]
     public WeaponController WeaponController;
@@ -27,14 +29,6 @@ public class CombatControllerPlayer : AbstractCombatController
         _healthBarScript = gameObject.GetComponentInChildren<HealthBarScript>();
         
         _joystickReader = JoystickReader.Instance;
-        
-        /*_LaserMaxLength = _MaxShootDistance;
-        _LineRenderer = GetComponent<LineRenderer>();
-        _MaxHealth = _Health;
-
-        Vector3[] initLaserPositions = new Vector3[2] { Vector3.zero, Vector3.zero };
-        _LineRenderer.SetPositions(initLaserPositions);
-        _LineRenderer.SetWidth(_LaserWidth, _LaserWidth);*/
     }
 
     // Update is called once per frame
@@ -45,32 +39,6 @@ public class CombatControllerPlayer : AbstractCombatController
             if (Input.GetButtonDown("Fire1") || _joystickReader.btn_state)
             {
                 WeaponController.FireActiveWeapon();
-                /*_Ammo--;
-                RaycastHit hit;
-                _LineRenderer.enabled = true;
-                if (Physics.Raycast(transform.position, -transform.forward, out hit, _MaxShootDistance))
-                {
-                    if (hit.collider.tag == "Schiff")
-                    {
-                        hit.collider.gameObject.GetComponent<AbstractCombatController>().TakeDamage(_Damage);
-                    }
-
-                    if (hit.collider.GetComponent<Rigidbody>() != null)
-                    {
-                        hit.collider.GetComponent<Rigidbody>().AddForce((hit.collider.transform.position - transform.position) * 10f);
-                    }
-
-                    _LineRenderer.SetPosition(0, transform.position);
-                    _LineRenderer.SetPosition(1, hit.collider.transform.position);
-                    
-
-                    Debug.Log("Hit: " + hit.collider.name);
-                }*/
-
-            }
-            else
-            {
-                //_LineRenderer.enabled = false;
             }
         }
     }

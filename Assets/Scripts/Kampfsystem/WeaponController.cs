@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Keeps track of all "installed" weapons and stores the information which weapon is active
+/// </summary>
 public class WeaponController : MonoBehaviour
 {
     [SerializeField]
@@ -39,11 +42,17 @@ public class WeaponController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Fires the weapon that is currently active
+    /// </summary>
     public void FireActiveWeapon()
     {
         _activeWeapon.Fire();
     }
 
+    /// <summary>
+    /// Switches the Weapon to the next, in order, not randomly
+    /// </summary>
     public void SwitchWeapon()
     {
         if (Weapons.Length <= 1)
@@ -71,6 +80,11 @@ public class WeaponController : MonoBehaviour
     
     public int ActiveWeaponIndex => _activeWeaponIndex;
 
+    /// <summary>
+    /// Switches to the installed weapon with index
+    /// </summary>
+    /// <param name="newWeaponIndex">the Weapon index to switch to</param>
+    /// <returns>true if weapon was switched, false if the weapon index is greater than the installed weapons count</returns>
     public bool SwitchWeapon(int newWeaponIndex)
     {
         if (newWeaponIndex < Weapons.Length)

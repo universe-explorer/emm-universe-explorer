@@ -3,7 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//Inspiriert von: https://www.theappguruz.com/blog/create-homing-missiles-in-game-unity-tutorial
+/// <summary>
+/// The Rocket Behavior is attached to the Rocket Projectile
+/// Inspiriert von: https://www.theappguruz.com/blog/create-homing-missiles-in-game-unity-tutorial
+/// </summary>
 [RequireComponent(typeof(Rigidbody))]
 public class RocketBehaivor : MonoBehaviour
 {
@@ -156,7 +159,6 @@ public class RocketBehaivor : MonoBehaviour
                 {
                     collision.transform.GetComponentInParent<CombatControllerPlayer>().TakeDamage(_damage);
                 }
-                //other.gameObject.gameObject.GetComponent<CombatControllerEnemy>().TakeDamage(_damage);
                 Destroy(gameObject);
                 Destroy(Instantiate(_expolsionVFX, collision.GetContact(0).point, Quaternion.identity).gameObject, 4f);
                 return;

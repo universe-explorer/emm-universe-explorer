@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// CombatController that manages Health
+/// </summary>
 public abstract class AbstractCombatController: MonoBehaviour
 {
     public float _Health = 100f;
