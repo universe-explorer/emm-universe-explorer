@@ -17,7 +17,7 @@ namespace SerialCommunication
     /// Parses incoming bytes and calls added readers accordingly.
     /// Singleton.
     /// </summary>
-    public sealed class SerialParser : ISerialParser
+    public sealed class SerialCommunicationManager : ISerialCommunicationManager
     {
         private const int baudRate = 9600;
         private SerialPort sp;
@@ -27,15 +27,16 @@ namespace SerialCommunication
         private const int maxBytes = 200;
         private const int maxInvalidChecksums = 10;
         private bool continueReaderLoop = true;
+        private bool _readData = true;
 
         private Dictionary<byte, IReader> dataReaderDictionary = new Dictionary<byte, IReader>();
 
         /// <summary>
-        /// SerialParser constructor gets only called by the class itself -> singleton
+        /// SerialCommunicationManager constructor gets only called by the class itself -> singleton
         /// Finds and opens correct serial port of our connected device (Arduino in our case)
         /// </summary>
         /// <exception cref="PortNotFoundException">Thrown when port of the device hasn't been found</exception>
-        private SerialParser()
+        private SerialCommunicationManager()
         {
             foreach (var portName in SerialPort.GetPortNames())
             {
@@ -79,13 +80,13 @@ namespace SerialCommunication
         }
 
 
-        private static readonly Lazy<ISerialParser> serialParser =
-            new Lazy<ISerialParser>(() => new SerialParser());
+        private static readonly Lazy<ISerialCommunicationManager> serialParser =
+            new Lazy<ISerialCommunicationManager>(() => new SerialCommunicationManager());
 
         /// <summary>
-        /// Returns a SerialParser instance.
+        /// Returns a SerialCommunicationManager instance.
         /// </summary>
-        public static ISerialParser Instance => serialParser.Value;
+        public static ISerialCommunicationManager Instance => serialParser.Value;
 
 
         /// <summary>
@@ -181,6 +182,9 @@ namespace SerialCommunication
         private void ParseData(byte[] dataBuffer)
         {
 
+            if (!_readData)
+                return;
+            
             int counter = 0;
 
             while (counter < dataBuffer.Length)
@@ -248,6 +252,15 @@ namespace SerialCommunication
         public void exit()
         {
             continueReaderLoop = false;
+        }
+
+        /// <summary>
+        /// Get/Set readData
+        /// </summary>
+        public bool ReadData
+        {
+            get => _readData;
+            set => _readData = value;
         }
     }
 }

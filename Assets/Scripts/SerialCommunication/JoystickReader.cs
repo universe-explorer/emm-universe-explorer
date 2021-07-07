@@ -18,7 +18,7 @@ namespace SerialCommunication
             new Lazy<JoystickReader>(() => new JoystickReader());
 
         /** todo
-         * Returns a SerialParser instance
+         * Returns a SerialCommunicationManager instance
          * 
          * <exception cref="PortNotFoundException">Thrown when port of the device hasn't been found</exception>
          */

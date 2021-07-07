@@ -161,8 +161,8 @@ MonoBehaviour:
   _expolsionVFX: {fileID: 400010, guid: 031d08f52af1daa4f929b85221519426, type: 3}
   _launchDirection: {x: 0, y: 0, z: 0}
   _timeToLive: 10
-  _DetectionRadius: 53.2
-  _angleChangingSpeed: 100
+  _DetectionRadius: 36.23
+  _angleChangingSpeed: 5
 --- !u!135 &8115839937192759792
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -174,5 +174,5 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 53.2
+  m_Radius: 36.23
   m_Center: {x: 0, y: 0, z: 0}

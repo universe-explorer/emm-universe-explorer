@@ -3,7 +3,7 @@
     /// <summary>
     /// Serial parser interface
     /// </summary>
-    public interface ISerialParser
+    public interface ISerialCommunicationManager
     {
         /// <summary>
         /// Add reader to serial parser
@@ -17,5 +17,10 @@
         /// Exit reader loop thread
         /// </summary>
         public void exit();
+
+        /// <summary>
+        /// Get/Set readData
+        /// </summary>
+        bool ReadData { get; set; }
     }
 }

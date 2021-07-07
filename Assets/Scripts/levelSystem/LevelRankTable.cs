@@ -12,22 +12,22 @@ public class LevelRankTable
     ///   Represents Player level Rank for all levels 
     /// </summary>
     private static readonly List<PlayerRankEntry> playerRankEntries = new List<PlayerRankEntry>{
-       new PlayerRankEntry { MaxVelocity = 30, BoostDuration = 120, DamageFactor = 1f},
-       new PlayerRankEntry { MaxVelocity = 40, BoostDuration = 140, DamageFactor = 2f},
-       new PlayerRankEntry { MaxVelocity = 50, BoostDuration = 160, DamageFactor = 3f},
-       new PlayerRankEntry { MaxVelocity = 60, BoostDuration = 180, DamageFactor = 4f},
-       new PlayerRankEntry { MaxVelocity = 70, BoostDuration = 200, DamageFactor = 5f},
+       new PlayerRankEntry { MaxVelocity = 30, BoostDuration = 180, DamageFactor = 1f},
+       new PlayerRankEntry { MaxVelocity = 40, BoostDuration = 200, DamageFactor = 2f},
+       new PlayerRankEntry { MaxVelocity = 50, BoostDuration = 220, DamageFactor = 3f},
+       new PlayerRankEntry { MaxVelocity = 60, BoostDuration = 260, DamageFactor = 4f},
+       new PlayerRankEntry { MaxVelocity = 70, BoostDuration = 320, DamageFactor = 5f},
     };
 
     /// <summary> 
     ///   Represents Item level Rank for all levels 
     /// </summary>
     private static readonly List<ItemRankEntry> itemRankEntries = new List<ItemRankEntry>{
-       new ItemRankEntry { MineralRequired = 20, ManaRequired = 20, MedkitRequired = 1, HealthRequired = 5},
-       new ItemRankEntry { MineralRequired = 30, ManaRequired = 40, MedkitRequired = 2, HealthRequired = 10},
-       new ItemRankEntry { MineralRequired = 50, ManaRequired = 60, MedkitRequired = 3, HealthRequired = 15},
-       new ItemRankEntry { MineralRequired = 60, ManaRequired = 80, MedkitRequired = 4, HealthRequired = 20},
-       new ItemRankEntry { MineralRequired = 80, ManaRequired = 100, MedkitRequired = 5, HealthRequired = 25},
+       new ItemRankEntry { MineralRequired = 5, ManaRequired = 3, MedkitRequired = 1, HealthRequired = 3},
+       new ItemRankEntry { MineralRequired = 20, ManaRequired = 20, MedkitRequired = 2, HealthRequired = 10},
+       new ItemRankEntry { MineralRequired = 30, ManaRequired = 30, MedkitRequired = 3, HealthRequired = 15},
+       new ItemRankEntry { MineralRequired = 40, ManaRequired = 40, MedkitRequired = 4, HealthRequired = 20},
+       new ItemRankEntry { MineralRequired = 50, ManaRequired = 50, MedkitRequired = 5, HealthRequired = 25},
     };
 
     /// <summary> 
