@@ -27,6 +27,7 @@ namespace SerialCommunication
         private const int maxBytes = 200;
         private const int maxInvalidChecksums = 10;
         private bool continueReaderLoop = true;
+        private bool _readData = true;
 
         private Dictionary<byte, IReader> dataReaderDictionary = new Dictionary<byte, IReader>();
 
@@ -181,6 +182,9 @@ namespace SerialCommunication
         private void ParseData(byte[] dataBuffer)
         {
 
+            if (!_readData)
+                return;
+            
             int counter = 0;
 
             while (counter < dataBuffer.Length)
@@ -248,6 +252,15 @@ namespace SerialCommunication
         public void exit()
         {
             continueReaderLoop = false;
+        }
+
+        /// <summary>
+        /// Get/Set readData
+        /// </summary>
+        public bool ReadData
+        {
+            get => _readData;
+            set => _readData = value;
         }
     }
 }

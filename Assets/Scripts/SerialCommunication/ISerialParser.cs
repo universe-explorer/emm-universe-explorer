@@ -17,5 +17,10 @@
         /// Exit reader loop thread
         /// </summary>
         public void exit();
+
+        /// <summary>
+        /// Get/Set readData
+        /// </summary>
+        bool ReadData { get; set; }
     }
 }
