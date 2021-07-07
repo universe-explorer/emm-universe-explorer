@@ -52,6 +52,10 @@ public class BaseMenu : MonoBehaviour
     /// </summary>
     public virtual void Exit()
     {
+        #if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+        #else
         Application.Quit(0); // Gets ignored in editor
+        #endif
     }
 }

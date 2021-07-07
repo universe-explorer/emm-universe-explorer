@@ -123,16 +123,16 @@ public class MeteorSpawnerField : MonoBehaviour
 
             EnemyBehaviour behaviour = (EnemyBehaviour)enemyPrefab.GetComponent(typeof(EnemyBehaviour));
             behaviour.values = enemyScriptableObject;
-            int r = Random.Range(1, 6);
-            if (r == 1)
-            {
-                Instantiate(enemyPrefabRare, RandomPointInBounds(bounds), Quaternion.identity, gameObject.transform);
+            //int r = Random.Range(1, 6);
+            //if (r == 1)
+            //{
+              //  Instantiate(enemyPrefabRare, RandomPointInBounds(bounds), Quaternion.identity, gameObject.transform);
 
-            }
-            else
-            {
+            //}
+            //else
+            //{
                 Instantiate(enemyPrefab, RandomPointInBounds(bounds), Quaternion.identity, gameObject.transform);
-            }
+            //}
         }
     }
 

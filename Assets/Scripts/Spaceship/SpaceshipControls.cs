@@ -30,7 +30,7 @@ public class SpaceshipControls : MonoBehaviour, ISpaceshipControls
 
     /* boost */
     [Header("Boost Settings")] private float _boostMultiplier = 1.5f;
-    private int _maxBoostDuration = 120;
+    private int _maxBoostDuration = 180;
     private bool _isBoosting;
     private int _currentBoostTime;
 
