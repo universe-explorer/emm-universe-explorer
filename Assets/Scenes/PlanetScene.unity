@@ -6079,7 +6079,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1183871407, guid: 14091ad2b3501400cbc3167310f9896e, type: 3}
       propertyPath: _projectileSpeed
-      value: 5
+      value: 96.28
       objectReference: {fileID: 0}
     - target: {fileID: 200795982287762043, guid: 14091ad2b3501400cbc3167310f9896e, type: 3}
       propertyPath: m_Name
@@ -7066,10 +7066,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb37eb0c59a734f4a8914fa0358288d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  terrainResolution: 7
-  material: {fileID: 2100000, guid: cec4db5828ab9439e899c191ec38b27a, type: 2}
-  mesh: {fileID: 293862283}
-  settingsChanged: 0
 --- !u!1 &1005612413
 GameObject:
   m_ObjectHideFlags: 0

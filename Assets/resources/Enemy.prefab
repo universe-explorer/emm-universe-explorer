@@ -129,7 +129,7 @@ MonoBehaviour:
   Target: 1
   _maxAmmo: 0
   _maxShootingDistance: 0
-  _projectileSpeed: 2
+  _projectileSpeed: 100
   _projectile: {fileID: 7780717535766068066, guid: d76c67aebc08ef645a7ae089df1e948c, type: 3}
   _damage: 10
   _fireRate: 1
@@ -160,7 +160,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5641108493444090100}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.77, y: -0.82, z: 3.69}
+  m_LocalPosition: {x: 0.97, y: -1.29, z: 3.69}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3178758357648668048}
@@ -190,7 +190,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6822060215926816659}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.14, y: -0.82, z: 3.75}
+  m_LocalPosition: {x: -1.75, y: -1.29, z: 3.75}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3178758357648668048}

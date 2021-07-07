@@ -60,7 +60,7 @@ public class RocketBehaivor : MonoBehaviour
 
         StartCoroutine(RocketDestroyer());
 
-        rb.velocity += transform.forward;
+        rb.velocity = transform.forward * _speed ;
     }
 
     [SerializeField]
@@ -73,7 +73,7 @@ public class RocketBehaivor : MonoBehaviour
             if (_target == null)
             {
                 //rb.AddForce(transform.forward * _speed, ForceMode.Acceleration);
-                rb.velocity += transform.forward * _speed;
+                rb.velocity = transform.forward * _speed;
                 return;
             }
             else
@@ -83,7 +83,7 @@ public class RocketBehaivor : MonoBehaviour
                 Vector3 rateAmount = Vector3.Cross(transform.forward, direction);
 
                 rb.angularVelocity = _angleChangingSpeed * rateAmount;
-                rb.velocity += transform.forward * _speed;
+                rb.velocity = transform.forward * _speed;
             }
         }
     }
@@ -106,20 +106,18 @@ public class RocketBehaivor : MonoBehaviour
         _engaged = true;
     }
 
-
     private void OnTriggerEnter(Collider other)
     {
         if (_projectileTarget == Target.Enemy)
         {
-            if (other.tag == "Enemy")
+            if (other.CompareTag("Enemy"))
             {
                 _target = other.transform;
             }
-
         }
         else
         {
-            if (other.tag == "Player")
+            if (other.CompareTag("Player"))
             {
                 _target = other.transform;
             }
