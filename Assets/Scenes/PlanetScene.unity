@@ -6113,6 +6113,10 @@ PrefabInstance:
       propertyPath: cursorTexture
       value: 
       objectReference: {fileID: 2800000, guid: d34f8791c87093e4dac92b14b876f314, type: 3}
+    - target: {fileID: 1096494335108308553, guid: 14091ad2b3501400cbc3167310f9896e, type: 3}
+      propertyPath: enableDrifting
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1267563451019674068, guid: 14091ad2b3501400cbc3167310f9896e, type: 3}
       propertyPath: m_fontSize
       value: 130
