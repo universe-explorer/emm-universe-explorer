@@ -106,7 +106,7 @@ namespace SerialCommunication
                     invalidChecksumCounter = 0; // Reset counter to zero
                     ParseData(dataBuffer);
                 }
-                catch (InvalidChecksumException e)
+                catch (InvalidChecksumException)
                 {
                     invalidChecksumCounter++;
                     if (invalidChecksumCounter >= maxInvalidChecksums)
@@ -120,7 +120,7 @@ namespace SerialCommunication
                     Debug.Log(e.Message);
                     // TODO: Maybe count these attempts too
                 }
-                catch (KeyNotFoundException e)
+                catch (KeyNotFoundException)
                 {
                     Debug.Log("Key not found atm");
                 }

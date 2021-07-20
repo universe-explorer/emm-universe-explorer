@@ -152,7 +152,6 @@ public class RocketBehaivor : MonoBehaviour
         {
             if (collision.transform.tag == "Player")
             {
-                Debug.Log("Projectile: Touched Player!!!!");
                 if (collision.transform.GetComponentInParent<CombatControllerPlayer>() != null)
                 {
                     collision.transform.GetComponentInParent<CombatControllerPlayer>().TakeDamage(_damage);

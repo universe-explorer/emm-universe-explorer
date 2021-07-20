@@ -40,15 +40,6 @@ public class SerialCommunicationTestScript : MonoBehaviour
 
     private void OnDestroy()
     {
-        Debug.Log("DESTROYED");
-        /*
-        if(!sp.IsUnityNull())
-            sp.exit();
-          
-        if(sp != null)
-            sp.exit();
-        */
-
         try
         {
             SerialCommunicationManager.Instance.exit();

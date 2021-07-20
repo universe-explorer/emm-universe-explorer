@@ -54,7 +54,7 @@ public class MeteorSpawnerFieldCreator : MonoBehaviour
     private void SpawnMeteorFields()
     {
         ClearMeteorFields();
-        int size = (int)MeteorSpawnerField.GetComponent<MeteorSpawnerField>().ColliderSize;
+        int size = (int)MeteorSpawnerField.GetComponent<ChunkManager>().ColliderSize;
         bool[,] arr = new bool[_range,_range];
 
         for (int i = 0; i < _range; i++)
@@ -69,7 +69,7 @@ public class MeteorSpawnerFieldCreator : MonoBehaviour
                         k * size - (_range * size / 2) + size / 2 + transform.position.z
                         );
                     Transform created = Instantiate(MeteorSpawnerField, position, Quaternion.identity, parent);
-                    created.GetComponent<MeteorSpawnerField>().CreateCollider();
+                    created.GetComponent<ChunkManager>().CreateCollider();
                     _spawnedFields.Add(created);
                 }
             }
@@ -98,7 +98,7 @@ public class MeteorSpawnerFieldCreator : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        int size = (int)MeteorSpawnerField.GetComponent<MeteorSpawnerField>().ColliderSize;
+        int size = (int)MeteorSpawnerField.GetComponent<ChunkManager>().ColliderSize;
 
         for (int i = 0; i < _range; i++)
         {

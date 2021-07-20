@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(MeteorSpawnerField))]
+[CustomEditor(typeof(ChunkManager))]
 public class AsteroidFieldEditor : Editor
 {
-    MeteorSpawnerField meteorSpawnerField;
+    ChunkManager meteorSpawnerField;
 
     public override void OnInspectorGUI()
     {
@@ -31,6 +31,6 @@ public class AsteroidFieldEditor : Editor
 
     private void OnEnable()
     {
-        meteorSpawnerField = (MeteorSpawnerField)target;
+        meteorSpawnerField = (ChunkManager)target;
     }
 }

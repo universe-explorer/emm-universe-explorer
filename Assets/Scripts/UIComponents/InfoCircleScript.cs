@@ -18,7 +18,6 @@ public class InfoCircleScript : MonoBehaviour
     private float maxValue = 100;
     private float value = 100;
     private float progress = 0;
-    [SerializeField] private float speed = 0.2f;
 
     // Start is called before the first frame update
     void Start()

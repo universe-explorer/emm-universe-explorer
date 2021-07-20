@@ -11,7 +11,7 @@ using Random = UnityEngine.Random;
 /// The MeteorSPawnerField is Isntanciated at runtime and Spawnes Collectables or Enemys when the Trigger is entered.
 /// </summary>
 [ExecuteInEditMode]
-public class MeteorSpawnerField : MonoBehaviour
+public class ChunkManager : MonoBehaviour
 {
     private Vector3Int _iD;
 
